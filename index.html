@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>TEAbot – Meu Companheiro de Aprendizado</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#3B82F6;--azul-l:#DBEAFE;
+  --verde:#10B981;--verde-l:#D1FAE5;
+  --laranja:#F59E0B;--laranja-l:#FEF3C7;
+  --roxo:#8B5CF6;--roxo-l:#EDE9FE;
+  --rosa:#EC4899;--rosa-l:#FCE7F3;
+  --verm:#EF4444;--verm-l:#FEE2E2;
+  --fundo:#F0F7FF;--branco:#FFF;--texto:#1E293B;--cinza:#94A3B8;
+  --sombra:0 4px 20px rgba(59,130,246,.12);
+  --raio:20px;--raio-s:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',sans-serif;background:var(--fundo);color:var(--texto);display:flex;flex-direction:column}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#3B82F6 0%,#10B981 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .7s}
+#splash.hide{opacity:0;pointer-events:none}
+.s-robot{font-size:80px;animation:float 2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+#splash h1{font-family:'Baloo 2',cursive;font-size:2.6rem;color:#fff;margin-top:12px}
+#splash p{color:rgba(255,255,255,.8);font-size:1rem;margin-top:6px}
+.dots{display:flex;gap:8px;margin-top:24px}
+.dots span{width:11px;height:11px;border-radius:50%;background:#fff;animation:dotB 1.4s infinite}
+.dots span:nth-child(2){animation-delay:.2s}
+.dots span:nth-child(3){animation-delay:.4s}
+@keyframes dotB{0%,80%,100%{transform:scale(.5);opacity:.3}40%{transform:scale(1);opacity:1}}
+
+/* LAYOUT */
+header{background:var(--branco);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #E2EBF8;flex-shrink:0}
+.hlogo{display:flex;align-items:center;gap:8px}
+.hlogo span{font-size:1.8rem}
+.hlogo h2{font-family:'Baloo 2',cursive;font-size:1.35rem;color:var(--azul);font-weight:800}
+.hmood{background:linear-gradient(135deg,#F59E0B,#F97316);border:none;border-radius:50px;padding:8px 16px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(245,158,11,.35)}
+.hmood:active{transform:scale(.95)}
+nav.tabs{background:var(--branco);display:flex;gap:6px;padding:10px 12px;overflow-x:auto;scrollbar-width:none;border-bottom:2px solid #E2EBF8;flex-shrink:0}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;background:var(--fundo);border:2px solid transparent;border-radius:50px;padding:8px 16px;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:800;cursor:pointer;color:var(--cinza);transition:all .2s;white-space:nowrap}
+.tab.on{background:var(--azul);color:#fff;border-color:var(--azul);box-shadow:0 4px 14px rgba(59,130,246,.3);transform:translateY(-1px)}
+.screens{flex:1;overflow-y:auto;overflow-x:hidden}
+.screens::-webkit-scrollbar{width:4px}
+.screens::-webkit-scrollbar-thumb{background:#CBD5E1;border-radius:99px}
+.screen{display:none;padding:16px}
+.screen.on{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* COMPS */
+.sec-t{font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card{background:var(--branco);border-radius:var(--raio);box-shadow:var(--sombra);padding:18px 14px;border:2px solid transparent;transition:transform .2s,box-shadow .2s;cursor:pointer;text-align:center}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(59,130,246,.22)}
+.card:active{transform:scale(.95)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.card .ic{font-size:2.6rem;display:block;margin-bottom:8px}
+.card h3{font-size:.95rem;font-weight:800}
+.card p{font-size:.78rem;color:var(--cinza);margin-top:3px}
+.ca{border-color:var(--azul);background:var(--azul-l)}
+.cv{border-color:var(--verde);background:var(--verde-l)}
+.co{border-color:var(--laranja);background:var(--laranja-l)}
+.cr{border-color:var(--roxo);background:var(--roxo-l)}
+.cp{border-color:var(--rosa);background:var(--rosa-l)}
+.cve{border-color:var(--verm);background:var(--verm-l)}
+.btn-p{width:100%;background:linear-gradient(135deg,var(--azul),#60A5FA);border:none;border-radius:50px;padding:15px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 6px 18px rgba(59,130,246,.35);transition:transform .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-p:active{transform:scale(.97)}
+.btn-g{background:linear-gradient(135deg,var(--verde),#34D399);box-shadow:0 6px 18px rgba(16,185,129,.35)}
+.pw{background:#E2E8F0;border-radius:99px;height:10px;margin-bottom:18px;overflow:hidden}
+.pf{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--azul),var(--verde));transition:width .6s ease}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#3B82F6,#10B981);border-radius:var(--raio);padding:24px 20px;color:#fff;text-align:center;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.08);top:-30px;right:-30px}
+.hero .big{font-size:56px;display:block;animation:float 2.5s ease-in-out infinite}
+.hero h1{font-family:'Baloo 2',cursive;font-size:1.7rem;font-weight:800;margin-top:6px}
+.hero p{opacity:.88;font-size:.95rem;margin-top:4px}
+
+/* PICTOS */
+.cat-strip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px}
+.cat-strip::-webkit-scrollbar{display:none}
+.cat-btn{flex-shrink:0;background:var(--branco);border:2px solid #CBD5E1;border-radius:50px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;color:var(--cinza);transition:all .2s}
+.cat-btn.on{background:var(--laranja);color:#fff;border-color:var(--laranja)}
+.frase-box{background:var(--branco);border-radius:var(--raio);padding:14px;box-shadow:var(--sombra);min-height:60px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px}
+.f-empty{color:var(--cinza);font-size:.88rem;font-style:italic}
+.f-tag{background:var(--azul);color:#fff;border-radius:50px;padding:6px 12px;font-size:.85rem;font-weight:700;display:flex;align-items:center;gap:5px;animation:pop .2s}
+.f-tag button{background:none;border:none;color:rgba(255,255,255,.8);font-size:.9rem;cursor:pointer;padding:0}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pc{background:var(--branco);border-radius:16px;padding:14px 8px;box-shadow:var(--sombra);text-align:center;cursor:pointer;transition:transform .15s;border:2.5px solid transparent}
+.pc:active{transform:scale(.9)}
+.pc.hit{border-color:var(--verde);background:var(--verde-l)}
+.pc .pi{font-size:2.4rem;display:block;margin-bottom:5px}
+.pc .pl{font-size:.75rem;font-weight:800;line-height:1.2}
+.f-row{display:flex;gap:8px;margin-bottom:16px}
+.btn-lim{background:var(--verm-l);border:2px solid var(--verm);border-radius:50px;padding:0 18px;font-size:1.1rem;cursor:pointer;color:var(--verm)}
+
+/* JOGOS */
+.ja{background:var(--branco);border-radius:var(--raio);padding:20px;box-shadow:var(--sombra)}
+.jt{font-family:'Baloo 2',cursive;font-size:1.3rem;font-weight:800;text-align:center;margin-bottom:14px}
+.sr{display:flex;justify-content:space-around;background:var(--fundo);border-radius:var(--raio-s);padding:10px;margin-bottom:14px}
+.si .v{font-family:'Baloo 2',cursive;font-size:1.8rem;font-weight:800;color:var(--azul);line-height:1}
+.si .l{font-size:.72rem;color:var(--cinza);font-weight:700}
+
+/* Memoria */
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mc{aspect-ratio:1;border-radius:14px;background:linear-gradient(135deg,var(--azul),#60A5FA);display:flex;align-items:center;justify-content:center;font-size:1.8rem;cursor:pointer;border:2.5px solid transparent;box-shadow:0 3px 10px rgba(59,130,246,.2);user-select:none;position:relative}
+.mc-f{color:#fff;font-size:1.5rem}
+.mc-b{position:absolute;opacity:0;font-size:1.8rem}
+.mc.flip{background:var(--branco);border-color:var(--verde)}
+.mc.flip .mc-f{opacity:0}
+.mc.flip .mc-b{opacity:1}
+.mc.match{background:var(--verde-l);border-color:var(--verde);pointer-events:none}
+.mc.match .mc-f{opacity:0}
+.mc.match .mc-b{opacity:1}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shk{animation:shake .35s}
+
+/* Emocoes */
+.ed{font-size:80px;text-align:center;margin:16px 0;line-height:1}
+.ep{text-align:center;font-weight:700;margin-bottom:14px}
+.eo-g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.eo{background:var(--fundo);border:2.5px solid #CBD5E1;border-radius:14px;padding:14px 10px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;color:var(--texto);transition:all .2s}
+.eo.ok{background:var(--verde-l);border-color:var(--verde);color:var(--verde)}
+.eo.no{background:var(--verm-l);border-color:var(--verm);color:var(--verm)}
+
+/* Cores */
+.sdis{min-height:44px;background:var(--fundo);border-radius:14px;display:flex;gap:8px;align-items:center;justify-content:center;padding:8px;flex-wrap:wrap;margin-bottom:12px}
+.sdot{width:22px;height:22px;border-radius:50%}
+.scirs{display:flex;justify-content:center;gap:14px;margin:14px 0}
+.sc{width:66px;height:66px;border-radius:50%;cursor:pointer;border:4px solid transparent;transition:transform .15s;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.sc:active{transform:scale(.88)}
+.sc.lit{border-color:#fff;transform:scale(1.18);filter:brightness(1.2)}
+
+/* Palavras */
+.ph{font-size:60px;text-align:center;display:block;margin-bottom:10px}
+.pslots{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;min-height:50px;align-items:center}
+.pslot{width:42px;height:42px;border:2.5px dashed #CBD5E1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900}
+.pslot.f{border-color:var(--verde);border-style:solid;background:var(--verde-l)}
+.plets{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.plb{width:44px;height:44px;background:var(--azul);color:#fff;border:none;border-radius:12px;font-size:1.2rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif}
+.plb:disabled{opacity:.35;cursor:not-allowed}
+
+/* Rotina */
+.ri{background:var(--branco);border-radius:var(--raio);padding:14px 16px;box-shadow:var(--sombra);display:flex;align-items:center;gap:12px;border-left:5px solid var(--azul);margin-bottom:10px;transition:opacity .3s}
+.ri.done{border-left-color:var(--verde);opacity:.55}
+.ri-ic{font-size:1.8rem;flex-shrink:0}
+.ri-info{flex:1}
+.ri-info h4{font-weight:800;font-size:.95rem}
+.ri-info p{font-size:.78rem;color:var(--cinza);margin-top:2px}
+.ri-chk{width:36px;height:36px;border-radius:50%;border:2.5px solid var(--verde);background:transparent;font-size:1rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ri.done .ri-chk{background:var(--verde);color:#fff;border-color:var(--verde)}
+
+/* Conquistas */
+.cqg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cqc{background:var(--branco);border-radius:var(--raio);padding:16px 12px;box-shadow:var(--sombra);text-align:center;border:2.5px solid #E2E8F0}
+.cqc.ok{border-color:var(--laranja);background:#FFFBEA}
+.cqi{font-size:2.2rem;display:block;margin-bottom:6px}
+.cqc:not(.ok) .cqi{filter:grayscale(1);opacity:.5}
+.cqc h4{font-size:.85rem;font-weight:800}
+.cqc p{font-size:.75rem;color:var(--cinza);margin-top:3px}
+.cqs{font-size:.75rem;font-weight:800;margin-top:6px;display:block}
+.cqc.ok .cqs{color:var(--verde)}
+.cqc:not(.ok) .cqs{color:var(--cinza)}
+
+/* Humor */
+.me-wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:20px 0}
+.me{font-size:3rem;cursor:pointer;border-radius:50%;padding:8px;border:3px solid transparent;transition:transform .2s}
+.me:hover,.me.on{transform:scale(1.25);border-color:var(--azul);background:var(--azul-l)}
+.mlbl{text-align:center;font-size:1rem;font-weight:700;color:var(--azul);min-height:26px}
+
+/* QR */
+.qr-wrap{text-align:center;padding:10px 0}
+.qr-card{background:var(--branco);border-radius:var(--raio);padding:28px;box-shadow:var(--sombra);display:inline-block;margin-bottom:20px;border:3px solid var(--azul-l)}
+.qr-card img{width:200px;height:200px;border-radius:12px;display:block}
+.qr-url{font-family:'Baloo 2',cursive;font-size:1.1rem;color:var(--azul);font-weight:700;margin:10px 0}
+.qr-desc{color:var(--cinza);font-size:.9rem;line-height:1.6;max-width:280px;margin:0 auto 18px}
+
+/* Modal */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.mbg.show{opacity:1;pointer-events:all}
+.modal{background:var(--branco);border-radius:var(--raio);padding:28px 22px;max-width:340px;width:100%;text-align:center;transform:scale(.88);transition:transform .3s}
+.mbg.show .modal{transform:scale(1)}
+.m-ico{font-size:70px;display:block;margin-bottom:10px}
+.modal h2{font-family:'Baloo 2',cursive;font-size:1.5rem}
+.modal p{color:var(--cinza);margin:8px 0 18px;line-height:1.5}
+.btn-m{background:linear-gradient(135deg,var(--azul),#60A5FA);color:#fff;border:none;border-radius:50px;padding:13px 30px;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;box-shadow:0 6px 16px rgba(59,130,246,.35)}
+.btn-m:active{transform:scale(.96)}
+
+/* Burst */
+.bst{position:fixed;pointer-events:none;z-index:800;font-size:1.8rem;animation:bstUp .9s forwards}
+@keyframes bstUp{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-70px) scale(1.6)}}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="s-robot">🤖</div>
+  <h1>TEAbot</h1>
+  <p>Seu companheiro de aprendizado</p>
+  <div class="dots"><span></span><span></span><span></span></div>
+</div>
+
+<header>
+  <div class="hlogo"><span>🤖</span><h2>TEAbot</h2></div>
+  <button class="hmood" onclick="openMood()">😊 Como estou</button>
+</header>
+
+<nav class="tabs">
+  <button class="tab on" data-tab="home">🏠 Início</button>
+  <button class="tab" data-tab="picto">🗣️ Falar</button>
+  <button class="tab" data-tab="jogos">🎮 Jogos</button>
+  <button class="tab" data-tab="rotina">📅 Rotina</button>
+  <button class="tab" data-tab="conquistas">⭐ Estrelas</button>
+  <button class="tab" data-tab="qr">📱 QR Code</button>
+</nav>
+
+<div class="screens">
+
+<section id="home" class="screen on">
+  <div class="hero">
+    <span class="big">🤖</span>
+    <h1>Olá! Eu sou o TEAbot!</h1>
+    <p>Pronto para aprender juntos? 🌟</p>
+  </div>
+  <div class="sec-t">📊 Minhas Estrelas</div>
+  <div class="pw"><div class="pf" id="homeBar" style="width:0%"></div></div>
+  <div class="sec-t">🎯 O que quero fazer?</div>
+  <div class="g2">
+    <div class="card ca" onclick="goTab('picto')"><span class="ic">🗣️</span><h3>Falar</h3><p>Usar pictogramas</p></div>
+    <div class="card cv" onclick="goTab('jogos')"><span class="ic">🎮</span><h3>Jogar</h3><p>Jogos divertidos</p></div>
+    <div class="card co" onclick="goTab('rotina')"><span class="ic">📅</span><h3>Minha Rotina</h3><p>Ver meu dia</p></div>
+    <div class="card cr" onclick="goTab('conquistas')"><span class="ic">⭐</span><h3>Conquistas</h3><p>Minhas estrelas</p></div>
+    <div class="card cp" onclick="openMood()"><span class="ic">😊</span><h3>Como Estou</h3><p>Meus sentimentos</p></div>
+    <div class="card cve" onclick="goTab('qr')"><span class="ic">📱</span><h3>QR Code</h3><p>Compartilhar</p></div>
+  </div>
+</section>
+
+<section id="picto" class="screen">
+  <div class="sec-t">🗣️ Montar minha frase</div>
+  <div class="cat-strip" id="catStrip"></div>
+  <div class="frase-box" id="fraseBox"><span class="f-empty">Toque nos cartões para montar sua frase...</span></div>
+  <div class="f-row">
+    <button class="btn-p btn-g" style="flex:1" onclick="falarFrase()">🔊 Falar agora!</button>
+    <button class="btn-lim" onclick="limparFrase()">🗑️</button>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+</section>
+
+<section id="jogos" class="screen">
+  <div class="sec-t">🎮 Escolha um Jogo</div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card ca" onclick="sg('mem')"><span class="ic">🧠</span><h3>Memória</h3><p>Encontre os pares</p></div>
+    <div class="card cv" onclick="sg('emo')"><span class="ic">😀</span><h3>Emoções</h3><p>Que sentimento é?</p></div>
+    <div class="card co" onclick="sg('cor')"><span class="ic">🌈</span><h3>Sequências</h3><p>Repita as cores</p></div>
+    <div class="card cr" onclick="sg('pal')"><span class="ic">📚</span><h3>Palavras</h3><p>Monte palavras</p></div>
+  </div>
+  <div id="garea"></div>
+</section>
+
+<section id="rotina" class="screen">
+  <div class="sec-t">📅 Minha rotina de hoje</div>
+  <div class="pw"><div class="pf" id="rbar" style="width:0%"></div></div>
+  <div id="rlist"></div>
+</section>
+
+<section id="conquistas" class="screen">
+  <div class="hero" style="background:linear-gradient(135deg,#F59E0B,#F97316);margin-bottom:18px">
+    <span class="big" style="animation:none">🏆</span>
+    <h1 id="stitle">0 Estrelas</h1>
+    <p>Continue assim! Você é incrível!</p>
+  </div>
+  <div class="sec-t">🏅 Minhas Conquistas</div>
+  <div class="cqg" id="cqg"></div>
+</section>
+
+<section id="qr" class="screen">
+  <div class="sec-t" style="justify-content:center">📱 Acesso por QR Code</div>
+  <div class="qr-wrap">
+    <div class="qr-card">
+      <img id="qrImg" src="" alt="QR Code TEAbot" style="width:200px;height:200px;border-radius:12px;display:block">
+    </div>
+    <p class="qr-url">SEU-USUARIO.github.io/teabot</p>
+    <p class="qr-desc">📌 Mostre este QR Code para professores, familiares ou colegas acessarem o TEAbot!</p>
+    <button class="btn-p" style="max-width:280px;margin:0 auto" onclick="dlQR()">💾 Salvar QR Code</button>
+  </div>
+  <div style="margin-top:24px">
+    <div class="sec-t">ℹ️ Como usar o QR Code</div>
+    <div style="background:var(--branco);border-radius:var(--raio);padding:18px;box-shadow:var(--sombra)">
+      <div style="display:flex;gap:12px;margin-bottom:12px;align-items:flex-start"><span style="font-size:1.8rem;flex-shrink:0">📷</span><div><strong>1. Aponte a câmera</strong><br><span style="font-size:.85rem;color:var(--cinza)">Abra a câmera do celular e aponte para o QR Code</span></div></div>
+      <div style="display:flex;gap:12px;margin-bottom:12px;align-items:flex-start"><span style="font-size:1.8rem;flex-shrink:0">🔗</span><div><strong>2. Toque no link</strong><br><span style="font-size:.85rem;color:var(--cinza)">Um link aparecerá na tela — toque nele</span></div></div>
+      <div style="display:flex;gap:12px;align-items:flex-start"><span style="font-size:1.8rem;flex-shrink:0">🤖</span><div><strong>3. Use o TEAbot!</strong><strong></strong><br><span style="font-size:.85rem;color:var(--cinza)">Acesse jogos, pictogramas e rotina</span></div></div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- MODAL HUMOR -->
+<div class="mbg" id="moodMbg">
+  <div class="modal">
+    <span class="m-ico" id="mBigIco">😊</span>
+    <h2>Como você está?</h2>
+    <p>Toque no emoji que mostra seu sentimento agora</p>
+    <div class="me-wrap">
+      <span class="me" onclick="pickM(this,'😄','Muito Feliz')">😄</span>
+      <span class="me" onclick="pickM(this,'😊','Feliz')">😊</span>
+      <span class="me" onclick="pickM(this,'😐','Normal')">😐</span>
+      <span class="me" onclick="pickM(this,'😢','Triste')">😢</span>
+      <span class="me" onclick="pickM(this,'😡','Com Raiva')">😡</span>
+      <span class="me" onclick="pickM(this,'😰','Ansioso')">😰</span>
+      <span class="me" onclick="pickM(this,'😴','Cansado')">😴</span>
+      <span class="me" onclick="pickM(this,'🤔','Confuso')">🤔</span>
+    </div>
+    <div class="mlbl" id="mlbl"></div>
+    <button class="btn-m" style="margin-top:14px" onclick="confMood()">✅ Confirmar</button>
+  </div>
+</div>
+
+<!-- MODAL WIN -->
+<div class="mbg" id="winMbg">
+  <div class="modal">
+    <span class="m-ico" id="winIco">🎉</span>
+    <h2 id="winT">Parabéns!</h2>
+    <p id="winM">Você é incrível!</p>
+    <button class="btn-m" onclick="closeWin()">🌟 Ótimo!</button>
+  </div>
+</div>
+
+<script>
+// STATE
+const S={
+  stars:+localStorage.getItem('tea_stars')||0,
+  rotina:JSON.parse(localStorage.getItem('tea_rotina')||'{}'),
+  conquistas:JSON.parse(localStorage.getItem('tea_conquistas')||'[]'),
+  seqRec:+localStorage.getItem('tea_seqrec')||0,
+  frase:[],cat:'todos',curMood:'😊',selMoodEl:null
+};
+function sv(){
+  localStorage.setItem('tea_stars',S.stars);
+  localStorage.setItem('tea_rotina',JSON.stringify(S.rotina));
+  localStorage.setItem('tea_conquistas',JSON.stringify(S.conquistas));
+  localStorage.setItem('tea_seqrec',S.seqRec);
+}
+
+// SPLASH
+setTimeout(()=>{document.getElementById('splash').classList.add('hide');init();},2000);
+
+function init(){
+  document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>goTab(b.dataset.tab)));
+  initPicto();renderRotina();renderCQ();renderHome();
+  document.getElementById('qrImg').src=QR_URL;
+}
+
+// TABS
+function goTab(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelector('[data-tab="'+id+'"]').classList.add('on');
+  if(id==='rotina')renderRotina();
+  if(id==='conquistas')renderCQ();
+}
+
+// HOME
+function renderHome(){
+  document.getElementById('homeBar').style.width=Math.min(S.stars,100)+'%';
+}
+
+// PICTOS
+const PD=[
+  {i:'🍎',l:'Quero comer',c:'n'},{i:'💧',l:'Quero água',c:'n'},{i:'🚽',l:'Banheiro',c:'n'},
+  {i:'😴',l:'Descansar',c:'n'},{i:'🤕',l:'Estou com dor',c:'n'},{i:'🔇',l:'Silêncio',c:'n'},
+  {i:'❤️',l:'Feliz',c:'s'},{i:'😢',l:'Triste',c:'s'},{i:'😡',l:'Bravo',c:'s'},
+  {i:'😰',l:'Ansioso',c:'s'},{i:'🥰',l:'Amor',c:'s'},{i:'😲',l:'Surpreso',c:'s'},
+  {i:'🏫',l:'Escola',c:'e'},{i:'📚',l:'Estudar',c:'e'},{i:'✏️',l:'Escrever',c:'e'},
+  {i:'🎨',l:'Desenhar',c:'e'},{i:'👩‍🏫',l:'Professor',c:'e'},{i:'🤝',l:'Preciso de ajuda',c:'e'},
+  {i:'✅',l:'Terminei',c:'e'},{i:'⏰',l:'Esperar',c:'e'},
+  {i:'⚽',l:'Futebol',c:'a'},{i:'🎮',l:'Videogame',c:'a'},{i:'🎵',l:'Música',c:'a'},
+  {i:'🏃',l:'Correr',c:'a'},{i:'🏠',l:'Ir para casa',c:'a'},{i:'📱',l:'Celular',c:'a'},
+];
+const CATS=[{id:'todos',lb:'Todos'},{id:'n',lb:'🍎 Necessidades'},{id:'s',lb:'❤️ Sentimentos'},{id:'e',lb:'🏫 Escola'},{id:'a',lb:'⚽ Atividades'}];
+
+function initPicto(){
+  document.getElementById('catStrip').innerHTML=CATS.map(c=>`<button class="cat-btn${c.id==='todos'?' on':''}" onclick="fcat('${c.id}',this)">${c.lb}</button>`).join('');
+  rpicto('todos');
+}
+function fcat(cat,btn){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');S.cat=cat;rpicto(cat);
+}
+function rpicto(cat){
+  const list=cat==='todos'?PD:PD.filter(p=>p.c===cat);
+  document.getElementById('pgrid').innerHTML=list.map(p=>`<div class="pc" onclick="apc('${p.l.replace(/'/g,"\'")}','${p.i}',this)"><span class="pi">${p.i}</span><span class="pl">${p.l}</span></div>`).join('');
+}
+function apc(l,i,el){
+  S.frase.push({l,i});el.classList.add('hit');setTimeout(()=>el.classList.remove('hit'),350);rfrase();burst(el);
+}
+function rfrase(){
+  const b=document.getElementById('fraseBox');
+  if(!S.frase.length){b.innerHTML='<span class="f-empty">Toque nos cartões para montar sua frase...</span>';return;}
+  b.innerHTML=S.frase.map((f,i)=>`<div class="f-tag">${f.i} ${f.l} <button onclick="remf(${i})">x</button></div>`).join('');
+}
+function remf(i){S.frase.splice(i,1);rfrase();}
+function limparFrase(){S.frase=[];rfrase();}
+function falarFrase(){
+  if(!S.frase.length)return;
+  const t=S.frase.map(f=>f.l).join(', ');
+  if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='pt-BR';u.rate=0.82;u.pitch=1.1;speechSynthesis.speak(u);}
+  addS(2);burst(document.querySelector('.btn-g'));
+}
+
+// JOGOS
+function sg(t){
+  const a=document.getElementById('garea');a.innerHTML='';
+  if(t==='mem')gmem(a);else if(t==='emo')gemo(a);else if(t==='cor')gcor(a);else gpal(a);
+  setTimeout(()=>a.scrollIntoView({behavior:'smooth'}),80);
+}
+
+// Memoria
+const MP=['🐶','🐱','🐸','🦁','🐙','🦋','🌸','🍕'];
+let mc=[],mf=[],mm=0,ml=false,mt=0;
+function gmem(a){
+  mf=[];mm=0;ml=false;mt=0;
+  const it=[...MP,...MP].sort(()=>Math.random()-.5);mc=it;
+  a.innerHTML=`<div class="ja"><div class="jt">🧠 Jogo da Memória</div><div class="sr"><div class="si"><div class="v" id="mPar">0</div><div class="l">Pares</div></div><div class="si"><div class="v" id="mTr">0</div><div class="l">Tentativas</div></div></div><div class="mg">${it.map((_,i)=>`<div class="mc" id="mc${i}" onclick="fmc(${i})"><span class="mc-f">❓</span><span class="mc-b"></span></div>`).join('')}</div></div>`;
+}
+function fmc(i){
+  if(ml)return;
+  const el=document.getElementById('mc'+i);
+  if(el.classList.contains('flip')||el.classList.contains('match'))return;
+  el.classList.add('flip');el.querySelector('.mc-b').textContent=mc[i];mf.push(i);
+  if(mf.length===2){
+    ml=true;mt++;document.getElementById('mTr').textContent=mt;
+    const[a,b]=mf;
+    if(mc[a]===mc[b]){
+      document.getElementById('mc'+a).classList.add('match');
+      document.getElementById('mc'+b).classList.add('match');
+      mm++;document.getElementById('mPar').textContent=mm;mf=[];ml=false;
+      burst(document.getElementById('mc'+b));
+      if(mm===MP.length){addS(10);unlockCQ('c3');setTimeout(()=>showW('🎉','Parabéns!','Você achou todos os pares! +10⭐'),300);}
+    }else{
+      setTimeout(()=>{
+        const ea=document.getElementById('mc'+a),eb=document.getElementById('mc'+b);
+        ea.classList.remove('flip');eb.classList.remove('flip');
+        ea.classList.add('shk');eb.classList.add('shk');
+        setTimeout(()=>{ea.classList.remove('shk');eb.classList.remove('shk');},380);
+        mf=[];ml=false;
+      },900);
+    }
+  }
+}
+
+// Emocoes
+const EM=[
+  {e:'😄',n:'Muito Feliz',o:['Muito Feliz','Triste','Com Medo','Surpreso']},
+  {e:'😢',n:'Triste',o:['Feliz','Triste','Com Raiva','Cansado']},
+  {e:'😡',n:'Com Raiva',o:['Feliz','Assustado','Com Raiva','Cansado']},
+  {e:'😰',n:'Assustado',o:['Bravo','Assustado','Surpreso','Cansado']},
+  {e:'😴',n:'Cansado',o:['Triste','Feliz','Cansado','Com Raiva']},
+  {e:'😲',n:'Surpreso',o:['Surpreso','Com Raiva','Triste','Feliz']},
+  {e:'🥰',n:'Apaixonado',o:['Feliz','Apaixonado','Cansado','Triste']},
+];
+let eac=0,erd=0;
+function gemo(a){
+  eac=0;erd=0;unlockCQ('c4');
+  a.innerHTML=`<div class="ja"><div class="jt">😀 Qual Emoção É Essa?</div><div class="sr"><div class="si"><div class="v" id="eAc">0</div><div class="l">Acertos</div></div><div class="si"><div class="v" id="eRd">0</div><div class="l">Rodadas</div></div></div><div id="eIn"></div></div>`;
+  nextE();
+}
+function nextE(){
+  const d=EM[Math.floor(Math.random()*EM.length)];
+  const o=[...d.o].sort(()=>Math.random()-.5);
+  document.getElementById('eIn').innerHTML=`<div class="ed">${d.e}</div><p class="ep">Como este personagem está se sentindo?</p><div class="eo-g">${o.map(x=>`<button class="eo" onclick="chkE('${x}','${d.n}',this)">${x}</button>`).join('')}</div>`;
+}
+function chkE(esc,cor,btn){
+  erd++;document.getElementById('eRd').textContent=erd;
+  document.querySelectorAll('.eo').forEach(b=>b.disabled=true);
+  if(esc===cor){
+    btn.classList.add('ok');btn.textContent='✅ '+cor;
+    eac++;document.getElementById('eAc').textContent=eac;
+    addS(3);burst(btn);setTimeout(nextE,1100);
+  }else{
+    btn.classList.add('no');
+    document.querySelectorAll('.eo').forEach(b=>{if(b.textContent===cor)b.classList.add('ok');});
+    setTimeout(nextE,1400);
+  }
+}
+
+// Cores
+const SC=[{bg:'#3B82F6'},{bg:'#10B981'},{bg:'#F59E0B'},{bg:'#EC4899'}];
+let ss=[],sp=[],sl=1;
+function gcor(a){
+  ss=[];sp=[];sl=1;
+  a.innerHTML=`<div class="ja"><div class="jt">🌈 Sequência de Cores</div><div class="sr"><div class="si"><div class="v" id="sNv">1</div><div class="l">Nível</div></div><div class="si"><div class="v" id="sRec">${S.seqRec}</div><div class="l">Recorde</div></div></div><div class="sdis" id="sdis"><span style="color:var(--cinza);font-size:.85rem">Veja e repita!</span></div><div class="scirs">${SC.map((c,i)=>`<div class="sc" id="sqc${i}" style="background:${c.bg}" onclick="sclk(${i})"></div>`).join('')}</div><button class="btn-p" onclick="sstart()" id="sStartBtn">▶️ Iniciar!</button></div>`;
+}
+function sstart(){
+  document.getElementById('sStartBtn').style.display='none';
+  ss.push(Math.floor(Math.random()*4));sp=[];
+  playS();
+}
+function playS(){
+  disS(true);let i=0;
+  const iv=setInterval(()=>{
+    if(i>=ss.length){clearInterval(iv);disS(false);rdis();return;}
+    lit(ss[i]);i++;
+  },700);
+}
+function lit(i){const e=document.getElementById('sqc'+i);e.classList.add('lit');setTimeout(()=>e.classList.remove('lit'),500);}
+function disS(v){document.querySelectorAll('.sc').forEach(c=>c.style.pointerEvents=v?'none':'auto');}
+function rdis(){document.getElementById('sdis').innerHTML=ss.map(i=>`<div class="sdot" style="background:${SC[i].bg}"></div>`).join('');}
+function sclk(i){
+  sp.push(i);lit(i);
+  const pos=sp.length-1;
+  if(sp[pos]!==ss[pos]){
+    setTimeout(()=>{
+      if(sl>S.seqRec){S.seqRec=sl;sv();document.getElementById('sRec').textContent=S.seqRec;unlockCQ('c8');}
+      showW('😅','Quase!',`Você chegou ao nível ${sl}! Tente de novo!`);
+      sl=1;ss=[];sp=[];document.getElementById('sNv').textContent=1;
+      document.getElementById('sdis').innerHTML='<span style="color:var(--cinza);font-size:.85rem">Veja e repita!</span>';
+      document.getElementById('sStartBtn').style.display='flex';
+    },400);return;
+  }
+  if(sp.length===ss.length){sl++;addS(2);document.getElementById('sNv').textContent=sl;setTimeout(sstart,600);}
+}
+
+// Palavras
+const PW=[{w:'ESCOLA',h:'🏫'},{w:'AMIGO',h:'👫'},{w:'FELIZ',h:'😄'},{w:'LIVRO',h:'📚'},{w:'CASA',h:'🏠'},{w:'COMER',h:'🍽️'}];
+let pi=0,pm=[];
+function gpal(a){
+  pi=Math.floor(Math.random()*PW.length);pm=[];
+  const p=PW[pi],mx=[...p.w].sort(()=>Math.random()-.5);
+  a.innerHTML=`<div class="ja"><div class="jt">📚 Monte a Palavra</div><span class="ph">${p.h}</span><div class="pslots" id="pslots">${p.w.split('').map(()=>'<div class="pslot">_</div>').join('')}</div><div class="plets">${mx.map((l,i)=>`<button class="plb" id="plb${i}" onclick="apl('${l}',${i})">${l}</button>`).join('')}</div><button class="btn-p" style="background:linear-gradient(135deg,#94A3B8,#CBD5E1)" onclick="sg('pal')">🔄 Nova palavra</button></div>`;
+}
+function apl(l,bi){
+  const p=PW[pi];pm.push(l);document.getElementById('plb'+bi).disabled=true;
+  upsl();
+  if(pm.length===p.w.length){
+    if(pm.join('')===p.w){addS(5);burst(document.getElementById('garea'));setTimeout(()=>showW('🎉','Palavra Certa! +5⭐',`Você formou "${p.w}"! Incrível!`),300);}
+    else setTimeout(()=>{pm=[];document.querySelectorAll('.plb').forEach(b=>b.disabled=false);upsl();alert('❌ Não está certo. Tente de novo!');},300);
+  }
+}
+function upsl(){
+  document.querySelectorAll('.pslot').forEach((s,i)=>{
+    if(pm[i]){s.textContent=pm[i];s.classList.add('f');}
+    else{s.textContent='_';s.classList.remove('f');}
+  });
+}
+
+// ROTINA
+const RD=[
+  {id:'r1',ic:'⏰',h:'07:00',t:'Acordar',d:'Hora de levantar! Bom dia!'},
+  {id:'r2',ic:'🪥',h:'07:15',t:'Escovar os dentes',d:'Deixe os dentes brilhando!'},
+  {id:'r3',ic:'🚿',h:'07:30',t:'Tomar banho',d:'Fique limpo e cheiroso!'},
+  {id:'r4',ic:'👕',h:'07:50',t:'Se vestir',d:'Coloque a roupa da escola.'},
+  {id:'r5',ic:'🍽️',h:'08:00',t:'Café da manhã',d:'Comer bem dá energia!'},
+  {id:'r6',ic:'🎒',h:'08:20',t:'Pegar a mochila',d:'Não esqueça o material!'},
+  {id:'r7',ic:'🏫',h:'08:30',t:'Ir para a escola',d:'Aprender coisas novas!'},
+  {id:'r8',ic:'📚',h:'14:00',t:'Hora de estudar',d:'Revisão das atividades.'},
+  {id:'r9',ic:'🎮',h:'16:00',t:'Tempo livre',d:'Jogar e relaxar!'},
+  {id:'r10',ic:'🌙',h:'21:00',t:'Hora de dormir',d:'Descanso é essencial!'},
+];
+function renderRotina(){
+  document.getElementById('rlist').innerHTML=RD.map(r=>{
+    const done=!!S.rotina[r.id];
+    return `<div class="ri${done?' done':''}" id="${r.id}"><span class="ri-ic">${r.ic}</span><div class="ri-info"><h4>${r.h} – ${r.t}</h4><p>${r.d}</p></div><button class="ri-chk" onclick="tgR('${r.id}',this)">${done?'✅':''}</button></div>`;
+  }).join('');
+  upRbar();
+}
+function tgR(id,btn){
+  S.rotina[id]=!S.rotina[id];sv();
+  document.getElementById(id).classList.toggle('done',S.rotina[id]);
+  btn.textContent=S.rotina[id]?'✅':'';
+  if(S.rotina[id]){addS(1);burst(btn);}
+  upRbar();
+  if(Object.values(S.rotina).filter(Boolean).length===RD.length)unlockCQ('c5');
+}
+function upRbar(){
+  const n=Object.values(S.rotina).filter(Boolean).length;
+  document.getElementById('rbar').style.width=Math.round(n/RD.length*100)+'%';
+}
+
+// CONQUISTAS
+const CQ=[
+  {id:'c1',ic:'🌟',t:'Primeira Estrela',d:'Ganhe sua 1ª estrela'},
+  {id:'c2',ic:'🗣️',t:'Voz Ativa',d:'Use os pictogramas'},
+  {id:'c3',ic:'🧠',t:'Mestre da Memória',d:'Complete o jogo da memória'},
+  {id:'c4',ic:'😊',t:'Explorador de Emoções',d:'Jogue o jogo das emoções'},
+  {id:'c5',ic:'✅',t:'Rotina Completa',d:'Complete toda a rotina do dia'},
+  {id:'c6',ic:'⭐',t:'Super Estrela',d:'Acumule 50 estrelas'},
+  {id:'c7',ic:'🏆',t:'Campeão',d:'Acumule 100 estrelas'},
+  {id:'c8',ic:'🌈',t:'Mestre das Cores',d:'Alcance nível 5 em Sequências'},
+];
+function renderCQ(){
+  chkAutoCQ();
+  document.getElementById('stitle').textContent=S.stars+' Estrelas';
+  document.getElementById('cqg').innerHTML=CQ.map(c=>{
+    const ok=S.conquistas.includes(c.id);
+    return `<div class="cqc${ok?' ok':''}"><span class="cqi">${c.ic}</span><h4>${c.t}</h4><p>${c.d}</p><span class="cqs">${ok?'✅ Desbloqueada!':'🔒 Bloqueada'}</span></div>`;
+  }).join('');
+}
+function chkAutoCQ(){
+  if(S.stars>=1)unlockCQ('c1');
+  if(S.stars>=50)unlockCQ('c6');
+  if(S.stars>=100)unlockCQ('c7');
+  if(S.seqRec>=5)unlockCQ('c8');
+}
+function unlockCQ(id){
+  if(S.conquistas.includes(id))return;
+  S.conquistas.push(id);sv();
+  const c=CQ.find(x=>x.id===id);
+  if(c)setTimeout(()=>showW('🏆','Conquista!',`"${c.t}" desbloqueada!`),400);
+}
+
+// ESTRELAS
+function addS(n){
+  S.stars+=n;sv();renderHome();
+  document.getElementById('stitle').textContent=S.stars+' Estrelas';
+  chkAutoCQ();
+}
+
+// HUMOR
+function openMood(){document.getElementById('moodMbg').classList.add('show');}
+function pickM(el,e,l){
+  if(S.selMoodEl)S.selMoodEl.classList.remove('on');
+  el.classList.add('on');S.selMoodEl=el;S.curMood=e;
+  document.getElementById('mBigIco').textContent=e;
+  document.getElementById('mlbl').textContent=l;
+}
+function confMood(){
+  document.getElementById('moodMbg').classList.remove('show');
+  addS(1);unlockCQ('c2');
+}
+
+// WIN
+function showW(ico,t,m){
+  document.getElementById('winIco').textContent=ico;
+  document.getElementById('winT').textContent=t;
+  document.getElementById('winM').textContent=m;
+  document.getElementById('winMbg').classList.add('show');
+}
+function closeWin(){document.getElementById('winMbg').classList.remove('show');}
+
+// QR
+const QR_URL="data:image/png;base64,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";
+function dlQR(){
+  const a=document.createElement('a');a.href=QR_URL;a.download='teabot-qrcode.png';a.click();
+}
+
+// BURST
+function burst(el){
+  if(!el)return;
+  const r=el.getBoundingClientRect();
+  const b=document.createElement('div');
+  b.className='bst';
+  b.textContent=['⭐','✨','🌟','💫','🎉'][Math.floor(Math.random()*5)];
+  b.style.cssText='left:'+(r.left+r.width/2-16)+'px;top:'+(r.top+window.scrollY)+'px';
+  document.body.appendChild(b);setTimeout(()=>b.remove(),950);
+}
+</script>
+</body>
+</html>
