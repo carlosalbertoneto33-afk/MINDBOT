@@ -1,4 +1,4 @@
-html = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -22,15 +22,15 @@ html = '''<!DOCTYPE html>
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 html{height:100%}
-body{font-family:\'Nunito\',sans-serif;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
-button{font-family:\'Nunito\',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden}
+button{font-family:'Nunito',sans-serif;cursor:pointer;-webkit-appearance:none;appearance:none}
 
 /* SPLASH */
 #splash{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#4F7BF7,#22C98A);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
 #splash.off{opacity:0;pointer-events:none}
 .sp-bot{font-size:80px;animation:bob 2s ease-in-out infinite;display:block}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-#splash h1{font-family:\'Baloo 2\',cursive;font-size:2.6rem;color:#fff;margin-top:8px}
+#splash h1{font-family:'Baloo 2',cursive;font-size:2.6rem;color:#fff;margin-top:8px}
 #splash p{color:rgba(255,255,255,.85);font-size:1rem;margin-top:5px}
 .ldots{display:flex;gap:8px;margin-top:24px}
 .ldots i{width:11px;height:11px;border-radius:50%;background:#fff;animation:dp 1.4s infinite;display:block}
@@ -42,7 +42,7 @@ button{font-family:\'Nunito\',sans-serif;cursor:pointer;-webkit-appearance:none;
 header{background:var(--wh);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #E8EFFE;flex-shrink:0}
 .hl{display:flex;align-items:center;gap:8px}
 .hl-ico{font-size:1.8rem}
-.hl-nm{font-family:\'Baloo 2\',cursive;font-size:1.35rem;color:var(--az);font-weight:800}
+.hl-nm{font-family:'Baloo 2',cursive;font-size:1.35rem;color:var(--az);font-weight:800}
 .hstar{display:flex;align-items:center;gap:5px;background:var(--am);border:none;border-radius:50px;padding:7px 14px;font-size:.9rem;font-weight:900;color:#7A5800;box-shadow:0 3px 10px rgba(255,209,102,.4)}
 
 /* TABS */
@@ -58,7 +58,7 @@ nav::-webkit-scrollbar{display:none}
 @keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 
 /* UTILS */
-.ttl{font-family:\'Baloo 2\',cursive;font-size:1.15rem;font-weight:800;margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.ttl{font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;margin-bottom:11px;display:flex;align-items:center;gap:7px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;width:100%}
 .card{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);padding:16px 12px;border:2.5px solid transparent;text-align:center;transition:transform .15s}
 .card:active{transform:scale(.93)}
@@ -78,7 +78,7 @@ nav::-webkit-scrollbar{display:none}
 /* HERO */
 .hero{background:linear-gradient(135deg,#4F7BF7,#22C98A);border-radius:var(--r);padding:20px 16px;color:#fff;text-align:center;margin-bottom:16px;width:100%;position:relative;overflow:hidden}
 .hero .bot{font-size:50px;display:block;animation:bob 3s ease-in-out infinite;margin-bottom:5px}
-.hero h1{font-family:\'Baloo 2\',cursive;font-size:1.55rem;font-weight:800}
+.hero h1{font-family:'Baloo 2',cursive;font-size:1.55rem;font-weight:800}
 .hero p{opacity:.88;font-size:.9rem;margin-top:3px}
 .mood-strip{background:var(--wh);border-radius:var(--r);padding:13px 14px;box-shadow:var(--sh);margin-bottom:16px;display:flex;align-items:center;gap:11px;width:100%}
 .cur-mood-ico{font-size:2.6rem}
@@ -88,13 +88,13 @@ nav::-webkit-scrollbar{display:none}
 .mood-strip button{background:var(--azl);border:2px solid var(--az);border-radius:50px;padding:7px 13px;font-size:.8rem;font-weight:800;color:var(--az);flex-shrink:0}
 .home-stats{display:flex;gap:9px;margin-bottom:16px}
 .stat-box{flex:1;background:var(--wh);border-radius:var(--rs2);padding:11px;box-shadow:var(--sh);text-align:center}
-.sv{font-family:\'Baloo 2\',cursive;font-size:1.65rem;font-weight:800;color:var(--az);line-height:1}
+.sv{font-family:'Baloo 2',cursive;font-size:1.65rem;font-weight:800;color:var(--az);line-height:1}
 .sl{font-size:.7rem;color:var(--gr);font-weight:700;margin-top:2px}
 
 /* COMO ESTOU */
 .como-hero{background:linear-gradient(135deg,#FF6B9D,#FFB347);border-radius:var(--r);padding:18px;color:#fff;text-align:center;margin-bottom:16px}
 .como-hero .big-ico{font-size:64px;display:block;margin-bottom:5px}
-.como-hero h2{font-family:\'Baloo 2\',cursive;font-size:1.4rem;font-weight:800}
+.como-hero h2{font-family:'Baloo 2',cursive;font-size:1.4rem;font-weight:800}
 .como-hero p{opacity:.9;font-size:.88rem;margin-top:3px}
 .mood-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
 /* iOS FIX: usar <button> para mood items garante que o toque funcione */
@@ -106,10 +106,10 @@ nav::-webkit-scrollbar{display:none}
 .mood-lbl{text-align:center;font-size:1.05rem;font-weight:900;min-height:28px;margin-bottom:13px;color:var(--az)}
 .mood-note-box{background:var(--wh);border-radius:var(--r);padding:13px;box-shadow:var(--sh);margin-bottom:13px}
 .mood-note-box label{font-size:.83rem;font-weight:800;display:block;margin-bottom:7px}
-.mood-note-box textarea{width:100%;border:2px solid #E2E8F0;border-radius:11px;padding:9px;font-family:\'Nunito\',sans-serif;font-size:.9rem;resize:none;outline:none;color:var(--tx)}
+.mood-note-box textarea{width:100%;border:2px solid #E2E8F0;border-radius:11px;padding:9px;font-family:'Nunito',sans-serif;font-size:.9rem;resize:none;outline:none;color:var(--tx)}
 .mood-note-box textarea:focus{border-color:var(--az)}
 .mood-hist{background:var(--wh);border-radius:var(--r);padding:14px;box-shadow:var(--sh)}
-.mood-hist h4{font-family:\'Baloo 2\',cursive;font-size:1rem;margin-bottom:11px}
+.mood-hist h4{font-family:'Baloo 2',cursive;font-size:1rem;margin-bottom:11px}
 .mh-row{display:flex;align-items:center;gap:9px;margin-bottom:9px;padding:9px;background:var(--bg);border-radius:11px}
 .mh-ico{font-size:1.7rem;flex-shrink:0}
 .mh-info{flex:1;min-width:0}
@@ -140,7 +140,7 @@ nav::-webkit-scrollbar{display:none}
 .pc-btn .pi{font-size:2.2rem;display:block;margin-bottom:4px;line-height:1}
 .pc-btn .pl{font-size:.72rem;font-weight:800;line-height:1.2;color:var(--tx)}
 .fhist{background:var(--wh);border-radius:var(--r);padding:13px;box-shadow:var(--sh);margin-top:13px}
-.fhist h4{font-family:\'Baloo 2\',cursive;font-size:1rem;margin-bottom:9px}
+.fhist h4{font-family:'Baloo 2',cursive;font-size:1rem;margin-bottom:9px}
 .fh-item{display:flex;align-items:center;gap:7px;padding:8px 0;border-bottom:1px solid #F1F5F9}
 .fh-item:last-child{border:none}
 .fh-txt{flex:1;font-size:.8rem;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -149,9 +149,9 @@ nav::-webkit-scrollbar{display:none}
 
 /* JOGOS */
 .ja{background:var(--wh);border-radius:var(--r);padding:16px;box-shadow:var(--sh)}
-.jt{font-family:\'Baloo 2\',cursive;font-size:1.2rem;font-weight:800;text-align:center;margin-bottom:12px}
+.jt{font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:800;text-align:center;margin-bottom:12px}
 .jscr{display:flex;justify-content:space-around;background:var(--bg);border-radius:var(--rs2);padding:10px;margin-bottom:13px}
-.js .v{font-family:\'Baloo 2\',cursive;font-size:1.65rem;font-weight:800;color:var(--az);line-height:1}
+.js .v{font-family:'Baloo 2',cursive;font-size:1.65rem;font-weight:800;color:var(--az);line-height:1}
 .js .l{font-size:.7rem;color:var(--gr);font-weight:700}
 /* Memória */
 .mg{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
@@ -189,7 +189,7 @@ nav::-webkit-scrollbar{display:none}
 /* Contar */
 .cnt-emojis{font-size:2.2rem;text-align:center;letter-spacing:3px;margin:10px 0;line-height:1.6;word-break:break-all}
 .cnt-opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.cob{background:var(--bg);border:2.5px solid #CBD5E1;border-radius:13px;padding:12px 7px;font-family:\'Baloo 2\',cursive;font-size:1.35rem;font-weight:800;color:var(--tx);text-align:center;width:100%}
+.cob{background:var(--bg);border:2.5px solid #CBD5E1;border-radius:13px;padding:12px 7px;font-family:'Baloo 2',cursive;font-size:1.35rem;font-weight:800;color:var(--tx);text-align:center;width:100%}
 .cob.ok{background:var(--vdl);border-color:var(--vd)}
 .cob.no{background:var(--vml);border-color:var(--vm)}
 /* Cor */
@@ -201,7 +201,7 @@ nav::-webkit-scrollbar{display:none}
 .rs-inf{flex:1}
 .rs-inf b{font-size:.92rem;font-weight:800;display:block}
 .rs-inf span{font-size:.76rem;color:var(--gr)}
-.rs-pct{font-family:\'Baloo 2\',cursive;font-size:1.55rem;font-weight:800;color:var(--vd);flex-shrink:0}
+.rs-pct{font-family:'Baloo 2',cursive;font-size:1.55rem;font-weight:800;color:var(--vd);flex-shrink:0}
 .ri{background:var(--wh);border-radius:var(--r);padding:13px 14px;box-shadow:var(--sh);display:flex;align-items:center;gap:11px;border-left:5px solid var(--az);margin-bottom:8px}
 .ri.done{border-left-color:var(--vd);opacity:.55}
 .ri-ic{font-size:1.65rem;flex-shrink:0}
@@ -214,7 +214,7 @@ nav::-webkit-scrollbar{display:none}
 /* CONQUISTAS */
 .cq-hero{background:linear-gradient(135deg,#FFD166,#FF8C42);border-radius:var(--r);padding:18px;text-align:center;color:#fff;margin-bottom:16px}
 .cq-hero .big{font-size:50px;display:block;margin-bottom:5px}
-.cq-hero h1{font-family:\'Baloo 2\',cursive;font-size:1.55rem;font-weight:800}
+.cq-hero h1{font-family:'Baloo 2',cursive;font-size:1.55rem;font-weight:800}
 .cqg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .cqc{background:var(--wh);border-radius:var(--r);padding:13px 10px;box-shadow:var(--sh);text-align:center;border:2.5px solid #E2E8F0}
 .cqc.ok{border-color:var(--am);background:var(--aml)}
@@ -230,7 +230,7 @@ nav::-webkit-scrollbar{display:none}
 .qr-wrap{text-align:center;padding:6px 0}
 .qr-card{background:var(--wh);border-radius:var(--r);padding:24px;box-shadow:var(--sh);display:inline-block;margin-bottom:16px;border:3px solid var(--azl)}
 .qr-card img{width:190px;height:190px;border-radius:10px;display:block}
-.qr-url{font-family:\'Baloo 2\',cursive;font-size:.95rem;color:var(--az);font-weight:700;margin:8px 0;word-break:break-all}
+.qr-url{font-family:'Baloo 2',cursive;font-size:.95rem;color:var(--az);font-weight:700;margin:8px 0;word-break:break-all}
 .qr-desc{color:var(--gr);font-size:.85rem;line-height:1.6;max-width:280px;margin:0 auto 14px}
 .how-to{background:var(--wh);border-radius:var(--r);padding:14px;box-shadow:var(--sh)}
 .how-row{display:flex;gap:11px;align-items:flex-start;margin-bottom:11px}
@@ -251,7 +251,7 @@ nav::-webkit-scrollbar{display:none}
 .modal{background:var(--wh);border-radius:var(--r);padding:24px 20px;max-width:320px;width:100%;text-align:center;transform:scale(.87);transition:transform .3s}
 .mbg.show .modal{transform:scale(1)}
 .m-ico{font-size:62px;display:block;margin-bottom:9px}
-.modal h2{font-family:\'Baloo 2\',cursive;font-size:1.4rem}
+.modal h2{font-family:'Baloo 2',cursive;font-size:1.4rem}
 .modal p{color:var(--gr);margin:7px 0 16px;line-height:1.5;font-size:.88rem}
 .bm{background:linear-gradient(135deg,var(--az),var(--az2));color:#fff;border:none;border-radius:50px;padding:12px 26px;font-size:.92rem;font-weight:900;box-shadow:0 5px 14px rgba(79,123,247,.35)}
 
@@ -302,7 +302,7 @@ nav::-webkit-scrollbar{display:none}
       <h4 id="curMoodNome">Como estou agora</h4>
       <p id="curMoodNote">Toque para registrar seu humor</p>
     </div>
-    <button onclick="goTab(\'comoestou\')">Registrar →</button>
+    <button onclick="goTab('comoestou')">Registrar →</button>
   </div>
   <div class="home-stats">
     <div class="stat-box"><div class="sv" id="statStars">0</div><div class="sl">⭐ Estrelas</div></div>
@@ -311,12 +311,12 @@ nav::-webkit-scrollbar{display:none}
   </div>
   <div class="ttl">🎯 O que quero fazer?</div>
   <div class="g2">
-    <button class="card caz" onclick="goTab(\'picto\')"><span class="ic">🗣️</span><h3>Falar</h3><p>Montar frases</p></button>
-    <button class="card cvd" onclick="goTab(\'jogos\')"><span class="ic">🎮</span><h3>Jogar</h3><p>Jogos e desafios</p></button>
-    <button class="card cor" onclick="goTab(\'rotina\')"><span class="ic">📅</span><h3>Minha Rotina</h3><p>Ver meu dia</p></button>
-    <button class="card crx" onclick="goTab(\'conquistas\')"><span class="ic">⭐</span><h3>Conquistas</h3><p>Minhas medalhas</p></button>
-    <button class="card crs" onclick="goTab(\'comoestou\')"><span class="ic">💭</span><h3>Como Estou</h3><p>Meus sentimentos</p></button>
-    <button class="card cam" onclick="goTab(\'qr\')"><span class="ic">📱</span><h3>QR Code</h3><p>Compartilhar</p></button>
+    <button class="card caz" onclick="goTab('picto')"><span class="ic">🗣️</span><h3>Falar</h3><p>Montar frases</p></button>
+    <button class="card cvd" onclick="goTab('jogos')"><span class="ic">🎮</span><h3>Jogar</h3><p>Jogos e desafios</p></button>
+    <button class="card cor" onclick="goTab('rotina')"><span class="ic">📅</span><h3>Minha Rotina</h3><p>Ver meu dia</p></button>
+    <button class="card crx" onclick="goTab('conquistas')"><span class="ic">⭐</span><h3>Conquistas</h3><p>Minhas medalhas</p></button>
+    <button class="card crs" onclick="goTab('comoestou')"><span class="ic">💭</span><h3>Como Estou</h3><p>Meus sentimentos</p></button>
+    <button class="card cam" onclick="goTab('qr')"><span class="ic">📱</span><h3>QR Code</h3><p>Compartilhar</p></button>
   </div>
 </section>
 
@@ -361,12 +361,12 @@ nav::-webkit-scrollbar{display:none}
 <section id="jogos" class="sc">
   <div class="ttl">🎮 Escolha um Jogo</div>
   <div class="g2" style="margin-bottom:14px">
-    <button class="card caz" onclick="sg(\'mem\')"><span class="ic">🧠</span><h3>Memória</h3><p>Encontre os pares</p></button>
-    <button class="card cvd" onclick="sg(\'emo\')"><span class="ic">😀</span><h3>Emoções</h3><p>Que sentimento é?</p></button>
-    <button class="card cor" onclick="sg(\'cor\')"><span class="ic">🌈</span><h3>Sequências</h3><p>Repita as cores</p></button>
-    <button class="card crx" onclick="sg(\'pal\')"><span class="ic">📚</span><h3>Palavras</h3><p>Monte palavras</p></button>
-    <button class="card crs" onclick="sg(\'cnt\')"><span class="ic">🔢</span><h3>Contar</h3><p>Quantos objetos?</p></button>
-    <button class="card cam" onclick="sg(\'cor2\')"><span class="ic">🎨</span><h3>Nomear Cor</h3><p>Qual é esta cor?</p></button>
+    <button class="card caz" onclick="sg('mem')"><span class="ic">🧠</span><h3>Memória</h3><p>Encontre os pares</p></button>
+    <button class="card cvd" onclick="sg('emo')"><span class="ic">😀</span><h3>Emoções</h3><p>Que sentimento é?</p></button>
+    <button class="card cor" onclick="sg('cor')"><span class="ic">🌈</span><h3>Sequências</h3><p>Repita as cores</p></button>
+    <button class="card crx" onclick="sg('pal')"><span class="ic">📚</span><h3>Palavras</h3><p>Monte palavras</p></button>
+    <button class="card crs" onclick="sg('cnt')"><span class="ic">🔢</span><h3>Contar</h3><p>Quantos objetos?</p></button>
+    <button class="card cam" onclick="sg('cor2')"><span class="ic">🎨</span><h3>Nomear Cor</h3><p>Qual é esta cor?</p></button>
   </div>
   <div id="garea"></div>
 </section>
@@ -424,102 +424,105 @@ nav::-webkit-scrollbar{display:none}
 </div>
 
 <script>
+// QR declarado primeiro (evita erro de referência no iOS/Safari)
+const QR_URL = "data:image/png;base64,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";
+
 // ── ESTADO ──
-const S={
-  stars:+localStorage.getItem(\'t_stars\')||0,
-  rotina:JSON.parse(localStorage.getItem(\'t_rotina\')||\'{}\')\,
-  cq:JSON.parse(localStorage.getItem(\'t_cq\')||\'[]\')\,
-  seqRec:+localStorage.getItem(\'t_seqrec\')||0,
-  frase:[],
-  fhist:JSON.parse(localStorage.getItem(\'t_fhist\')||\'[]\')\,
-  moodHist:JSON.parse(localStorage.getItem(\'t_moodhist\')||\'[]\')\,
-  curMood:{e:\'😊\',n:\'Como estou agora\',note:\'\'},
-  selMoodEl:null,
-  dias:+localStorage.getItem(\'t_dias\')||1,
-  lastDay:localStorage.getItem(\'t_lastday\')||\'\'
+const S = {
+  stars: +localStorage.getItem('t_stars') || 0,
+  rotina: JSON.parse(localStorage.getItem('t_rotina') || '{}'),
+  cq: JSON.parse(localStorage.getItem('t_cq') || '[]'),
+  seqRec: +localStorage.getItem('t_seqrec') || 0,
+  frase: [],
+  fhist: JSON.parse(localStorage.getItem('t_fhist') || '[]'),
+  moodHist: JSON.parse(localStorage.getItem('t_moodhist') || '[]'),
+  curMood: {e:'😊', n:'Como estou agora', note:''},
+  selMoodEl: null,
+  _selMoodIdx: null,
+  dias: +localStorage.getItem('t_dias') || 1,
+  lastDay: localStorage.getItem('t_lastday') || ''
 };
-function sv(){
-  localStorage.setItem(\'t_stars\',S.stars);
-  localStorage.setItem(\'t_rotina\',JSON.stringify(S.rotina));
-  localStorage.setItem(\'t_cq\',JSON.stringify(S.cq));
-  localStorage.setItem(\'t_seqrec\',S.seqRec);
-  localStorage.setItem(\'t_fhist\',JSON.stringify(S.fhist));
-  localStorage.setItem(\'t_moodhist\',JSON.stringify(S.moodHist));
-  localStorage.setItem(\'t_dias\',S.dias);
-  localStorage.setItem(\'t_lastday\',S.lastDay);
+
+function sv() {
+  localStorage.setItem('t_stars', S.stars);
+  localStorage.setItem('t_rotina', JSON.stringify(S.rotina));
+  localStorage.setItem('t_cq', JSON.stringify(S.cq));
+  localStorage.setItem('t_seqrec', S.seqRec);
+  localStorage.setItem('t_fhist', JSON.stringify(S.fhist));
+  localStorage.setItem('t_moodhist', JSON.stringify(S.moodHist));
+  localStorage.setItem('t_dias', S.dias);
+  localStorage.setItem('t_lastday', S.lastDay);
 }
-''' + r'''
-// ── iOS ÁUDIO: desbloquear AudioContext no primeiro toque ──
-let audioUnlocked = false;
-document.addEventListener('touchstart', function unlockAudio() {
-  if (audioUnlocked) return;
-  audioUnlocked = true;
-  // Forçar inicialização do speechSynthesis no iOS
+
+// ── iOS: desbloquear áudio no primeiro toque ──
+document.addEventListener('touchstart', function() {
+  if (window._audioUnlocked) return;
+  window._audioUnlocked = true;
   if ('speechSynthesis' in window) {
     const u = new SpeechSynthesisUtterance('');
     u.volume = 0;
     window.speechSynthesis.speak(u);
   }
-  document.removeEventListener('touchstart', unlockAudio);
-}, { once: true });
+}, {once: true});
 
 function fala(texto) {
-  if (!('speechSynthesis' in window)) return;
+  if (!('speechSynthesis' in window) || !texto) return;
   window.speechSynthesis.cancel();
-  // iOS precisa de um pequeno delay após cancel
-  setTimeout(() => {
+  setTimeout(function() {
     const u = new SpeechSynthesisUtterance(texto);
     u.lang = 'pt-BR';
     u.rate = 0.82;
-    u.pitch = 1.1;
+    u.pitch = 1.05;
     u.volume = 1;
-    // iOS: tentar voz em português se disponível
     const voices = window.speechSynthesis.getVoices();
-    const ptVoz = voices.find(v => v.lang.startsWith('pt'));
+    const ptVoz = voices.find(function(v) { return v.lang && v.lang.startsWith('pt'); });
     if (ptVoz) u.voice = ptVoz;
     window.speechSynthesis.speak(u);
-  }, 50);
+  }, 80);
 }
 
 // ── SPLASH ──
-setTimeout(() => {
+setTimeout(function() {
   document.getElementById('splash').classList.add('off');
   init();
 }, 2000);
 
 function init() {
   checkDias();
-  // Tabs
-  document.querySelectorAll('.tb').forEach(b => {
-    b.addEventListener('click', () => goTab(b.dataset.tab));
+  document.querySelectorAll('.tb').forEach(function(b) {
+    b.addEventListener('click', function() { goTab(b.dataset.tab); });
   });
-  document.getElementById('hstarBtn').addEventListener('click', () => goTab('conquistas'));
+  var hstar = document.getElementById('hstarBtn');
+  if (hstar) hstar.addEventListener('click', function() { goTab('conquistas'); });
   initMoodGrid();
   initPicto();
   renderRotina();
   renderCQ();
   renderHome();
   renderMoodHist();
-  document.getElementById('qrImg').src = QR_URL;
+  var qrImg = document.getElementById('qrImg');
+  if (qrImg) qrImg.src = QR_URL;
 }
 
 function checkDias() {
-  const today = new Date().toDateString();
+  var today = new Date().toDateString();
   if (S.lastDay !== today) {
     if (S.lastDay) {
-      const diff = (new Date(today) - new Date(S.lastDay)) / (1000*60*60*24);
+      var diff = (new Date(today) - new Date(S.lastDay)) / (1000*60*60*24);
       S.dias = diff <= 1 ? S.dias + 1 : 1;
     }
-    S.lastDay = today; sv();
+    S.lastDay = today;
+    sv();
   }
 }
 
 // ── TABS ──
 function goTab(id) {
-  document.querySelectorAll('.sc').forEach(s => s.classList.remove('on'));
-  document.querySelectorAll('.tb').forEach(b => b.classList.remove('on'));
-  document.getElementById(id).classList.add('on');
-  const btn = document.querySelector('[data-tab="' + id + '"]');
+  document.querySelectorAll('.sc').forEach(function(s) { s.classList.remove('on'); });
+  document.querySelectorAll('.tb').forEach(function(b) { b.classList.remove('on'); });
+  var sc = document.getElementById(id);
+  if (sc) sc.classList.add('on');
+  var btn = document.querySelector('[data-tab="' + id + '"]');
   if (btn) btn.classList.add('on');
   if (id === 'rotina') renderRotina();
   if (id === 'conquistas') renderCQ();
@@ -532,10 +535,10 @@ function renderHome() {
   document.getElementById('hStars').textContent = S.stars;
   document.getElementById('statStars').textContent = S.stars;
   document.getElementById('statDias').textContent = S.dias;
-  const done = Object.values(S.rotina).filter(Boolean).length;
+  var done = Object.values(S.rotina).filter(Boolean).length;
   document.getElementById('statRotina').textContent = Math.round(done / RD.length * 100) + '%';
-  const h = new Date().getHours();
-  const g = h < 12 ? 'Bom dia! ☀️' : h < 18 ? 'Boa tarde! 🌤️' : 'Boa noite! 🌙';
+  var h = new Date().getHours();
+  var g = h < 12 ? 'Bom dia! ☀️' : h < 18 ? 'Boa tarde! 🌤️' : 'Boa noite! 🌙';
   document.getElementById('heroGreet').textContent = g + ' Eu sou o TEAbot!';
   document.getElementById('curMoodIco').textContent = S.curMood.e;
   document.getElementById('curMoodNome').textContent = S.curMood.n;
@@ -543,62 +546,89 @@ function renderHome() {
 }
 
 // ── COMO ESTOU ──
-const MOODS = [
+var MOODS = [
   {e:'😄',n:'Muito Feliz'},{e:'😊',n:'Feliz'},{e:'😐',n:'Normal'},
   {e:'😢',n:'Triste'},{e:'😡',n:'Com Raiva'},{e:'😰',n:'Ansioso'},
   {e:'😴',n:'Cansado'},{e:'🤔',n:'Confuso'},{e:'🥰',n:'Amor'},
   {e:'😨',n:'Com Medo'},{e:'🤩',n:'Animado'},{e:'😤',n:'Frustrado'}
 ];
+
 function initMoodGrid() {
-  document.getElementById('moodGrid').innerHTML = MOODS.map((m, i) =>
-    `<button class="me-btn" id="me${i}" onclick="selMood(${i})">
-      <span class="mico">${m.e}</span>
-      <span class="mlb">${m.n}</span>
-    </button>`
-  ).join('');
+  var grid = document.getElementById('moodGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  MOODS.forEach(function(m, i) {
+    var btn = document.createElement('button');
+    btn.className = 'me-btn';
+    btn.id = 'me' + i;
+    btn.innerHTML = '<span class="mico">' + m.e + '</span><span class="mlb">' + m.n + '</span>';
+    btn.addEventListener('click', function() { selMood(i); });
+    grid.appendChild(btn);
+  });
 }
+
 function selMood(i) {
   if (S.selMoodEl) S.selMoodEl.classList.remove('on');
-  const el = document.getElementById('me' + i);
+  var el = document.getElementById('me' + i);
+  if (!el) return;
   el.classList.add('on');
   S.selMoodEl = el;
   S._selMoodIdx = i;
-  document.getElementById('moodLbl').textContent = MOODS[i].n + ' ' + MOODS[i].e;
-  document.getElementById('cmHeroIco').textContent = MOODS[i].e;
-  // iOS: fala no clique do botão (gesto direto)
+  var lbl = document.getElementById('moodLbl');
+  if (lbl) lbl.textContent = MOODS[i].n + ' ' + MOODS[i].e;
+  var hero = document.getElementById('cmHeroIco');
+  if (hero) hero.textContent = MOODS[i].e;
   fala('Estou ' + MOODS[i].n);
 }
+
 function saveMood() {
-  if (S._selMoodIdx === undefined || S._selMoodIdx === null) {
-    alert('Por favor escolha um emoji primeiro! 😊'); return;
+  if (S._selMoodIdx === null || S._selMoodIdx === undefined) {
+    alert('Por favor escolha um emoji primeiro!');
+    return;
   }
-  const m = MOODS[S._selMoodIdx];
-  const note = document.getElementById('moodNote').value.trim();
-  const now = new Date();
-  const time = now.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
-  S.moodHist.unshift({e:m.e,n:m.n,note,time,date:now.toLocaleDateString('pt-BR')});
+  var m = MOODS[S._selMoodIdx];
+  var noteEl = document.getElementById('moodNote');
+  var note = noteEl ? noteEl.value.trim() : '';
+  var now = new Date();
+  var time = now.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  var date = now.toLocaleDateString('pt-BR');
+  S.moodHist.unshift({e:m.e, n:m.n, note:note, time:time, date:date});
   if (S.moodHist.length > 30) S.moodHist.pop();
-  S.curMood = {e:m.e,n:m.n,note};
-  sv(); addS(1); unlockCQ('c2');
-  document.getElementById('moodNote').value = '';
+  S.curMood = {e:m.e, n:m.n, note:note};
+  sv();
+  addS(1);
+  unlockCQ('c2');
+  if (noteEl) noteEl.value = '';
   if (S.selMoodEl) { S.selMoodEl.classList.remove('on'); S.selMoodEl = null; }
   S._selMoodIdx = null;
-  document.getElementById('moodLbl').textContent = 'Toque em um emoji para escolher';
-  document.getElementById('cmHeroIco').textContent = '💭';
-  renderMoodHist(); renderHome();
-  showW('💭','Registrado!','Seu humor foi salvo! +1⭐');
-  burst(document.getElementById('cmHeroIco'));
+  var lbl = document.getElementById('moodLbl');
+  if (lbl) lbl.textContent = 'Toque em um emoji para escolher';
+  var hero = document.getElementById('cmHeroIco');
+  if (hero) hero.textContent = '💭';
+  renderMoodHist();
+  renderHome();
+  showW('💭', 'Registrado!', 'Seu humor foi salvo! +1⭐');
 }
+
 function renderMoodHist() {
-  const today = new Date().toLocaleDateString('pt-BR');
-  const list = S.moodHist.filter(m => m.date === today);
-  document.getElementById('moodHistList').innerHTML = list.length
-    ? list.map(m => `<div class="mh-row"><span class="mh-ico">${m.e}</span><div class="mh-info"><b>${m.n}</b>${m.note?'<div class="mh-note">💬 '+m.note+'</div>':''}</div><span class="mh-time">${m.time}</span></div>`).join('')
-    : '<div class="no-hist">Nenhum registro hoje. Comece agora! 😊</div>';
+  var today = new Date().toLocaleDateString('pt-BR');
+  var list = S.moodHist.filter(function(m) { return m.date === today; });
+  var el = document.getElementById('moodHistList');
+  if (!el) return;
+  if (!list.length) {
+    el.innerHTML = '<div class="no-hist">Nenhum registro hoje. Comece agora! 😊</div>';
+    return;
+  }
+  el.innerHTML = list.map(function(m) {
+    return '<div class="mh-row"><span class="mh-ico">' + m.e + '</span>' +
+      '<div class="mh-info"><b>' + m.n + '</b>' +
+      (m.note ? '<div class="mh-note">💬 ' + m.note + '</div>' : '') +
+      '</div><span class="mh-time">' + m.time + '</span></div>';
+  }).join('');
 }
 
 // ── PICTOS ──
-const PD=[
+var PD = [
   {i:'🍎',l:'Quero comer',c:'n'},{i:'💧',l:'Quero água',c:'n'},{i:'🚽',l:'Banheiro',c:'n'},
   {i:'😴',l:'Quero descansar',c:'n'},{i:'🤕',l:'Estou com dor',c:'n'},{i:'🔇',l:'Silêncio por favor',c:'n'},
   {i:'🌡️',l:'Estou com febre',c:'n'},{i:'🤢',l:'Estou enjoado',c:'n'},{i:'🥶',l:'Estou com frio',c:'n'},
@@ -612,144 +642,185 @@ const PD=[
   {i:'🙋',l:'Quero falar',c:'e'},
   {i:'⚽',l:'Futebol',c:'a'},{i:'🎮',l:'Videogame',c:'a'},{i:'🎵',l:'Música',c:'a'},
   {i:'🏃',l:'Correr',c:'a'},{i:'🏠',l:'Ir para casa',c:'a'},{i:'📱',l:'Celular',c:'a'},
-  {i:'🎭',l:'Teatro',c:'a'},{i:'🎲',l:'Jogar',c:'a'},{i:'🚴',l:'Bicicleta',c:'a'},
+  {i:'🎭',l:'Teatro',c:'a'},{i:'🎲',l:'Jogar',c:'a'},{i:'🚴',l:'Bicicleta',c:'a'}
 ];
-const CATS=[{id:'todos',lb:'Todos'},{id:'n',lb:'🍎 Necessidades'},{id:'s',lb:'❤️ Sentimentos'},{id:'e',lb:'🏫 Escola'},{id:'a',lb:'⚽ Atividades'}];
+var CATS = [
+  {id:'todos',lb:'Todos'},{id:'n',lb:'🍎 Necessidades'},
+  {id:'s',lb:'❤️ Sentimentos'},{id:'e',lb:'🏫 Escola'},{id:'a',lb:'⚽ Atividades'}
+];
 
 function initPicto() {
-  // iOS FIX: usar addEventListener em vez de onclick inline para garantir funcionamento
-  const strip = document.getElementById('catStrip');
-  strip.innerHTML = CATS.map((c,i) =>
-    `<button class="cb${i===0?' on':''}" data-cat="${c.id}">${c.lb}</button>`
-  ).join('');
-  strip.querySelectorAll('.cb').forEach(btn => {
-    btn.addEventListener('click', () => {
-      strip.querySelectorAll('.cb').forEach(b => b.classList.remove('on'));
+  var strip = document.getElementById('catStrip');
+  if (!strip) return;
+  strip.innerHTML = '';
+  CATS.forEach(function(cat, i) {
+    var btn = document.createElement('button');
+    btn.className = 'cb' + (i === 0 ? ' on' : '');
+    btn.textContent = cat.lb;
+    btn.addEventListener('click', function() {
+      strip.querySelectorAll('.cb').forEach(function(b) { b.classList.remove('on'); });
       btn.classList.add('on');
-      rpicto(btn.dataset.cat);
+      rpicto(cat.id);
     });
+    strip.appendChild(btn);
   });
   rpicto('todos');
   renderFhist();
 }
 
 function rpicto(cat) {
-  const list = cat === 'todos' ? PD : PD.filter(p => p.c === cat);
-  const grid = document.getElementById('pgrid');
-  grid.innerHTML = list.map((p, i) =>
-    `<button class="pc-btn" data-idx="${PD.indexOf(p)}">
-      <span class="pi">${p.i}</span>
-      <span class="pl">${p.l}</span>
-    </button>`
-  ).join('');
-  // iOS FIX: addEventListener no botão, não onclick inline
-  grid.querySelectorAll('.pc-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const p = PD[+btn.dataset.idx];
+  var list = cat === 'todos' ? PD : PD.filter(function(p) { return p.c === cat; });
+  var grid = document.getElementById('pgrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  list.forEach(function(p) {
+    var idx = PD.indexOf(p);
+    var btn = document.createElement('button');
+    btn.className = 'pc-btn';
+    btn.innerHTML = '<span class="pi">' + p.i + '</span><span class="pl">' + p.l + '</span>';
+    btn.addEventListener('click', function() {
       S.frase.push({l: p.l, i: p.i});
       rfrase();
       burst(btn);
       unlockCQ('c3');
       btn.style.background = 'var(--vdl)';
       btn.style.borderColor = 'var(--vd)';
-      setTimeout(() => { btn.style.background = ''; btn.style.borderColor = ''; }, 250);
+      setTimeout(function() { btn.style.background = ''; btn.style.borderColor = ''; }, 250);
     });
+    grid.appendChild(btn);
   });
 }
 
 function rfrase() {
-  const b = document.getElementById('fbox');
-  if (!S.frase.length) { b.innerHTML = '<span class="fe">Toque nos cartões para montar sua frase...</span>'; return; }
-  b.innerHTML = S.frase.map((f, i) =>
-    `<span class="ftag">${f.i} ${f.l} <button onclick="remf(${i})">×</button></span>`
-  ).join('');
+  var b = document.getElementById('fbox');
+  if (!b) return;
+  if (!S.frase.length) {
+    b.innerHTML = '<span class="fe">Toque nos cartões para montar sua frase...</span>';
+    return;
+  }
+  b.innerHTML = '';
+  S.frase.forEach(function(f, i) {
+    var span = document.createElement('span');
+    span.className = 'ftag';
+    span.innerHTML = f.i + ' ' + f.l + ' ';
+    var x = document.createElement('button');
+    x.textContent = '×';
+    x.addEventListener('click', function() { S.frase.splice(i, 1); rfrase(); });
+    span.appendChild(x);
+    b.appendChild(span);
+  });
 }
-function remf(i) { S.frase.splice(i,1); rfrase(); }
+
 function limpar() { S.frase = []; rfrase(); }
 
 function falar() {
   if (!S.frase.length) return;
-  const t = S.frase.map(f => f.l).join('. ');
-  fala(t); // usa função iOS-safe
-  const reg = {txt: S.frase.map(f => f.i+' '+f.l).join(' | '), time: new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})};
-  S.fhist.unshift(reg); if (S.fhist.length > 10) S.fhist.pop(); sv();
-  renderFhist(); addS(2);
+  var t = S.frase.map(function(f) { return f.l; }).join('. ');
+  fala(t);
+  var time = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'});
+  var txt = S.frase.map(function(f) { return f.i + ' ' + f.l; }).join(' | ');
+  S.fhist.unshift({txt: txt, time: time});
+  if (S.fhist.length > 10) S.fhist.pop();
+  sv();
+  renderFhist();
+  addS(2);
   burst(document.getElementById('btnFalar'));
 }
+
 function renderFhist() {
-  const box = document.getElementById('fhistBox');
+  var box = document.getElementById('fhistBox');
+  if (!box) return;
   if (!S.fhist.length) { box.style.display = 'none'; return; }
   box.style.display = 'block';
-  document.getElementById('fhistList').innerHTML = S.fhist.map((f,i) =>
-    `<div class="fh-item">
-      <span class="fh-txt">${f.txt}</span>
-      <span class="fh-time">${f.time}</span>
-      <button class="fh-rep" onclick="repFrase(${i})">🔊</button>
-    </div>`
-  ).join('');
-}
-function repFrase(i) {
-  const t = S.fhist[i].txt.split(' | ').map(x => x.replace(/^\S+\s/,'')).join('. ');
-  fala(t);
+  var list = document.getElementById('fhistList');
+  if (!list) return;
+  list.innerHTML = '';
+  S.fhist.forEach(function(f, i) {
+    var div = document.createElement('div');
+    div.className = 'fh-item';
+    div.innerHTML = '<span class="fh-txt">' + f.txt + '</span><span class="fh-time">' + f.time + '</span>';
+    var btn = document.createElement('button');
+    btn.className = 'fh-rep';
+    btn.textContent = '🔊';
+    btn.addEventListener('click', function() {
+      var t = f.txt.split(' | ').map(function(x) { return x.replace(/^\S+\s/, ''); }).join('. ');
+      fala(t);
+    });
+    div.appendChild(btn);
+    list.appendChild(div);
+  });
 }
 
 // ── JOGOS ──
 function sg(t) {
-  const a = document.getElementById('garea');
+  var a = document.getElementById('garea');
+  if (!a) return;
   a.innerHTML = '';
-  if (t==='mem') gmem(a);
-  else if (t==='emo') gemo(a);
-  else if (t==='cor') gcor(a);
-  else if (t==='pal') gpal(a);
-  else if (t==='cnt') gcnt(a);
-  else if (t==='cor2') gcor2(a);
-  setTimeout(() => a.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+  if (t === 'mem') gmem(a);
+  else if (t === 'emo') gemo(a);
+  else if (t === 'cor') gcor(a);
+  else if (t === 'pal') gpal(a);
+  else if (t === 'cnt') gcnt(a);
+  else if (t === 'cor2') gcor2(a);
+  setTimeout(function() { a.scrollIntoView({behavior:'smooth',block:'start'}); }, 80);
 }
 
 // Memória
-const MP=['🐶','🐱','🐸','🦁','🐙','🦋','🌸','🍕'];
-let mCards=[],mFlip=[],mMatch=0,mLock=false,mTries=0;
+var MP = ['🐶','🐱','🐸','🦁','🐙','🦋','🌸','🍕'];
+var mCards=[], mFlip=[], mMatch=0, mLock=false, mTries=0;
 function gmem(a) {
-  mFlip=[];mMatch=0;mLock=false;mTries=0;
-  const it=[...MP,...MP].sort(()=>Math.random()-.5); mCards=it;
-  a.innerHTML=`<div class="ja"><div class="jt">🧠 Jogo da Memória</div><div class="jscr"><div class="js"><div class="v" id="mP">0</div><div class="l">Pares</div></div><div class="js"><div class="v" id="mT">0</div><div class="l">Tentativas</div></div></div><div class="mg" id="memGrid"></div></div>`;
-  const grid = document.getElementById('memGrid');
-  it.forEach((em, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'mc'; btn.id = 'mc'+i;
-    btn.innerHTML = `<span class="mc-f">❓</span><span class="mc-b">${em}</span>`;
-    btn.addEventListener('click', () => fmc(i));
+  mFlip=[]; mMatch=0; mLock=false; mTries=0;
+  var it = MP.concat(MP).sort(function() { return Math.random()-.5; });
+  mCards = it;
+  a.innerHTML = '<div class="ja"><div class="jt">🧠 Jogo da Memória</div>' +
+    '<div class="jscr"><div class="js"><div class="v" id="mP">0</div><div class="l">Pares</div></div>' +
+    '<div class="js"><div class="v" id="mT">0</div><div class="l">Tentativas</div></div></div>' +
+    '<div class="mg" id="memGrid"></div></div>';
+  var grid = document.getElementById('memGrid');
+  it.forEach(function(em, i) {
+    var btn = document.createElement('button');
+    btn.className = 'mc'; btn.id = 'mc' + i;
+    btn.innerHTML = '<span class="mc-f">❓</span><span class="mc-b">' + em + '</span>';
+    btn.addEventListener('click', function() { fmc(i); });
     grid.appendChild(btn);
   });
 }
 function fmc(i) {
   if (mLock) return;
-  const el = document.getElementById('mc'+i);
+  var el = document.getElementById('mc' + i);
   if (!el || el.classList.contains('fl') || el.classList.contains('ma')) return;
-  el.classList.add('fl'); mFlip.push(i);
-  if (mFlip.length===2) {
-    mLock=true; mTries++;
-    document.getElementById('mT').textContent=mTries;
-    const[a,b]=mFlip;
-    if (mCards[a]===mCards[b]) {
+  el.classList.add('fl');
+  mFlip.push(i);
+  if (mFlip.length === 2) {
+    mLock = true; mTries++;
+    var mTEl = document.getElementById('mT');
+    if (mTEl) mTEl.textContent = mTries;
+    var a = mFlip[0], b = mFlip[1];
+    if (mCards[a] === mCards[b]) {
       document.getElementById('mc'+a).classList.add('ma');
       document.getElementById('mc'+b).classList.add('ma');
-      mMatch++; document.getElementById('mP').textContent=mMatch;
-      mFlip=[]; mLock=false; burst(document.getElementById('mc'+b));
-      if (mMatch===MP.length){addS(10);unlockCQ('c4');setTimeout(()=>showW('🎉','Incrível! +10⭐','Você achou todos os pares!'),300);}
+      mMatch++;
+      var mPEl = document.getElementById('mP');
+      if (mPEl) mPEl.textContent = mMatch;
+      mFlip = []; mLock = false;
+      burst(document.getElementById('mc'+b));
+      if (mMatch === MP.length) {
+        addS(10); unlockCQ('c4');
+        setTimeout(function() { showW('🎉','Incrível! +10⭐','Você achou todos os pares!'); }, 300);
+      }
     } else {
-      setTimeout(()=>{
-        const ea=document.getElementById('mc'+a),eb=document.getElementById('mc'+b);
-        if(ea){ea.classList.remove('fl');ea.classList.add('shk');setTimeout(()=>ea.classList.remove('shk'),320);}
-        if(eb){eb.classList.remove('fl');eb.classList.add('shk');setTimeout(()=>eb.classList.remove('shk'),320);}
-        mFlip=[]; mLock=false;
-      },900);
+      setTimeout(function() {
+        var ea = document.getElementById('mc'+a), eb = document.getElementById('mc'+b);
+        if (ea) { ea.classList.remove('fl'); ea.classList.add('shk'); setTimeout(function(){ea.classList.remove('shk');},320); }
+        if (eb) { eb.classList.remove('fl'); eb.classList.add('shk'); setTimeout(function(){eb.classList.remove('shk');},320); }
+        mFlip = []; mLock = false;
+      }, 900);
     }
   }
 }
 
 // Emoções
-const EM=[
+var EM = [
   {e:'😄',n:'Muito Feliz',o:['Muito Feliz','Triste','Com Medo','Surpreso']},
   {e:'😢',n:'Triste',o:['Feliz','Triste','Com Raiva','Cansado']},
   {e:'😡',n:'Com Raiva',o:['Feliz','Assustado','Com Raiva','Cansado']},
@@ -758,169 +829,250 @@ const EM=[
   {e:'😲',n:'Surpreso',o:['Surpreso','Com Raiva','Triste','Feliz']},
   {e:'🥰',n:'Apaixonado',o:['Feliz','Apaixonado','Cansado','Triste']},
   {e:'😨',n:'Com Medo',o:['Com Raiva','Com Medo','Surpreso','Cansado']},
-  {e:'🤩',n:'Animado',o:['Animado','Cansado','Triste','Assustado']},
+  {e:'🤩',n:'Animado',o:['Animado','Cansado','Triste','Assustado']}
 ];
-let eAc=0,eRd=0;
+var eAc=0, eRd=0;
 function gemo(a) {
-  eAc=0;eRd=0; unlockCQ('c5');
-  a.innerHTML=`<div class="ja"><div class="jt">😀 Qual Emoção É Essa?</div><div class="jscr"><div class="js"><div class="v" id="eA">0</div><div class="l">Acertos</div></div><div class="js"><div class="v" id="eR">0</div><div class="l">Rodadas</div></div></div><div id="eIn"></div></div>`;
+  eAc=0; eRd=0; unlockCQ('c5');
+  a.innerHTML = '<div class="ja"><div class="jt">😀 Qual Emoção É Essa?</div>' +
+    '<div class="jscr"><div class="js"><div class="v" id="eA">0</div><div class="l">Acertos</div></div>' +
+    '<div class="js"><div class="v" id="eR">0</div><div class="l">Rodadas</div></div></div>' +
+    '<div id="eIn"></div></div>';
   nextE();
 }
 function nextE() {
-  const d=EM[Math.floor(Math.random()*EM.length)];
-  const o=[...d.o].sort(()=>Math.random()-.5);
-  const inner=document.getElementById('eIn');
-  inner.innerHTML=`<div class="ed">${d.e}</div><p class="ep">Como este personagem está se sentindo?</p><div class="eo-g" id="eoG"></div>`;
-  const g=document.getElementById('eoG');
-  o.forEach(op=>{
-    const btn=document.createElement('button');
-    btn.className='eo';btn.textContent=op;
-    btn.addEventListener('click',()=>chkE(op,d.n,btn,g));
+  var d = EM[Math.floor(Math.random() * EM.length)];
+  var o = d.o.slice().sort(function() { return Math.random()-.5; });
+  var inner = document.getElementById('eIn');
+  if (!inner) return;
+  inner.innerHTML = '<div class="ed">' + d.e + '</div>' +
+    '<p class="ep">Como este personagem está se sentindo?</p>' +
+    '<div class="eo-g" id="eoG"></div>';
+  var g = document.getElementById('eoG');
+  o.forEach(function(op) {
+    var btn = document.createElement('button');
+    btn.className = 'eo'; btn.textContent = op;
+    btn.addEventListener('click', function() {
+      g.querySelectorAll('.eo').forEach(function(b) { b.disabled = true; });
+      eRd++;
+      var eREl = document.getElementById('eR');
+      if (eREl) eREl.textContent = eRd;
+      if (op === d.n) {
+        btn.classList.add('ok'); btn.textContent = '✅ ' + op;
+        eAc++;
+        var eAEl = document.getElementById('eA');
+        if (eAEl) eAEl.textContent = eAc;
+        addS(3); burst(btn); fala('Muito bem! ' + op);
+        setTimeout(nextE, 1200);
+      } else {
+        btn.classList.add('no');
+        g.querySelectorAll('.eo').forEach(function(b) { if (b.textContent === d.n) b.classList.add('ok'); });
+        fala('Era ' + d.n);
+        setTimeout(nextE, 1500);
+      }
+    });
     g.appendChild(btn);
   });
 }
-function chkE(esc,cor,btn,g) {
-  eRd++;document.getElementById('eR').textContent=eRd;
-  g.querySelectorAll('.eo').forEach(b=>b.disabled=true);
-  if(esc===cor){
-    btn.classList.add('ok');btn.textContent='✅ '+cor;
-    eAc++;document.getElementById('eA').textContent=eAc;
-    addS(3);burst(btn);
-    fala('Muito bem! ' + cor);
-    setTimeout(nextE,1200);
-  } else {
-    btn.classList.add('no');
-    g.querySelectorAll('.eo').forEach(b=>{if(b.textContent===cor)b.classList.add('ok');});
-    fala('Era ' + cor);
-    setTimeout(nextE,1500);
-  }
-}
 
 // Sequência Cores
-const SC=[{bg:'#4F7BF7',n:'Azul'},{bg:'#22C98A',n:'Verde'},{bg:'#FF8C42',n:'Laranja'},{bg:'#FF6B9D',n:'Rosa'}];
-let ss=[],sp=[],sl=1;
+var SC = [{bg:'#4F7BF7',n:'Azul'},{bg:'#22C98A',n:'Verde'},{bg:'#FF8C42',n:'Laranja'},{bg:'#FF6B9D',n:'Rosa'}];
+var ss=[], sp=[], sl=1;
 function gcor(a) {
-  ss=[];sp=[];sl=1;
-  a.innerHTML=`<div class="ja"><div class="jt">🌈 Sequência de Cores</div><div class="jscr"><div class="js"><div class="v" id="sN">1</div><div class="l">Nível</div></div><div class="js"><div class="v" id="sRec">${S.seqRec}</div><div class="l">Recorde</div></div></div><div class="sdis" id="sdis"><span style="color:var(--gr);font-size:.83rem">Observe e repita!</span></div><div class="scirs" id="scirs"></div><button class="btn" onclick="sstart()" id="sSBtn">▶️ Começar!</button></div>`;
-  const cirs=document.getElementById('scirs');
-  SC.forEach((c,i)=>{
-    const btn=document.createElement('button');
-    btn.className='sqc';btn.id='sqc'+i;
-    btn.style.background=c.bg;
-    btn.addEventListener('click',()=>sclk(i));
+  ss=[]; sp=[]; sl=1;
+  a.innerHTML = '<div class="ja"><div class="jt">🌈 Sequência de Cores</div>' +
+    '<div class="jscr"><div class="js"><div class="v" id="sN">1</div><div class="l">Nível</div></div>' +
+    '<div class="js"><div class="v" id="sRec">' + S.seqRec + '</div><div class="l">Recorde</div></div></div>' +
+    '<div class="sdis" id="sdis"><span style="color:var(--gr);font-size:.83rem">Observe e repita!</span></div>' +
+    '<div class="scirs" id="scirs"></div>' +
+    '<button class="btn" id="sSBtn">▶️ Começar!</button></div>';
+  var cirs = document.getElementById('scirs');
+  SC.forEach(function(c, i) {
+    var btn = document.createElement('button');
+    btn.className = 'sqc'; btn.id = 'sqc' + i;
+    btn.style.background = c.bg;
+    btn.addEventListener('click', function() { sclk(i); });
     cirs.appendChild(btn);
   });
+  var sSBtn = document.getElementById('sSBtn');
+  if (sSBtn) sSBtn.addEventListener('click', sstart);
 }
 function sstart() {
-  document.getElementById('sSBtn').style.display='none';
-  ss.push(Math.floor(Math.random()*4));sp=[];playS();
+  var sSBtn = document.getElementById('sSBtn');
+  if (sSBtn) sSBtn.style.display = 'none';
+  ss.push(Math.floor(Math.random()*4)); sp=[];
+  playS();
 }
 function playS() {
-  disS(true);let i=0;
-  const iv=setInterval(()=>{
-    if(i>=ss.length){clearInterval(iv);disS(false);rdis();return;}
-    lts(ss[i]);i++;
-  },750);
+  disS(true); var i=0;
+  var iv = setInterval(function() {
+    if (i >= ss.length) { clearInterval(iv); disS(false); rdis(); return; }
+    lts(ss[i]); i++;
+  }, 750);
 }
-function lts(i){const e=document.getElementById('sqc'+i);if(e){e.classList.add('lit');setTimeout(()=>e.classList.remove('lit'),500);}}
-function disS(v){document.querySelectorAll('.sqc').forEach(c=>c.disabled=v);}
-function rdis(){
-  const d=document.getElementById('sdis');
-  if(d)d.innerHTML=ss.map(i=>`<div class="sdot" style="background:${SC[i].bg}"></div>`).join('');
+function lts(i) {
+  var e = document.getElementById('sqc'+i);
+  if (e) { e.classList.add('lit'); setTimeout(function(){e.classList.remove('lit');}, 500); }
+}
+function disS(v) {
+  document.querySelectorAll('.sqc').forEach(function(c) { c.disabled = v; });
+}
+function rdis() {
+  var d = document.getElementById('sdis');
+  if (d) d.innerHTML = ss.map(function(i) { return '<div class="sdot" style="background:' + SC[i].bg + '"></div>'; }).join('');
 }
 function sclk(i) {
-  sp.push(i);lts(i);
-  const pos=sp.length-1;
-  if(sp[pos]!==ss[pos]){
-    setTimeout(()=>{
-      if(sl>S.seqRec){S.seqRec=sl;sv();const r=document.getElementById('sRec');if(r)r.textContent=S.seqRec;unlockCQ('c9');}
-      showW('😅','Quase lá!',`Você chegou ao nível ${sl}! Tente de novo!`);
-      sl=1;ss=[];sp=[];
-      const n=document.getElementById('sN');if(n)n.textContent=1;
-      const d=document.getElementById('sdis');if(d)d.innerHTML='<span style="color:var(--gr);font-size:.83rem">Observe e repita!</span>';
-      const sb=document.getElementById('sSBtn');if(sb)sb.style.display='flex';
-    },400);return;
+  sp.push(i); lts(i);
+  var pos = sp.length-1;
+  if (sp[pos] !== ss[pos]) {
+    setTimeout(function() {
+      if (sl > S.seqRec) {
+        S.seqRec = sl; sv();
+        var r = document.getElementById('sRec');
+        if (r) r.textContent = S.seqRec;
+        unlockCQ('c9');
+      }
+      showW('😅','Quase lá!','Você chegou ao nível ' + sl + '! Tente de novo!');
+      sl=1; ss=[]; sp=[];
+      var n = document.getElementById('sN'); if (n) n.textContent = 1;
+      var d = document.getElementById('sdis');
+      if (d) d.innerHTML = '<span style="color:var(--gr);font-size:.83rem">Observe e repita!</span>';
+      var sb = document.getElementById('sSBtn'); if (sb) sb.style.display = 'flex';
+    }, 400);
+    return;
   }
-  if(sp.length===ss.length){sl++;addS(2);const n=document.getElementById('sN');if(n)n.textContent=sl;setTimeout(sstart,700);}
+  if (sp.length === ss.length) {
+    sl++; addS(2);
+    var n = document.getElementById('sN'); if (n) n.textContent = sl;
+    setTimeout(sstart, 700);
+  }
 }
 
 // Palavras
-const PW=[{w:'ESCOLA',h:'🏫'},{w:'AMIGO',h:'👫'},{w:'FELIZ',h:'😄'},{w:'LIVRO',h:'📚'},{w:'CASA',h:'🏠'},{w:'COMER',h:'🍽️'},{w:'BOLA',h:'⚽'},{w:'GATO',h:'🐱'},{w:'AGUA',h:'💧'},{w:'ROBO',h:'🤖'}];
-let pi2=0,pm=[];
+var PW = [{w:'ESCOLA',h:'🏫'},{w:'AMIGO',h:'👫'},{w:'FELIZ',h:'😄'},{w:'LIVRO',h:'📚'},
+  {w:'CASA',h:'🏠'},{w:'COMER',h:'🍽️'},{w:'BOLA',h:'⚽'},{w:'GATO',h:'🐱'},
+  {w:'AGUA',h:'💧'},{w:'ROBO',h:'🤖'}];
+var pi2=0, pm=[];
 function gpal(a) {
-  pi2=Math.floor(Math.random()*PW.length);pm=[];
-  const p=PW[pi2],mx=[...p.w].sort(()=>Math.random()-.5);
-  a.innerHTML=`<div class="ja"><div class="jt">📚 Monte a Palavra</div><span class="ph">${p.h}</span><div class="pslts" id="pslts">${p.w.split('').map(()=>'<div class="psl">_</div>').join('')}</div><div class="plets" id="plets"></div><button class="btn btn-o" onclick="sg(\'pal\')" style="margin-top:2px">🔄 Nova palavra</button></div>`;
-  const pl=document.getElementById('plets');
-  mx.forEach((l,i)=>{
-    const btn=document.createElement('button');
-    btn.className='plb';btn.textContent=l;btn.id='plb'+i;
-    btn.addEventListener('click',()=>apl(l,i));
+  pi2 = Math.floor(Math.random()*PW.length); pm=[];
+  var p = PW[pi2];
+  var mx = p.w.split('').sort(function(){return Math.random()-.5;});
+  a.innerHTML = '<div class="ja"><div class="jt">📚 Monte a Palavra</div>' +
+    '<span class="ph">' + p.h + '</span>' +
+    '<div class="pslts" id="pslts">' + p.w.split('').map(function(){return '<div class="psl">_</div>';}).join('') + '</div>' +
+    '<div class="plets" id="plets"></div>' +
+    '<button class="btn btn-o" id="novaPal" style="margin-top:4px">🔄 Nova palavra</button></div>';
+  var pl = document.getElementById('plets');
+  mx.forEach(function(l, i) {
+    var btn = document.createElement('button');
+    btn.className = 'plb'; btn.textContent = l; btn.id = 'plb'+i;
+    btn.addEventListener('click', function() { apl(l, i); });
     pl.appendChild(btn);
   });
+  var nova = document.getElementById('novaPal');
+  if (nova) nova.addEventListener('click', function() { sg('pal'); });
 }
-function apl(l,bi) {
-  const p=PW[pi2];pm.push(l);
-  const btn=document.getElementById('plb'+bi);if(btn)btn.disabled=true;
+function apl(l, bi) {
+  var p = PW[pi2]; pm.push(l);
+  var btn = document.getElementById('plb'+bi); if (btn) btn.disabled = true;
   upsl();
-  if(pm.length===p.w.length){
-    if(pm.join('')===p.w){
-      addS(5);burst(document.getElementById('garea'));
+  if (pm.length === p.w.length) {
+    if (pm.join('') === p.w) {
+      addS(5); burst(document.getElementById('garea'));
       fala('Parabéns! Você formou a palavra ' + p.w);
-      setTimeout(()=>showW('🎉','Palavra Certa! +5⭐','Você formou "'+p.w+'"! Incrível!'),300);
+      setTimeout(function() { showW('🎉','Palavra Certa! +5⭐','Você formou "'+p.w+'"!'); }, 300);
     } else {
       fala('Tente de novo');
-      setTimeout(()=>{pm=[];document.querySelectorAll('.plb').forEach(b=>b.disabled=false);upsl();},400);
+      setTimeout(function() {
+        pm = [];
+        document.querySelectorAll('.plb').forEach(function(b) { b.disabled = false; });
+        upsl();
+      }, 400);
     }
   }
 }
-function upsl(){document.querySelectorAll('.psl').forEach((s,i)=>{if(pm[i]){s.textContent=pm[i];s.classList.add('f');}else{s.textContent='_';s.classList.remove('f');}});}
+function upsl() {
+  document.querySelectorAll('.psl').forEach(function(s, i) {
+    if (pm[i]) { s.textContent = pm[i]; s.classList.add('f'); }
+    else { s.textContent = '_'; s.classList.remove('f'); }
+  });
+}
 
 // Contar
-const CNT=['🍎','⭐','🐶','🎈','🌸','🏀','🍕','🦋','🐠','🎭'];
+var CNT = ['🍎','⭐','🐶','🎈','🌸','🏀','🍕','🦋','🐠','🎭'];
 function gcnt(a) {
-  const emoji=CNT[Math.floor(Math.random()*CNT.length)];
-  const count=Math.floor(Math.random()*8)+1;
-  const opts=new Set([count]);
-  while(opts.size<3)opts.add(Math.max(1,count+Math.floor(Math.random()*5)-2));
-  const optArr=[...opts].sort(()=>Math.random()-.5);
-  a.innerHTML=`<div class="ja"><div class="jt">🔢 Quantos objetos?</div><div class="cnt-emojis">${emoji.repeat(count)}</div><p style="text-align:center;font-weight:700;margin-bottom:11px">Quantos ${emoji} você vê?</p><div class="cnt-opts" id="cntOpts"></div></div>`;
-  const g=document.getElementById('cntOpts');
-  optArr.forEach(n=>{
-    const btn=document.createElement('button');
-    btn.className='cob';btn.textContent=n;
-    btn.addEventListener('click',()=>{
-      g.querySelectorAll('.cob').forEach(b=>b.disabled=true);
-      if(n===count){btn.classList.add('ok');addS(3);burst(btn);fala('Correto! '+count);setTimeout(()=>gcnt(a),1200);}
-      else{btn.classList.add('no');g.querySelectorAll('.cob').forEach(b=>{if(+b.textContent===count)b.classList.add('ok');});fala('Era '+count);setTimeout(()=>gcnt(a),1500);}
+  var emoji = CNT[Math.floor(Math.random()*CNT.length)];
+  var count = Math.floor(Math.random()*8)+1;
+  var opts = [count];
+  while (opts.length < 3) {
+    var n = Math.max(1, count + Math.floor(Math.random()*5)-2);
+    if (opts.indexOf(n) === -1) opts.push(n);
+  }
+  opts.sort(function() { return Math.random()-.5; });
+  a.innerHTML = '<div class="ja"><div class="jt">🔢 Quantos objetos?</div>' +
+    '<div class="cnt-emojis">' + emoji.repeat(count) + '</div>' +
+    '<p style="text-align:center;font-weight:700;margin-bottom:11px">Quantos ' + emoji + ' você vê?</p>' +
+    '<div class="cnt-opts" id="cntOpts"></div></div>';
+  var g = document.getElementById('cntOpts');
+  opts.forEach(function(n) {
+    var btn = document.createElement('button');
+    btn.className = 'cob'; btn.textContent = n;
+    btn.addEventListener('click', function() {
+      g.querySelectorAll('.cob').forEach(function(b) { b.disabled = true; });
+      if (n === count) {
+        btn.classList.add('ok'); addS(3); burst(btn);
+        fala('Correto! ' + count);
+        setTimeout(function() { gcnt(a); }, 1200);
+      } else {
+        btn.classList.add('no');
+        g.querySelectorAll('.cob').forEach(function(b) { if (+b.textContent === count) b.classList.add('ok'); });
+        fala('Era ' + count);
+        setTimeout(function() { gcnt(a); }, 1500);
+      }
     });
     g.appendChild(btn);
   });
 }
 
 // Nomear Cor
-const CORES2=[{c:'#FF5252',n:'Vermelho'},{c:'#4F7BF7',n:'Azul'},{c:'#22C98A',n:'Verde'},{c:'#FFD166',n:'Amarelo'},{c:'#FF8C42',n:'Laranja'},{c:'#9B6DFF',n:'Roxo'},{c:'#FF6B9D',n:'Rosa'},{c:'#1A2540',n:'Preto'}];
+var CORES2 = [{c:'#FF5252',n:'Vermelho'},{c:'#4F7BF7',n:'Azul'},{c:'#22C98A',n:'Verde'},
+  {c:'#FFD166',n:'Amarelo'},{c:'#FF8C42',n:'Laranja'},{c:'#9B6DFF',n:'Roxo'},
+  {c:'#FF6B9D',n:'Rosa'},{c:'#1A2540',n:'Preto'}];
 function gcor2(a) {
-  const c=CORES2[Math.floor(Math.random()*CORES2.length)];
-  const opts=new Set([c.n]);
-  while(opts.size<4)opts.add(CORES2[Math.floor(Math.random()*CORES2.length)].n);
-  const optArr=[...opts].sort(()=>Math.random()-.5);
-  a.innerHTML=`<div class="ja"><div class="jt">🎨 Qual é esta cor?</div><div class="cor-circle" style="background:${c.c}"></div><p style="text-align:center;font-weight:700;margin-bottom:12px">Como se chama esta cor?</p><div class="eo-g" id="cor2G"></div></div>`;
-  const g=document.getElementById('cor2G');
-  optArr.forEach(n=>{
-    const btn=document.createElement('button');
-    btn.className='eo';btn.textContent=n;
-    btn.addEventListener('click',()=>{
-      g.querySelectorAll('.eo').forEach(b=>b.disabled=true);
-      if(n===c.n){btn.classList.add('ok');btn.textContent='✅ '+n;addS(3);burst(btn);fala('Correto! ' + n);setTimeout(()=>gcor2(a),1200);}
-      else{btn.classList.add('no');g.querySelectorAll('.eo').forEach(b=>{if(b.textContent===c.n)b.classList.add('ok');});fala('Era ' + c.n);setTimeout(()=>gcor2(a),1500);}
+  var c = CORES2[Math.floor(Math.random()*CORES2.length)];
+  var opts = [c.n];
+  while (opts.length < 4) {
+    var n = CORES2[Math.floor(Math.random()*CORES2.length)].n;
+    if (opts.indexOf(n) === -1) opts.push(n);
+  }
+  opts.sort(function() { return Math.random()-.5; });
+  a.innerHTML = '<div class="ja"><div class="jt">🎨 Qual é esta cor?</div>' +
+    '<div class="cor-circle" style="background:' + c.c + '"></div>' +
+    '<p style="text-align:center;font-weight:700;margin-bottom:12px">Como se chama esta cor?</p>' +
+    '<div class="eo-g" id="cor2G"></div></div>';
+  var g = document.getElementById('cor2G');
+  opts.forEach(function(n) {
+    var btn = document.createElement('button');
+    btn.className = 'eo'; btn.textContent = n;
+    btn.addEventListener('click', function() {
+      g.querySelectorAll('.eo').forEach(function(b) { b.disabled = true; });
+      if (n === c.n) {
+        btn.classList.add('ok'); btn.textContent = '✅ ' + n;
+        addS(3); burst(btn); fala('Correto! ' + n);
+        setTimeout(function() { gcor2(a); }, 1200);
+      } else {
+        btn.classList.add('no');
+        g.querySelectorAll('.eo').forEach(function(b) { if (b.textContent === c.n) b.classList.add('ok'); });
+        fala('Era ' + c.n);
+        setTimeout(function() { gcor2(a); }, 1500);
+      }
     });
     g.appendChild(btn);
   });
 }
 
 // ── ROTINA ──
-const RD=[
+var RD = [
   {id:'r1',ic:'⏰',h:'07:00',t:'Acordar',d:'Hora de levantar! Bom dia! ☀️'},
   {id:'r2',ic:'🪥',h:'07:15',t:'Escovar os dentes',d:'Deixe os dentes brilhando!'},
   {id:'r3',ic:'🚿',h:'07:30',t:'Tomar banho',d:'Fique limpo e cheiroso!'},
@@ -930,39 +1082,45 @@ const RD=[
   {id:'r7',ic:'🏫',h:'08:30',t:'Ir para a escola',d:'Aprender coisas novas!'},
   {id:'r8',ic:'📚',h:'14:00',t:'Hora de estudar',d:'Revisão das atividades.'},
   {id:'r9',ic:'🎮',h:'16:00',t:'Tempo livre',d:'Jogar e relaxar!'},
-  {id:'r10',ic:'🌙',h:'21:00',t:'Hora de dormir',d:'Descanso é essencial!'},
+  {id:'r10',ic:'🌙',h:'21:00',t:'Hora de dormir',d:'Descanso é essencial!'}
 ];
 function renderRotina() {
-  const done=Object.values(S.rotina).filter(Boolean).length;
-  const pct=Math.round(done/RD.length*100);
-  document.getElementById('rbar').style.width=pct+'%';
-  document.getElementById('rtPct').textContent=pct+'%';
-  document.getElementById('rtT').textContent=pct===100?'Rotina completa! 🎉':`${done} de ${RD.length} feitos`;
-  document.getElementById('rtD').textContent=pct===100?'Parabéns! Você fez tudo!':'Continue assim!';
-  const list=document.getElementById('rlist');
-  list.innerHTML='';
-  RD.forEach(r=>{
-    const done=!!S.rotina[r.id];
-    const div=document.createElement('div');
-    div.className='ri'+(done?' done':'');div.id=r.id;
-    div.innerHTML=`<span class="ri-ic">${r.ic}</span><div class="ri-inf2"><h4>${r.h} – ${r.t}</h4><p>${r.d}</p></div>`;
-    const btn=document.createElement('button');
-    btn.className='ri-chk';btn.textContent=done?'✅':'';
-    btn.addEventListener('click',()=>{
-      S.rotina[r.id]=!S.rotina[r.id];sv();
-      div.classList.toggle('done',S.rotina[r.id]);
-      btn.textContent=S.rotina[r.id]?'✅':'';
-      if(S.rotina[r.id]){addS(1);burst(btn);fala('Muito bem!');}
+  var done = Object.values(S.rotina).filter(Boolean).length;
+  var pct = Math.round(done/RD.length*100);
+  var bar = document.getElementById('rbar'); if (bar) bar.style.width = pct+'%';
+  var pctEl = document.getElementById('rtPct'); if (pctEl) pctEl.textContent = pct+'%';
+  var tEl = document.getElementById('rtT');
+  if (tEl) tEl.textContent = pct===100 ? 'Rotina completa! 🎉' : done+' de '+RD.length+' feitos';
+  var dEl = document.getElementById('rtD');
+  if (dEl) dEl.textContent = pct===100 ? 'Parabéns! Você fez tudo!' : 'Continue assim!';
+  var list = document.getElementById('rlist');
+  if (!list) return;
+  list.innerHTML = '';
+  RD.forEach(function(r) {
+    var dn = !!S.rotina[r.id];
+    var div = document.createElement('div');
+    div.className = 'ri' + (dn ? ' done' : '');
+    div.id = r.id;
+    div.innerHTML = '<span class="ri-ic">' + r.ic + '</span>' +
+      '<div class="ri-inf2"><h4>' + r.h + ' – ' + r.t + '</h4><p>' + r.d + '</p></div>';
+    var chk = document.createElement('button');
+    chk.className = 'ri-chk';
+    chk.textContent = dn ? '✅' : '';
+    chk.addEventListener('click', function() {
+      S.rotina[r.id] = !S.rotina[r.id]; sv();
+      div.classList.toggle('done', S.rotina[r.id]);
+      chk.textContent = S.rotina[r.id] ? '✅' : '';
+      if (S.rotina[r.id]) { addS(1); burst(chk); fala('Muito bem!'); }
       renderRotina();
-      if(Object.values(S.rotina).filter(Boolean).length===RD.length)unlockCQ('c6');
+      if (Object.values(S.rotina).filter(Boolean).length === RD.length) unlockCQ('c6');
     });
-    div.appendChild(btn);
+    div.appendChild(chk);
     list.appendChild(div);
   });
 }
 
 // ── CONQUISTAS ──
-const CQD=[
+var CQD = [
   {id:'c1',ic:'🌟',t:'Primeira Estrela',d:'Ganhe sua 1ª estrela'},
   {id:'c2',ic:'💭',t:'Expressando Emoções',d:'Registre seu humor'},
   {id:'c3',ic:'🗣️',t:'Voz Ativa',d:'Use os pictogramas'},
@@ -972,65 +1130,91 @@ const CQD=[
   {id:'c7',ic:'⭐',t:'Super Estrela',d:'Acumule 50 estrelas'},
   {id:'c8',ic:'🏆',t:'Campeão',d:'Acumule 100 estrelas'},
   {id:'c9',ic:'🌈',t:'Mestre das Cores',d:'Alcance nível 5 nas cores'},
-  {id:'c10',ic:'🔥',t:'Dedicado',d:'Acesse por 3 dias seguidos'},
+  {id:'c10',ic:'🔥',t:'Dedicado',d:'Acesse por 3 dias seguidos'}
 ];
 function renderCQ() {
   chkAutoCQ();
-  document.getElementById('cqTitle').textContent=S.stars+' Estrelas';
-  document.getElementById('cqg').innerHTML=CQD.map(c=>{
-    const ok=S.cq.includes(c.id);
-    return `<div class="cqc${ok?' ok':''}"><span class="cqi">${c.ic}</span><h4>${c.t}</h4><p>${c.d}</p><span class="cqs">${ok?'✅ Desbloqueada!':'🔒 Bloqueada'}</span></div>`;
+  var tEl = document.getElementById('cqTitle');
+  if (tEl) tEl.textContent = S.stars + ' Estrelas';
+  var g = document.getElementById('cqg');
+  if (!g) return;
+  g.innerHTML = CQD.map(function(c) {
+    var ok = S.cq.indexOf(c.id) !== -1;
+    return '<div class="cqc' + (ok?' ok':'') + '">' +
+      '<span class="cqi">' + c.ic + '</span>' +
+      '<h4>' + c.t + '</h4><p>' + c.d + '</p>' +
+      '<span class="cqs">' + (ok?'✅ Desbloqueada!':'🔒 Bloqueada') + '</span></div>';
   }).join('');
 }
-function chkAutoCQ(){if(S.stars>=1)unlockCQ('c1');if(S.stars>=50)unlockCQ('c7');if(S.stars>=100)unlockCQ('c8');if(S.seqRec>=5)unlockCQ('c9');if(S.dias>=3)unlockCQ('c10');}
-function unlockCQ(id){
-  if(S.cq.includes(id))return;
-  S.cq.push(id);sv();
-  const c=CQD.find(x=>x.id===id);
-  if(c)setTimeout(()=>showW('🏆','Conquista!','"'+c.t+'" desbloqueada!'),500);
+function chkAutoCQ() {
+  if (S.stars>=1) unlockCQ('c1');
+  if (S.stars>=50) unlockCQ('c7');
+  if (S.stars>=100) unlockCQ('c8');
+  if (S.seqRec>=5) unlockCQ('c9');
+  if (S.dias>=3) unlockCQ('c10');
+}
+function unlockCQ(id) {
+  if (S.cq.indexOf(id) !== -1) return;
+  S.cq.push(id); sv();
+  var c = null;
+  for (var k=0; k<CQD.length; k++) { if (CQD[k].id===id) { c=CQD[k]; break; } }
+  if (c) setTimeout(function() { showW('🏆','Conquista!','"'+c.t+'" desbloqueada!'); }, 500);
 }
 
 // ── ESTRELAS ──
-function addS(n){
-  S.stars+=n;sv();
-  document.getElementById('hStars').textContent=S.stars;
-  document.getElementById('statStars').textContent=S.stars;
-  document.getElementById('cqTitle').textContent=S.stars+' Estrelas';
+function addS(n) {
+  S.stars += n; sv();
+  var h = document.getElementById('hStars'); if (h) h.textContent = S.stars;
+  var s = document.getElementById('statStars'); if (s) s.textContent = S.stars;
+  var t = document.getElementById('cqTitle'); if (t) t.textContent = S.stars + ' Estrelas';
   chkAutoCQ();
 }
 
 // ── MODAL ──
-function showW(ico,t,m){document.getElementById('winIco').textContent=ico;document.getElementById('winT').textContent=t;document.getElementById('winM').textContent=m;document.getElementById('winMbg').classList.add('show');}
-function closeWin(){document.getElementById('winMbg').classList.remove('show');}
+function showW(ico, t, m) {
+  var mbg = document.getElementById('winMbg');
+  var wIco = document.getElementById('winIco');
+  var wT = document.getElementById('winT');
+  var wM = document.getElementById('winM');
+  if (wIco) wIco.textContent = ico;
+  if (wT) wT.textContent = t;
+  if (wM) wM.textContent = m;
+  if (mbg) mbg.classList.add('show');
+}
+function closeWin() {
+  var mbg = document.getElementById('winMbg');
+  if (mbg) mbg.classList.remove('show');
+}
 
 // ── QR ──
-''' + f'const QR_URL = {QR};' + r'''
-document.addEventListener('DOMContentLoaded', () => {
-  const img = document.getElementById('qrImg');
-  if (img) img.src = QR_URL;
-});
-function dlQR(){const a=document.createElement('a');a.href=QR_URL;a.download='teabot-qrcode.png';a.click();}
+function dlQR() {
+  var a = document.createElement('a');
+  a.href = QR_URL;
+  a.download = 'teabot-qrcode.png';
+  a.click();
+}
 
 // ── BURST ──
-function burst(el){
-  if(!el)return;
-  try{
-    const r=el.getBoundingClientRect();
-    ['⭐','✨','🌟','💫'][Math.floor(Math.random()*4)];
-    const emojis=['⭐','✨','🌟','💫','🎉'];
-    for(let k=0;k<3;k++){
-      setTimeout(()=>{
-        const b=document.createElement('div');
-        b.className='bst';
-        b.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-        b.style.left=(r.left+Math.random()*r.width)+'px';
-        b.style.top=(r.top+window.scrollY)+'px';
-        document.body.appendChild(b);
-        setTimeout(()=>b.remove(),900);
-      },k*100);
+function burst(el) {
+  if (!el) return;
+  try {
+    var r = el.getBoundingClientRect();
+    var emojis = ['⭐','✨','🌟','💫','🎉'];
+    for (var k=0; k<3; k++) {
+      (function(k) {
+        setTimeout(function() {
+          var b = document.createElement('div');
+          b.className = 'bst';
+          b.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+          b.style.left = (r.left + Math.random()*r.width) + 'px';
+          b.style.top = (r.top + window.scrollY) + 'px';
+          document.body.appendChild(b);
+          setTimeout(function() { b.remove(); }, 900);
+        }, k*100);
+      })(k);
     }
-  }catch(e){}
+  } catch(e) {}
 }
 </script>
 </body>
-</html>'''
+</html>
