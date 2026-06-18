@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>TEAbot</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
+
 :root{
   --az:#4F7BF7;--az2:#7B9FF9;--azl:#EEF3FF;
   --vd:#22C98A;--vd2:#5DDAA8;--vdl:#E6FAF2;
@@ -258,10 +258,88 @@ nav::-webkit-scrollbar{display:none}
 /* BURST */
 .bst{position:fixed;pointer-events:none;z-index:900;font-size:1.6rem;animation:bstUp .85s forwards}
 @keyframes bstUp{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-60px) scale(1.6)}}
+
+
+/* ══════════════════════════════════════
+   AUTH SCREENS
+══════════════════════════════════════ */
+#authWrap{position:fixed;inset:0;z-index:800;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#authWrap.off{display:none}
+.auth-header{background:linear-gradient(135deg,#4F7BF7,#22C98A);padding:32px 20px 24px;text-align:center;color:#fff}
+.auth-header .bot{font-size:60px;display:block;animation:bob 2.5s ease-in-out infinite;margin-bottom:6px}
+.auth-header h1{font-family:'Baloo 2',cursive;font-size:2rem;font-weight:800}
+.auth-header p{opacity:.88;font-size:.9rem;margin-top:3px}
+.auth-tabs{display:flex;background:var(--wh);border-bottom:2px solid #E8EFFE;flex-shrink:0}
+.auth-tab{flex:1;padding:13px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;color:var(--gr);border:none;background:transparent;border-bottom:3px solid transparent;transition:all .2s}
+.auth-tab.on{color:var(--az);border-bottom-color:var(--az)}
+.auth-body{padding:20px 16px 40px}
+.auth-form{display:none}
+.auth-form.on{display:block;animation:fu .25s ease}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.82rem;font-weight:800;color:var(--tx);margin-bottom:5px}
+.field input,.field select,.field textarea{
+  width:100%;border:2px solid #E2E8F0;border-radius:12px;padding:12px 14px;
+  font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--tx);
+  background:var(--wh);outline:none;transition:border-color .2s;
+  -webkit-appearance:none;appearance:none
+}
+.field input:focus,.field select:focus{border-color:var(--az)}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394A3B8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.auth-btn{width:100%;background:linear-gradient(135deg,var(--az),var(--az2));border:none;border-radius:50px;padding:15px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#fff;box-shadow:0 6px 18px rgba(79,123,247,.35);transition:transform .15s;margin-top:6px}
+.auth-btn:active{transform:scale(.96)}
+.auth-btn-g{background:linear-gradient(135deg,var(--vd),var(--vd2));box-shadow:0 6px 18px rgba(34,201,138,.35)}
+.auth-btn-r{background:linear-gradient(135deg,var(--rs),#FFB347);box-shadow:0 6px 18px rgba(255,107,157,.35)}
+.auth-err{background:var(--vml);border:2px solid var(--vm);border-radius:12px;padding:10px 14px;font-size:.85rem;font-weight:700;color:var(--vm);margin-bottom:12px;display:none}
+.auth-err.show{display:block}
+.auth-ok{background:var(--vdl);border:2px solid var(--vd);border-radius:12px;padding:10px 14px;font-size:.85rem;font-weight:700;color:var(--vd);margin-bottom:12px;display:none}
+.auth-ok.show{display:block}
+.divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--gr);font-size:.82rem;font-weight:700}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#E2E8F0}
+.nivel-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.nivel-btn{background:var(--bg);border:2.5px solid #E2E8F0;border-radius:12px;padding:10px 6px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:800;color:var(--gr);text-align:center;cursor:pointer;transition:all .2s}
+.nivel-btn.on{border-color:var(--az);background:var(--azl);color:var(--az)}
+.nivel-btn span{display:block;font-size:1.5rem;margin-bottom:3px}
+
+/* PERFIL */
+.profile-header{background:linear-gradient(135deg,#4F7BF7,#22C98A);padding:24px 16px 20px;text-align:center;color:#fff;flex-shrink:0}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:10px}
+.avatar{width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,255,255,.6);object-fit:cover;background:#fff;display:block}
+.avatar-change{position:absolute;bottom:0;right:0;background:var(--am);border:2px solid #fff;border-radius:50%;width:26px;height:26px;font-size:.75rem;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.profile-name{font-family:'Baloo 2',cursive;font-size:1.35rem;font-weight:800}
+.profile-info{opacity:.88;font-size:.82rem;margin-top:2px}
+.profile-chips{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.profile-chip{background:rgba(255,255,255,.2);border-radius:50px;padding:4px 11px;font-size:.77rem;font-weight:700}
+
+/* ÁREA RESPONSÁVEL */
+.resp-hero{background:linear-gradient(135deg,#9B6DFF,#FF6B9D);border-radius:var(--r);padding:20px;color:#fff;text-align:center;margin-bottom:16px}
+.resp-hero .big{font-size:48px;display:block;margin-bottom:6px}
+.resp-hero h2{font-family:'Baloo 2',cursive;font-size:1.4rem;font-weight:800}
+.resp-hero p{opacity:.9;font-size:.85rem;margin-top:3px}
+.stat-card{background:var(--wh);border-radius:var(--r);padding:16px;box-shadow:var(--sh);margin-bottom:12px}
+.stat-card h4{font-family:'Baloo 2',cursive;font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #F1F5F9}
+.stat-row:last-child{border:none}
+.stat-row .sr-label{font-size:.83rem;font-weight:700}
+.stat-row .sr-val{font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:800;color:var(--az)}
+.mood-timeline{display:flex;flex-direction:column;gap:7px}
+.mt-row{display:flex;align-items:center;gap:9px;background:var(--bg);border-radius:11px;padding:9px 11px}
+.mt-ico{font-size:1.6rem;flex-shrink:0}
+.mt-info{flex:1}
+.mt-info b{font-size:.82rem;font-weight:800;display:block}
+.mt-info span{font-size:.74rem;color:var(--gr)}
+.mt-time{font-size:.7rem;color:var(--gr);flex-shrink:0}
+.pdf-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;background:linear-gradient(135deg,#9B6DFF,#FF6B9D);border:none;border-radius:50px;padding:14px;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;color:#fff;box-shadow:0 5px 16px rgba(155,109,255,.35);transition:transform .15s;margin-top:4px}
+.pdf-btn:active{transform:scale(.95)}
+.logout-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;background:var(--vml);border:2px solid var(--vm);border-radius:50px;padding:13px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:900;color:var(--vm);transition:transform .15s;margin-top:10px}
+.logout-btn:active{transform:scale(.95)}
+.hprofile-btn{width:36px;height:36px;border-radius:50%;border:2px solid var(--az);overflow:hidden;padding:0;background:var(--azl);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.hprofile-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 </style>
 </head>
 <body>
 
+<!-- SPLASH -->
 <div id="splash">
   <span class="sp-bot">🤖</span>
   <h1>TEAbot</h1>
@@ -269,25 +347,115 @@ nav::-webkit-scrollbar{display:none}
   <div class="ldots"><i></i><i></i><i></i></div>
 </div>
 
-<header>
+<!-- ═══════ AUTH WRAP ═══════ -->
+<div id="authWrap">
+  <div class="auth-header">
+    <span class="bot">🤖</span>
+    <h1>TEAbot</h1>
+    <p>Aprendizado para todos!</p>
+  </div>
+  <div class="auth-tabs">
+    <button class="auth-tab on" id="tabLogin" onclick="authTab('login')">🔑 Entrar</button>
+    <button class="auth-tab" id="tabCad" onclick="authTab('cadastro')">✏️ Cadastrar</button>
+    <button class="auth-tab" id="tabResp" onclick="authTab('responsavel')">👨‍👩‍👧 Responsável</button>
+  </div>
+  <div class="auth-body">
+
+    <!-- LOGIN -->
+    <div class="auth-form on" id="formLogin">
+      <div class="auth-err" id="loginErr">Usuário ou senha incorretos.</div>
+      <div class="field"><label>👤 Nome de usuário</label><input type="text" id="loginUser" placeholder="Seu usuário" autocapitalize="none"></div>
+      <div class="field"><label>🔒 Senha</label><input type="password" id="loginPass" placeholder="Sua senha"></div>
+      <button class="auth-btn" onclick="doLogin()">🚀 Entrar</button>
+      <div class="divider">ou</div>
+      <button class="auth-btn auth-btn-g" onclick="authTab('cadastro')">✏️ Criar conta</button>
+    </div>
+
+    <!-- CADASTRO -->
+    <div class="auth-form" id="formCad">
+      <div class="auth-err" id="cadErr"></div>
+      <div class="auth-ok" id="cadOk">Cadastro realizado! Pode fazer login agora 🎉</div>
+
+      <!-- Foto de perfil -->
+      <div class="field" style="text-align:center;margin-bottom:18px">
+        <label>📸 Foto de perfil (opcional)</label>
+        <div style="margin-top:10px;position:relative;display:inline-block">
+          <img id="cadAvatarPrev" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23EEF3FF'/%3E%3Ctext x='40' y='52' text-anchor='middle' font-size='36'%3E🤖%3C/text%3E%3C/svg%3E"
+            style="width:80px;height:80px;border-radius:50%;border:3px solid var(--az);object-fit:cover">
+          <label for="cadAvatarInput" style="position:absolute;bottom:0;right:0;background:var(--am);border:2px solid #fff;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.75rem">📷</label>
+          <input type="file" id="cadAvatarInput" accept="image/*" style="display:none" onchange="previewAvatar(this)">
+        </div>
+      </div>
+
+      <div class="field"><label>👤 Nome de usuário</label><input type="text" id="cadUser" placeholder="Ex: joao_silva" autocapitalize="none"></div>
+      <div class="field"><label>✍️ Nome completo</label><input type="text" id="cadNome" placeholder="Nome do aluno"></div>
+      <div class="field-row">
+        <div class="field"><label>🎂 Idade</label><input type="number" id="cadIdade" placeholder="Ex: 10" min="3" max="30"></div>
+        <div class="field"><label>📚 Série</label>
+          <select id="cadSerie">
+            <option value="">Selecione</option>
+            <option>Pré-escola</option>
+            <option>1º ano EF</option><option>2º ano EF</option><option>3º ano EF</option>
+            <option>4º ano EF</option><option>5º ano EF</option><option>6º ano EF</option>
+            <option>7º ano EF</option><option>8º ano EF</option><option>9º ano EF</option>
+            <option>1º ano EM</option><option>2º ano EM</option><option>3º ano EM</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>🧩 Nível do autismo</label>
+        <div class="nivel-btns" id="nivelBtns">
+          <button class="nivel-btn" data-n="1" onclick="selNivel(this)"><span>🟢</span>Nível 1<br><small style="font-weight:400;font-size:.68rem">Apoio leve</small></button>
+          <button class="nivel-btn" data-n="2" onclick="selNivel(this)"><span>🟡</span>Nível 2<br><small style="font-weight:400;font-size:.68rem">Apoio moderado</small></button>
+          <button class="nivel-btn" data-n="3" onclick="selNivel(this)"><span>🔴</span>Nível 3<br><small style="font-weight:400;font-size:.68rem">Apoio intenso</small></button>
+        </div>
+      </div>
+      <div class="field"><label>👨‍👩‍👧 Nome do responsável</label><input type="text" id="cadResp" placeholder="Nome do pai/mãe/responsável"></div>
+      <div class="field"><label>🔒 Senha</label><input type="password" id="cadPass" placeholder="Mínimo 4 caracteres"></div>
+      <div class="field"><label>🔒 Confirmar senha</label><input type="password" id="cadPass2" placeholder="Repita a senha"></div>
+      <button class="auth-btn auth-btn-g" onclick="doCadastro()">✅ Criar minha conta</button>
+    </div>
+
+    <!-- RESPONSÁVEL -->
+    <div class="auth-form" id="formResp">
+      <div class="resp-hero">
+        <span class="big">👨‍👩‍👧</span>
+        <h2>Área do Responsável</h2>
+        <p>Acompanhe o desempenho do seu filho</p>
+      </div>
+      <div class="auth-err" id="respErr">Aluno não encontrado.</div>
+      <div class="field"><label>🔍 Nome do responsável ou do aluno</label><input type="text" id="respBusca" placeholder="Ex: Carlos ou João Silva"></div>
+      <button class="auth-btn auth-btn-r" onclick="buscarAluno()">🔍 Buscar aluno</button>
+      <div id="respResultado" style="margin-top:20px"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ APP PRINCIPAL ═══════ -->
+<header id="mainHeader" style="display:none">
   <div class="hl">
     <span class="hl-ico">🤖</span>
     <span class="hl-nm">TEAbot</span>
   </div>
-  <button class="hstar" id="hstarBtn">⭐ <span id="hStars">0</span></button>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button class="hstar" id="hstarBtn">⭐ <span id="hStars">0</span></button>
+    <button class="hprofile-btn" id="hProfileBtn" onclick="goTab('perfil')">🤖</button>
+  </div>
 </header>
 
-<nav>
+<nav id="mainNav" style="display:none">
   <button class="tb on" data-tab="home">🏠 Início</button>
   <button class="tb" data-tab="comoestou">💭 Como Estou</button>
   <button class="tb" data-tab="picto">🗣️ Falar</button>
   <button class="tb" data-tab="jogos">🎮 Jogos</button>
   <button class="tb" data-tab="rotina">📅 Rotina</button>
   <button class="tb" data-tab="conquistas">🏆 Conquistas</button>
+  <button class="tb" data-tab="perfil">👤 Perfil</button>
   <button class="tb" data-tab="qr">📱 QR</button>
 </nav>
 
-<div class="wrap">
+<div class="wrap" id="mainWrap" style="display:none">
 
 <!-- HOME -->
 <section id="home" class="sc on">
@@ -394,6 +562,33 @@ nav::-webkit-scrollbar{display:none}
   <div class="cqg" id="cqg"></div>
 </section>
 
+<!-- PERFIL -->
+<section id="perfil" class="sc" style="padding:0">
+  <div class="profile-header">
+    <div class="avatar-wrap">
+      <img id="profileAvatar" class="avatar" src="" alt="Foto">
+      <label for="profileAvatarInput" class="avatar-change">📷</label>
+      <input type="file" id="profileAvatarInput" accept="image/*" style="display:none" onchange="changeAvatar(this)">
+    </div>
+    <div class="profile-name" id="profileName">Aluno</div>
+    <div class="profile-info" id="profileInfo"></div>
+    <div class="profile-chips" id="profileChips"></div>
+  </div>
+  <div style="padding:16px">
+    <div class="ttl">📊 Meu desempenho</div>
+    <div class="home-stats" style="margin-bottom:16px">
+      <div class="stat-box"><div class="sv" id="pStatStars">0</div><div class="sl">⭐ Estrelas</div></div>
+      <div class="stat-box"><div class="sv" id="pStatCQ">0</div><div class="sl">🏆 Conquistas</div></div>
+      <div class="stat-box"><div class="sv" id="pStatDias">0</div><div class="sl">🔥 Dias</div></div>
+    </div>
+    <div class="ttl">💭 Últimos humores</div>
+    <div id="perfilMoodHist" class="mood-hist" style="margin-bottom:16px">
+      <div class="no-hist">Nenhum registro ainda.</div>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">🚪 Sair da conta</button>
+  </div>
+</section>
+
 <!-- QR -->
 <section id="qr" class="sc">
   <div class="ttl" style="justify-content:center">📱 Acesso por QR Code</div>
@@ -411,7 +606,7 @@ nav::-webkit-scrollbar{display:none}
   </div>
 </section>
 
-</div><!-- /wrap -->
+</div>
 
 <!-- MODAL WIN -->
 <div class="mbg" id="winMbg">
@@ -424,35 +619,397 @@ nav::-webkit-scrollbar{display:none}
 </div>
 
 <script>
-// QR declarado primeiro (evita erro de referência no iOS/Safari)
 const QR_URL = "data:image/png;base64,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";
 
-// ── ESTADO ──
-const S = {
-  stars: +localStorage.getItem('t_stars') || 0,
-  rotina: JSON.parse(localStorage.getItem('t_rotina') || '{}'),
-  cq: JSON.parse(localStorage.getItem('t_cq') || '[]'),
-  seqRec: +localStorage.getItem('t_seqrec') || 0,
-  frase: [],
-  fhist: JSON.parse(localStorage.getItem('t_fhist') || '[]'),
-  moodHist: JSON.parse(localStorage.getItem('t_moodhist') || '[]'),
-  curMood: {e:'😊', n:'Como estou agora', note:''},
-  selMoodEl: null,
-  _selMoodIdx: null,
-  dias: +localStorage.getItem('t_dias') || 1,
-  lastDay: localStorage.getItem('t_lastday') || ''
+// ══════════════════════════════════════
+// BANCO DE DADOS LOCAL
+// ══════════════════════════════════════
+function getUsers() {
+  return JSON.parse(localStorage.getItem('tea_users') || '{}');
+}
+function saveUsers(u) {
+  localStorage.setItem('tea_users', JSON.stringify(u));
+}
+function getCurrentUser() {
+  var uid = localStorage.getItem('tea_current');
+  if (!uid) return null;
+  var users = getUsers();
+  return users[uid] || null;
+}
+function saveCurrentUserData(data) {
+  var uid = localStorage.getItem('tea_current');
+  if (!uid) return;
+  var users = getUsers();
+  if (!users[uid]) return;
+  Object.assign(users[uid].data, data);
+  saveUsers(users);
+}
+
+// ══════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════
+var cadNivelSel = null;
+var cadAvatarData = null;
+
+function authTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(function(b) { b.classList.remove('on'); });
+  document.querySelectorAll('.auth-form').forEach(function(f) { f.classList.remove('on'); });
+  var tabMap = {login:'tabLogin', cadastro:'tabCad', responsavel:'tabResp'};
+  var formMap = {login:'formLogin', cadastro:'formCad', responsavel:'formResp'};
+  var t = document.getElementById(tabMap[tab]);
+  var f = document.getElementById(formMap[tab]);
+  if (t) t.classList.add('on');
+  if (f) f.classList.add('on');
+}
+
+function previewAvatar(input) {
+  if (!input.files || !input.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    cadAvatarData = e.target.result;
+    var prev = document.getElementById('cadAvatarPrev');
+    if (prev) prev.src = cadAvatarData;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function selNivel(btn) {
+  document.querySelectorAll('.nivel-btn').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  cadNivelSel = btn.dataset.n;
+}
+
+function showAuthErr(id, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 3500);
+}
+function showAuthOk(id, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function doCadastro() {
+  var user = (document.getElementById('cadUser').value || '').trim().toLowerCase();
+  var nome = (document.getElementById('cadNome').value || '').trim();
+  var idade = (document.getElementById('cadIdade').value || '').trim();
+  var serie = (document.getElementById('cadSerie').value || '').trim();
+  var resp = (document.getElementById('cadResp').value || '').trim();
+  var pass = (document.getElementById('cadPass').value || '');
+  var pass2 = (document.getElementById('cadPass2').value || '');
+
+  if (!user) { showAuthErr('cadErr', 'Digite um nome de usuário.'); return; }
+  if (!nome) { showAuthErr('cadErr', 'Digite o nome completo.'); return; }
+  if (!idade) { showAuthErr('cadErr', 'Digite a idade.'); return; }
+  if (!serie) { showAuthErr('cadErr', 'Selecione a série.'); return; }
+  if (!cadNivelSel) { showAuthErr('cadErr', 'Selecione o nível do autismo.'); return; }
+  if (!resp) { showAuthErr('cadErr', 'Digite o nome do responsável.'); return; }
+  if (pass.length < 4) { showAuthErr('cadErr', 'Senha deve ter ao menos 4 caracteres.'); return; }
+  if (pass !== pass2) { showAuthErr('cadErr', 'As senhas não coincidem.'); return; }
+
+  var users = getUsers();
+  if (users[user]) { showAuthErr('cadErr', 'Esse usuário já existe. Escolha outro.'); return; }
+
+  users[user] = {
+    user: user,
+    nome: nome,
+    idade: idade,
+    serie: serie,
+    nivel: cadNivelSel,
+    resp: resp,
+    pass: pass,
+    avatar: cadAvatarData || '',
+    data: {
+      stars: 0, rotina: {}, cq: [], seqRec: 0,
+      fhist: [], moodHist: [], dias: 1,
+      lastDay: '', frase: []
+    }
+  };
+  saveUsers(users);
+
+  // Limpar form
+  ['cadUser','cadNome','cadIdade','cadPass','cadPass2','cadResp'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('cadSerie').value = '';
+  document.querySelectorAll('.nivel-btn').forEach(function(b) { b.classList.remove('on'); });
+  cadNivelSel = null; cadAvatarData = null;
+  var prev = document.getElementById('cadAvatarPrev');
+  if (prev) prev.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23EEF3FF'/%3E%3Ctext x='40' y='52' text-anchor='middle' font-size='36'%3E🤖%3C/text%3E%3C/svg%3E";
+
+  showAuthOk('cadOk', 'Conta criada com sucesso! Faça login agora 🎉');
+  setTimeout(function() { authTab('login'); document.getElementById('loginUser').value = user; }, 1800);
+}
+
+function doLogin() {
+  var user = (document.getElementById('loginUser').value || '').trim().toLowerCase();
+  var pass = (document.getElementById('loginPass').value || '');
+  var users = getUsers();
+  if (!users[user] || users[user].pass !== pass) {
+    showAuthErr('loginErr', 'Usuário ou senha incorretos.');
+    return;
+  }
+  localStorage.setItem('tea_current', user);
+  enterApp(users[user]);
+}
+
+function enterApp(userObj) {
+  // Esconde auth, mostra app
+  document.getElementById('authWrap').classList.add('off');
+  document.getElementById('mainHeader').style.display = 'flex';
+  document.getElementById('mainNav').style.display = 'flex';
+  document.getElementById('mainWrap').style.display = 'block';
+
+  // Carrega dados do usuário
+  var d = userObj.data;
+  S.stars = d.stars || 0;
+  S.rotina = d.rotina || {};
+  S.cq = d.cq || [];
+  S.seqRec = d.seqRec || 0;
+  S.fhist = d.fhist || [];
+  S.moodHist = d.moodHist || [];
+  S.dias = d.dias || 1;
+  S.lastDay = d.lastDay || '';
+  S.frase = [];
+  S.curMood = {e:'😊', n:'Como estou agora', note:''};
+  S._selMoodIdx = null; S.selMoodEl = null;
+
+  // Atualiza avatar no header
+  var hBtn = document.getElementById('hProfileBtn');
+  if (hBtn) {
+    if (userObj.avatar) {
+      hBtn.innerHTML = '<img src="' + userObj.avatar + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+    } else {
+      hBtn.textContent = userObj.nome ? userObj.nome[0].toUpperCase() : '🤖';
+    }
+  }
+
+  checkDias();
+  initMoodGrid();
+  initPicto();
+  renderRotina();
+  renderCQ();
+  renderHome();
+  renderMoodHist();
+  renderPerfil(userObj);
+  var qrImg = document.getElementById('qrImg');
+  if (qrImg) qrImg.src = QR_URL;
+
+  // Inicia tabs
+  document.querySelectorAll('.tb').forEach(function(b) {
+    b.addEventListener('click', function() { goTab(b.dataset.tab); });
+  });
+  var hstar = document.getElementById('hstarBtn');
+  if (hstar) hstar.addEventListener('click', function() { goTab('conquistas'); });
+}
+
+function doLogout() {
+  if (!confirm('Tem certeza que quer sair?')) return;
+  localStorage.removeItem('tea_current');
+  location.reload();
+}
+
+// ══════════════════════════════════════
+// PERFIL
+// ══════════════════════════════════════
+function renderPerfil(userObj) {
+  var nivelLabel = {1:'🟢 Nível 1 – Apoio leve', 2:'🟡 Nível 2 – Apoio moderado', 3:'🔴 Nível 3 – Apoio intenso'};
+  var av = document.getElementById('profileAvatar');
+  if (av) av.src = userObj.avatar || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23EEF3FF'/%3E%3Ctext x='40' y='52' text-anchor='middle' font-size='36'%3E🤖%3C/text%3E%3C/svg%3E";
+  var pn = document.getElementById('profileName'); if (pn) pn.textContent = userObj.nome || userObj.user;
+  var pi = document.getElementById('profileInfo'); if (pi) pi.textContent = userObj.serie + ' • ' + userObj.idade + ' anos';
+  var pc = document.getElementById('profileChips');
+  if (pc) pc.innerHTML = [
+    nivelLabel[userObj.nivel] || '',
+    '👨‍👩‍👧 ' + (userObj.resp || ''),
+    '👤 @' + userObj.user
+  ].map(function(t) { return '<span class="profile-chip">' + t + '</span>'; }).join('');
+
+  // Stats
+  var ps = document.getElementById('pStatStars'); if (ps) ps.textContent = S.stars;
+  var pc2 = document.getElementById('pStatCQ'); if (pc2) pc2.textContent = S.cq.length;
+  var pd = document.getElementById('pStatDias'); if (pd) pd.textContent = S.dias;
+
+  // Mood hist no perfil
+  renderPerfilMood();
+}
+
+function renderPerfilMood() {
+  var el = document.getElementById('perfilMoodHist');
+  if (!el) return;
+  var recent = S.moodHist.slice(0, 5);
+  if (!recent.length) { el.innerHTML = '<div class="no-hist">Nenhum registro ainda.</div>'; return; }
+  el.innerHTML = recent.map(function(m) {
+    return '<div class="mh-row"><span class="mh-ico">' + m.e + '</span>' +
+      '<div class="mh-info"><b>' + m.n + '</b>' +
+      (m.note ? '<div class="mh-note">💬 ' + m.note + '</div>' : '') + '</div>' +
+      '<span class="mh-time">' + m.date + ' ' + m.time + '</span></div>';
+  }).join('');
+}
+
+function changeAvatar(input) {
+  if (!input.files || !input.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var data = e.target.result;
+    var av = document.getElementById('profileAvatar'); if (av) av.src = data;
+    var hBtn = document.getElementById('hProfileBtn');
+    if (hBtn) hBtn.innerHTML = '<img src="' + data + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
+    // Salva no banco
+    var uid = localStorage.getItem('tea_current');
+    var users = getUsers();
+    if (uid && users[uid]) { users[uid].avatar = data; saveUsers(users); }
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ══════════════════════════════════════
+// ÁREA DO RESPONSÁVEL
+// ══════════════════════════════════════
+function buscarAluno() {
+  var busca = (document.getElementById('respBusca').value || '').trim().toLowerCase();
+  if (!busca) { showAuthErr('respErr', 'Digite um nome para buscar.'); return; }
+  var users = getUsers();
+  var encontrados = [];
+  Object.values(users).forEach(function(u) {
+    if (u.nome.toLowerCase().includes(busca) ||
+        u.user.toLowerCase().includes(busca) ||
+        (u.resp && u.resp.toLowerCase().includes(busca))) {
+      encontrados.push(u);
+    }
+  });
+  var res = document.getElementById('respResultado');
+  if (!encontrados.length) { showAuthErr('respErr', 'Nenhum aluno encontrado.'); res.innerHTML = ''; return; }
+  res.innerHTML = encontrados.map(function(u) { return renderAlunoCard(u); }).join('');
+}
+
+function renderAlunoCard(u) {
+  var d = u.data || {};
+  var moodHist = d.moodHist || [];
+  var rotina = d.rotina || {};
+  var cq = d.cq || [];
+  var stars = d.stars || 0;
+  var nivelLabel = {1:'🟢 Nível 1', 2:'🟡 Nível 2', 3:'🔴 Nível 3'};
+  var rotDone = Object.values(rotina).filter(Boolean).length;
+  var rotTotal = 10;
+  var rotPct = Math.round(rotDone/rotTotal*100);
+  var today = new Date().toLocaleDateString('pt-BR');
+  var todayMoods = moodHist.filter(function(m) { return m.date === today; });
+  var moodHTML = todayMoods.length
+    ? todayMoods.slice(0,3).map(function(m) {
+        return '<div class="mt-row"><span class="mt-ico">' + m.e + '</span><div class="mt-info"><b>' + m.n + '</b><span>' + (m.note || '') + '</span></div><span class="mt-time">' + m.time + '</span></div>';
+      }).join('')
+    : '<div class="no-hist">Sem registros hoje.</div>';
+
+  return '<div class="stat-card">' +
+    '<h4>👤 ' + u.nome + ' <span style="font-size:.75rem;color:var(--gr)">@' + u.user + '</span></h4>' +
+    '<div class="stat-row"><span class="sr-label">Série</span><span class="sr-val">' + u.serie + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">Nível Autismo</span><span class="sr-val">' + (nivelLabel[u.nivel]||'') + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">Responsável</span><span class="sr-val">' + u.resp + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">⭐ Estrelas</span><span class="sr-val">' + stars + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">🏆 Conquistas</span><span class="sr-val">' + cq.length + '/10</span></div>' +
+    '<div class="stat-row"><span class="sr-label">✅ Rotina hoje</span><span class="sr-val">' + rotPct + '%</span></div>' +
+    '<div class="stat-row"><span class="sr-label">🔥 Dias seguidos</span><span class="sr-val">' + (d.dias||1) + '</span></div>' +
+    '<h4 style="margin-top:12px">💭 Humor de hoje</h4>' +
+    '<div class="mood-timeline">' + moodHTML + '</div>' +
+    '<button class="pdf-btn" style="margin-top:14px" onclick="gerarPDF(' + JSON.stringify(u.user) + ')">📄 Gerar Relatório PDF</button>' +
+    '</div>';
+}
+
+function gerarPDF(userId) {
+  var users = getUsers();
+  var u = users[userId];
+  if (!u) return;
+  var d = u.data || {};
+  var moodHist = d.moodHist || [];
+  var rotina = d.rotina || {};
+  var cq = d.cq || [];
+  var stars = d.stars || 0;
+  var nivelLabel = {1:'Nível 1 – Apoio leve', 2:'Nível 2 – Apoio moderado', 3:'Nível 3 – Apoio intenso'};
+  var rotDone = Object.values(rotina).filter(Boolean).length;
+
+  // Gera janela de impressão HTML
+  var hoje = new Date().toLocaleDateString('pt-BR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  var moodRows = moodHist.slice(0,10).map(function(m) {
+    return '<tr><td>' + m.date + '</td><td>' + m.time + '</td><td>' + m.e + ' ' + m.n + '</td><td>' + (m.note||'-') + '</td></tr>';
+  }).join('') || '<tr><td colspan="4">Sem registros</td></tr>';
+
+  var CQD_NAMES = {c1:'Primeira Estrela',c2:'Expressando Emoções',c3:'Voz Ativa',c4:'Mestre da Memória',c5:'Conhecedor de Emoções',c6:'Rotina Completa',c7:'Super Estrela',c8:'Campeão',c9:'Mestre das Cores',c10:'Dedicado'};
+  var cqRows = (cq.length ? cq : []).map(function(id) {
+    return '<li>✅ ' + (CQD_NAMES[id] || id) + '</li>';
+  }).join('') || '<li>Nenhuma conquista ainda.</li>';
+
+  var win = window.open('', '_blank');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório TEAbot – ' + u.nome + '</title>' +
+    '<style>body{font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:20px;color:#1A2540}' +
+    'h1{color:#4F7BF7;font-size:1.6rem;margin-bottom:4px}' +
+    '.sub{color:#94A3B8;font-size:.9rem;margin-bottom:24px}' +
+    '.section{margin-bottom:22px}' +
+    '.section h2{font-size:1.1rem;color:#4F7BF7;border-bottom:2px solid #EEF3FF;padding-bottom:5px;margin-bottom:10px}' +
+    '.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}' +
+    '.info-box{background:#F4F8FF;border-radius:8px;padding:10px}' +
+    '.info-box label{font-size:.75rem;color:#94A3B8;display:block;font-weight:700}' +
+    '.info-box span{font-size:1rem;font-weight:800}' +
+    'table{width:100%;border-collapse:collapse;font-size:.85rem}' +
+    'th{background:#4F7BF7;color:#fff;padding:7px 10px;text-align:left}' +
+    'td{padding:7px 10px;border-bottom:1px solid #E8EFFE}' +
+    'ul{padding-left:20px;margin:0}li{margin-bottom:5px;font-size:.9rem}' +
+    '.footer{margin-top:30px;font-size:.78rem;color:#94A3B8;text-align:center;border-top:1px solid #E2E8F0;padding-top:10px}' +
+    '@media print{body{padding:10px}}' +
+    '</style></head><body>' +
+    '<h1>🤖 TEAbot – Relatório de Desempenho</h1>' +
+    '<div class="sub">Gerado em: ' + hoje + '</div>' +
+    '<div class="section"><h2>👤 Dados do Aluno</h2>' +
+    '<div class="info-grid">' +
+    '<div class="info-box"><label>Nome</label><span>' + u.nome + '</span></div>' +
+    '<div class="info-box"><label>Usuário</label><span>@' + u.user + '</span></div>' +
+    '<div class="info-box"><label>Idade</label><span>' + u.idade + ' anos</span></div>' +
+    '<div class="info-box"><label>Série</label><span>' + u.serie + '</span></div>' +
+    '<div class="info-box"><label>Nível Autismo</label><span>' + (nivelLabel[u.nivel]||'-') + '</span></div>' +
+    '<div class="info-box"><label>Responsável</label><span>' + u.resp + '</span></div>' +
+    '</div></div>' +
+    '<div class="section"><h2>📊 Desempenho Geral</h2>' +
+    '<div class="info-grid">' +
+    '<div class="info-box"><label>⭐ Total de Estrelas</label><span>' + stars + '</span></div>' +
+    '<div class="info-box"><label>🏆 Conquistas</label><span>' + cq.length + ' / 10</span></div>' +
+    '<div class="info-box"><label>✅ Rotina hoje</label><span>' + rotDone + ' / 10 (' + Math.round(rotDone/10*100) + '%)</span></div>' +
+    '<div class="info-box"><label>🔥 Dias seguidos</label><span>' + (d.dias||1) + '</span></div>' +
+    '</div></div>' +
+    '<div class="section"><h2>💭 Histórico de Humor (últimos 10)</h2>' +
+    '<table><tr><th>Data</th><th>Hora</th><th>Humor</th><th>Observação</th></tr>' + moodRows + '</table></div>' +
+    '<div class="section"><h2>🏅 Conquistas Desbloqueadas</h2><ul>' + cqRows + '</ul></div>' +
+    '<div class="footer">Relatório gerado pelo TEAbot • carlosalbertoneto33-afk.github.io/teabot/</div>' +
+    '</body></html>');
+  win.document.close();
+  setTimeout(function() { win.print(); }, 500);
+}
+
+// ══════════════════════════════════════
+// ESTADO DO APP
+// ══════════════════════════════════════
+var S = {
+  stars: 0, rotina: {}, cq: [], seqRec: 0, frase: [],
+  fhist: [], moodHist: [], curMood: {e:'😊',n:'Como estou agora',note:''},
+  selMoodEl: null, _selMoodIdx: null, dias: 1, lastDay: ''
 };
 
 function sv() {
-  localStorage.setItem('t_stars', S.stars);
-  localStorage.setItem('t_rotina', JSON.stringify(S.rotina));
-  localStorage.setItem('t_cq', JSON.stringify(S.cq));
-  localStorage.setItem('t_seqrec', S.seqRec);
-  localStorage.setItem('t_fhist', JSON.stringify(S.fhist));
-  localStorage.setItem('t_moodhist', JSON.stringify(S.moodHist));
-  localStorage.setItem('t_dias', S.dias);
-  localStorage.setItem('t_lastday', S.lastDay);
+  saveCurrentUserData({
+    stars: S.stars, rotina: S.rotina, cq: S.cq, seqRec: S.seqRec,
+    fhist: S.fhist, moodHist: S.moodHist, dias: S.dias, lastDay: S.lastDay
+  });
+  var h = document.getElementById('hStars'); if (h) h.textContent = S.stars;
 }
+
+
+// ── ESTADO ──
+
 
 // ── iOS: desbloquear áudio no primeiro toque ──
 document.addEventListener('touchstart', function() {
@@ -1214,6 +1771,36 @@ function burst(el) {
       })(k);
     }
   } catch(e) {}
+}
+
+
+// ══════════════════════════════════════
+// INIT COM AUTO-LOGIN
+// ══════════════════════════════════════
+setTimeout(function() {
+  document.getElementById('splash').classList.add('off');
+  // Verifica se já tem sessão ativa
+  var uid = localStorage.getItem('tea_current');
+  var users = getUsers();
+  if (uid && users[uid]) {
+    enterApp(users[uid]);
+  }
+  // Auth permanece visível se não logado
+}, 2000);
+
+document.addEventListener('touchstart', function() {
+  if (window._audioUnlocked) return;
+  window._audioUnlocked = true;
+  if ('speechSynthesis' in window) {
+    var u = new SpeechSynthesisUtterance('');
+    u.volume = 0;
+    window.speechSynthesis.speak(u);
+  }
+}, {once: true});
+
+function dlQR() {
+  var a = document.createElement('a');
+  a.href = QR_URL; a.download = 'teabot-qrcode.png'; a.click();
 }
 </script>
 </body>
