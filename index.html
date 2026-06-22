@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>TEAbot</title>
+<title>Mindbot</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 <style>
 
@@ -335,6 +335,24 @@ nav::-webkit-scrollbar{display:none}
 .logout-btn:active{transform:scale(.95)}
 .hprofile-btn{width:36px;height:36px;border-radius:50%;border:2px solid var(--az);overflow:hidden;padding:0;background:var(--azl);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
 .hprofile-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.school-wrap{position:fixed;inset:0;z-index:760;background:var(--bg);display:none;flex-direction:column;overflow:hidden}
+.school-wrap.on{display:flex}
+.school-head{background:linear-gradient(135deg,#4F7BF7,#22C98A);padding:18px 16px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-shrink:0}
+.school-head h1{font-family:'Baloo 2',cursive;font-size:1.45rem;line-height:1}
+.school-head p{font-size:.78rem;opacity:.9;margin-top:3px}
+.school-body{padding:14px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.school-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.school-search{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);padding:12px;margin-bottom:14px}
+.school-search input{width:100%;border:2px solid #E2E8F0;border-radius:12px;padding:12px 14px;font-family:'Nunito',sans-serif;font-size:.95rem;outline:none}
+.school-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.mini-btn{border:none;border-radius:50px;padding:10px;font-family:'Nunito',sans-serif;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--az),var(--az2))}
+.mini-btn.alt{background:linear-gradient(135deg,#9B6DFF,#FF6B9D)}
+.school-empty{text-align:center;color:var(--gr);padding:24px 10px;background:var(--wh);border-radius:var(--r);box-shadow:var(--sh)}
+.school-detail{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);padding:14px;margin-bottom:14px;display:none}
+.school-detail.on{display:block}
+.school-detail-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}
+.school-detail-title h3{font-family:'Baloo 2',cursive;font-size:1.18rem}
+.school-detail-title button{background:var(--vml);border:2px solid var(--vm);color:var(--vm);border-radius:50%;width:30px;height:30px;font-weight:900}
 </style>
 </head>
 <body>
@@ -342,7 +360,7 @@ nav::-webkit-scrollbar{display:none}
 <!-- SPLASH -->
 <div id="splash">
   <span class="sp-bot">🤖</span>
-  <h1>TEAbot</h1>
+  <h1>Mindbot</h1>
   <p>Seu companheiro de aprendizado</p>
   <div class="ldots"><i></i><i></i><i></i></div>
 </div>
@@ -351,13 +369,14 @@ nav::-webkit-scrollbar{display:none}
 <div id="authWrap">
   <div class="auth-header">
     <span class="bot">🤖</span>
-    <h1>TEAbot</h1>
+    <h1>Mindbot</h1>
     <p>Aprendizado para todos!</p>
   </div>
   <div class="auth-tabs">
     <button class="auth-tab on" id="tabLogin" onclick="authTab('login')">🔑 Entrar</button>
-    <button class="auth-tab" id="tabCad" onclick="authTab('cadastro')">✏️ Cadastrar</button>
+    <button class="auth-tab" id="tabCad" onclick="authTab('cadastro')">✏️ Aluno</button>
     <button class="auth-tab" id="tabResp" onclick="authTab('responsavel')">👨‍👩‍👧 Responsável</button>
+    <button class="auth-tab" id="tabEscola" onclick="authTab('escola')">🏫 Escola</button>
   </div>
   <div class="auth-body">
 
@@ -368,7 +387,8 @@ nav::-webkit-scrollbar{display:none}
       <div class="field"><label>🔒 Senha</label><input type="password" id="loginPass" placeholder="Sua senha"></div>
       <button class="auth-btn" onclick="doLogin()">🚀 Entrar</button>
       <div class="divider">ou</div>
-      <button class="auth-btn auth-btn-g" onclick="authTab('cadastro')">✏️ Criar conta</button>
+      <button class="auth-btn auth-btn-g" onclick="authTab('cadastro')">✏️ Criar conta de aluno</button>
+      <button class="auth-btn auth-btn-r" onclick="authTab('escola')">🏫 Cadastrar escola</button>
     </div>
 
     <!-- CADASTRO -->
@@ -429,6 +449,68 @@ nav::-webkit-scrollbar{display:none}
       <div id="respResultado" style="margin-top:20px"></div>
     </div>
 
+    <!-- ESCOLA -->
+    <div class="auth-form" id="formEscola">
+      <div class="resp-hero">
+        <span class="big">🏫</span>
+        <h2>Cadastro da Escola</h2>
+        <p>A escola acompanha todos os alunos cadastrados</p>
+      </div>
+      <div class="auth-err" id="escErr"></div>
+      <div class="auth-ok" id="escOk">Escola cadastrada! Pode entrar com usuário e senha.</div>
+      <div class="field"><label>👤 Usuário da escola</label><input type="text" id="escUser" placeholder="Ex: escola_centro" autocapitalize="none"></div>
+      <div class="field"><label>🏫 Nome da escola</label><input type="text" id="escNome" placeholder="Nome da escola"></div>
+      <div class="field-row">
+        <div class="field"><label>🌆 Cidade</label>
+          <select id="escCidade">
+            <option value="">Selecione</option>
+            <option>João Pessoa</option>
+            <option>Campina Grande</option>
+            <option>Santa Rita</option>
+            <option>Bayeux</option>
+            <option>Cabedelo</option>
+            <option>Patos</option>
+          </select>
+        </div>
+        <div class="field"><label>🗺️ Estado</label>
+          <select id="escEstado">
+            <option value="">Selecione</option>
+            <option value="PB">Paraíba (PB)</option>
+            <option value="PE">Pernambuco (PE)</option>
+            <option value="RN">Rio Grande do Norte (RN)</option>
+            <option value="CE">Ceará (CE)</option>
+            <option value="BA">Bahia (BA)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label>🔒 Senha</label><input type="password" id="escPass" placeholder="Mínimo 4 caracteres"></div>
+      <div class="field"><label>🔒 Confirmar senha</label><input type="password" id="escPass2" placeholder="Repita a senha"></div>
+      <button class="auth-btn auth-btn-g" onclick="doEscolaCadastro()">✅ Cadastrar escola</button>
+      <button class="auth-btn" onclick="authTab('login')">🔑 Entrar agora</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAINEL DA ESCOLA -->
+<div class="school-wrap" id="schoolWrap">
+  <div class="school-head">
+    <div>
+      <h1 id="schoolName">Mindbot Escola</h1>
+      <p id="schoolPlace">Acompanhamento dos alunos</p>
+    </div>
+    <button class="logout-btn" style="width:auto;margin:0;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.55);color:#fff;padding:9px 13px" onclick="doSchoolLogout()">Sair</button>
+  </div>
+  <div class="school-body">
+    <div class="school-summary">
+      <div class="stat-box"><div class="sv" id="schoolTotal">0</div><div class="sl">Alunos</div></div>
+      <div class="stat-box"><div class="sv" id="schoolStars">0</div><div class="sl">Estrelas</div></div>
+    </div>
+    <div class="school-search">
+      <input type="text" id="schoolSearch" placeholder="Buscar aluno, responsável ou usuário" oninput="renderSchoolStudents()">
+    </div>
+    <div class="school-detail" id="schoolDetail"></div>
+    <div id="schoolStudents"></div>
   </div>
 </div>
 
@@ -436,7 +518,7 @@ nav::-webkit-scrollbar{display:none}
 <header id="mainHeader" style="display:none">
   <div class="hl">
     <span class="hl-ico">🤖</span>
-    <span class="hl-nm">TEAbot</span>
+    <span class="hl-nm">Mindbot</span>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
     <button class="hstar" id="hstarBtn">⭐ <span id="hStars">0</span></button>
@@ -461,7 +543,7 @@ nav::-webkit-scrollbar{display:none}
 <section id="home" class="sc on">
   <div class="hero">
     <span class="bot">🤖</span>
-    <h1 id="heroGreet">Olá! Eu sou o TEAbot!</h1>
+    <h1 id="heroGreet">Olá! Eu sou o Mindbot!</h1>
     <p id="heroSub">Pronto para um dia incrível? 🌟</p>
   </div>
   <div class="mood-strip">
@@ -593,16 +675,16 @@ nav::-webkit-scrollbar{display:none}
 <section id="qr" class="sc">
   <div class="ttl" style="justify-content:center">📱 Acesso por QR Code</div>
   <div class="qr-wrap">
-    <div class="qr-card"><img id="qrImg" src="" alt="QR Code TEAbot"></div>
-    <p class="qr-url">carlosalbertoneto33-afk.github.io/teabot/</p>
-    <p class="qr-desc">📌 Mostre para professores ou familiares acessarem o TEAbot!</p>
+    <div class="qr-card"><img id="qrImg" src="" alt="QR Code Mindbot"></div>
+    <p class="qr-url">carlosalbertoneto33-afk.github.io/mindbot/</p>
+    <p class="qr-desc">📌 Mostre para professores ou familiares acessarem o Mindbot!</p>
     <button class="btn" style="max-width:260px;margin:0 auto 14px" onclick="dlQR()">💾 Baixar QR Code</button>
   </div>
   <div class="ttl">ℹ️ Como usar</div>
   <div class="how-to">
     <div class="how-row"><span class="hi">📷</span><div><b>1. Abra a câmera</b><span>Aponte para o QR Code</span></div></div>
     <div class="how-row"><span class="hi">🔗</span><div><b>2. Toque no link</b><span>O link aparece na tela</span></div></div>
-    <div class="how-row"><span class="hi">🤖</span><div><b>3. Use o TEAbot!</b><span>Jogos, frases, rotina e mais</span></div></div>
+    <div class="how-row"><span class="hi">🤖</span><div><b>3. Use o Mindbot!</b><span>Jogos, frases, rotina e mais</span></div></div>
   </div>
 </section>
 
@@ -630,6 +712,17 @@ function getUsers() {
 function saveUsers(u) {
   localStorage.setItem('tea_users', JSON.stringify(u));
 }
+function getSchools() {
+  return JSON.parse(localStorage.getItem('mind_schools') || '{}');
+}
+function saveSchools(schools) {
+  localStorage.setItem('mind_schools', JSON.stringify(schools));
+}
+function escHTML(v) {
+  return String(v == null ? '' : v).replace(/[&<>'"]/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];
+  });
+}
 function getCurrentUser() {
   var uid = localStorage.getItem('tea_current');
   if (!uid) return null;
@@ -654,8 +747,8 @@ var cadAvatarData = null;
 function authTab(tab) {
   document.querySelectorAll('.auth-tab').forEach(function(b) { b.classList.remove('on'); });
   document.querySelectorAll('.auth-form').forEach(function(f) { f.classList.remove('on'); });
-  var tabMap = {login:'tabLogin', cadastro:'tabCad', responsavel:'tabResp'};
-  var formMap = {login:'formLogin', cadastro:'formCad', responsavel:'formResp'};
+  var tabMap = {login:'tabLogin', cadastro:'tabCad', responsavel:'tabResp', escola:'tabEscola'};
+  var formMap = {login:'formLogin', cadastro:'formCad', responsavel:'formResp', escola:'formEscola'};
   var t = document.getElementById(tabMap[tab]);
   var f = document.getElementById(formMap[tab]);
   if (t) t.classList.add('on');
@@ -750,12 +843,20 @@ function doLogin() {
   var user = (document.getElementById('loginUser').value || '').trim().toLowerCase();
   var pass = (document.getElementById('loginPass').value || '');
   var users = getUsers();
-  if (!users[user] || users[user].pass !== pass) {
-    showAuthErr('loginErr', 'Usuário ou senha incorretos.');
+  if (users[user] && users[user].pass === pass) {
+    localStorage.setItem('tea_current', user);
+    localStorage.removeItem('mind_school_current');
+    enterApp(users[user]);
     return;
   }
-  localStorage.setItem('tea_current', user);
-  enterApp(users[user]);
+  var schools = getSchools();
+  if (schools[user] && schools[user].pass === pass) {
+    localStorage.setItem('mind_school_current', user);
+    localStorage.removeItem('tea_current');
+    enterSchool(schools[user]);
+    return;
+  }
+  showAuthErr('loginErr', 'Usuário ou senha incorretos.');
 }
 
 function enterApp(userObj) {
@@ -869,6 +970,106 @@ function changeAvatar(input) {
 }
 
 // ══════════════════════════════════════
+// ÁREA DA ESCOLA
+// ══════════════════════════════════════
+function doEscolaCadastro() {
+  var user = (document.getElementById('escUser').value || '').trim().toLowerCase();
+  var nome = (document.getElementById('escNome').value || '').trim();
+  var cidade = (document.getElementById('escCidade').value || '').trim();
+  var estado = (document.getElementById('escEstado').value || '').trim();
+  var pass = (document.getElementById('escPass').value || '');
+  var pass2 = (document.getElementById('escPass2').value || '');
+  if (!user) { showAuthErr('escErr', 'Digite um usuário para a escola.'); return; }
+  if (!nome) { showAuthErr('escErr', 'Digite o nome da escola.'); return; }
+  if (!cidade) { showAuthErr('escErr', 'Selecione a cidade.'); return; }
+  if (!estado) { showAuthErr('escErr', 'Selecione o estado.'); return; }
+  if (pass.length < 4) { showAuthErr('escErr', 'Senha deve ter ao menos 4 caracteres.'); return; }
+  if (pass !== pass2) { showAuthErr('escErr', 'As senhas não coincidem.'); return; }
+  var schools = getSchools();
+  var users = getUsers();
+  if (schools[user] || users[user]) { showAuthErr('escErr', 'Esse usuário já existe. Escolha outro.'); return; }
+  schools[user] = {user:user, nome:nome, cidade:cidade, estado:estado, pass:pass, createdAt:new Date().toISOString()};
+  saveSchools(schools);
+  ['escUser','escNome','escPass','escPass2'].forEach(function(id) { var el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('escCidade').value = '';
+  document.getElementById('escEstado').value = '';
+  showAuthOk('escOk', 'Escola cadastrada! Entre com o usuário e senha.');
+  setTimeout(function() { authTab('login'); document.getElementById('loginUser').value = user; }, 1400);
+}
+
+function enterSchool(school) {
+  document.getElementById('authWrap').classList.add('off');
+  document.getElementById('mainHeader').style.display = 'none';
+  document.getElementById('mainNav').style.display = 'none';
+  document.getElementById('mainWrap').style.display = 'none';
+  document.getElementById('schoolWrap').classList.add('on');
+  document.getElementById('schoolName').textContent = school.nome || 'Mindbot Escola';
+  document.getElementById('schoolPlace').textContent = (school.cidade || '-') + ' / ' + (school.estado || '-');
+  renderSchoolStudents();
+}
+
+function doSchoolLogout() {
+  localStorage.removeItem('mind_school_current');
+  location.reload();
+}
+
+function schoolStudentList() {
+  var q = ((document.getElementById('schoolSearch') || {}).value || '').trim().toLowerCase();
+  return Object.values(getUsers()).filter(function(u) {
+    if (!q) return true;
+    return (u.nome || '').toLowerCase().includes(q) ||
+      (u.user || '').toLowerCase().includes(q) ||
+      (u.resp || '').toLowerCase().includes(q) ||
+      (u.serie || '').toLowerCase().includes(q);
+  });
+}
+
+function renderSchoolStudents() {
+  var list = schoolStudentList();
+  var totalStars = list.reduce(function(sum, u) { return sum + (((u.data || {}).stars) || 0); }, 0);
+  document.getElementById('schoolTotal').textContent = list.length;
+  document.getElementById('schoolStars').textContent = totalStars;
+  var box = document.getElementById('schoolStudents');
+  if (!box) return;
+  if (!list.length) {
+    box.innerHTML = '<div class="school-empty">Nenhum aluno encontrado.</div>';
+    return;
+  }
+  box.innerHTML = list.map(function(u) {
+    var actions = '<div class="school-actions"><button class="mini-btn" onclick="showSchoolProfile(' + JSON.stringify(u.user) + ')">Ver perfil</button><button class="mini-btn alt" onclick="gerarPDF(' + JSON.stringify(u.user) + ')">Baixar PDF</button></div>';
+    return renderAlunoCard(u).replace(/<\/div>$/, actions + '</div>');
+  }).join('');
+}
+
+function showSchoolProfile(userId) {
+  var u = getUsers()[userId];
+  if (!u) return;
+  var d = u.data || {};
+  var mood = (d.moodHist || []).slice(0, 6).map(function(m) {
+    return '<div class="mt-row"><span class="mt-ico">' + escHTML(m.e) + '</span><div class="mt-info"><b>' + escHTML(m.n) + '</b><span>' + escHTML(m.note || 'Sem observação') + '</span></div><span class="mt-time">' + escHTML(m.date + ' ' + m.time) + '</span></div>';
+  }).join('') || '<div class="no-hist">Nenhum humor registrado.</div>';
+  var nivelLabel = {1:'Nível 1 - Apoio leve', 2:'Nível 2 - Apoio moderado', 3:'Nível 3 - Apoio intenso'};
+  var detail = document.getElementById('schoolDetail');
+  detail.classList.add('on');
+  detail.innerHTML = '<div class="school-detail-title"><div><h3>' + escHTML(u.nome) + '</h3><p style="color:var(--gr);font-size:.82rem">@' + escHTML(u.user) + '</p></div><button onclick="closeSchoolProfile()">×</button></div>' +
+    '<div class="stat-row"><span class="sr-label">Idade</span><span class="sr-val">' + escHTML(u.idade) + ' anos</span></div>' +
+    '<div class="stat-row"><span class="sr-label">Série</span><span class="sr-val">' + escHTML(u.serie) + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">Nível do autismo</span><span class="sr-val">' + escHTML(nivelLabel[u.nivel] || '-') + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">Responsável</span><span class="sr-val">' + escHTML(u.resp || '-') + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">Estrelas</span><span class="sr-val">' + (d.stars || 0) + '</span></div>' +
+    '<div class="stat-row"><span class="sr-label">Conquistas</span><span class="sr-val">' + ((d.cq || []).length) + '/10</span></div>' +
+    '<h4 style="margin-top:12px">💭 Últimos humores</h4><div class="mood-timeline">' + mood + '</div>' +
+    '<button class="pdf-btn" onclick="gerarPDF(' + JSON.stringify(u.user) + ')">📄 Baixar PDF organizado</button>';
+  detail.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function closeSchoolProfile() {
+  var detail = document.getElementById('schoolDetail');
+  detail.classList.remove('on');
+  detail.innerHTML = '';
+}
+
+// ══════════════════════════════════════
 // ÁREA DO RESPONSÁVEL
 // ══════════════════════════════════════
 function buscarAluno() {
@@ -933,20 +1134,19 @@ function gerarPDF(userId) {
   var nivelLabel = {1:'Nível 1 – Apoio leve', 2:'Nível 2 – Apoio moderado', 3:'Nível 3 – Apoio intenso'};
   var rotDone = Object.values(rotina).filter(Boolean).length;
 
-  // Gera janela de impressão HTML
+  // Gera relatório em um iframe oculto para evitar bloqueio de popup.
   var hoje = new Date().toLocaleDateString('pt-BR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
   var moodRows = moodHist.slice(0,10).map(function(m) {
-    return '<tr><td>' + m.date + '</td><td>' + m.time + '</td><td>' + m.e + ' ' + m.n + '</td><td>' + (m.note||'-') + '</td></tr>';
+    return '<tr><td>' + escHTML(m.date) + '</td><td>' + escHTML(m.time) + '</td><td>' + escHTML(m.e + ' ' + m.n) + '</td><td>' + escHTML(m.note||'-') + '</td></tr>';
   }).join('') || '<tr><td colspan="4">Sem registros</td></tr>';
 
   var CQD_NAMES = {c1:'Primeira Estrela',c2:'Expressando Emoções',c3:'Voz Ativa',c4:'Mestre da Memória',c5:'Conhecedor de Emoções',c6:'Rotina Completa',c7:'Super Estrela',c8:'Campeão',c9:'Mestre das Cores',c10:'Dedicado'};
   var cqRows = (cq.length ? cq : []).map(function(id) {
-    return '<li>✅ ' + (CQD_NAMES[id] || id) + '</li>';
+    return '<li>✅ ' + escHTML(CQD_NAMES[id] || id) + '</li>';
   }).join('') || '<li>Nenhuma conquista ainda.</li>';
 
-  var win = window.open('', '_blank');
-  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório TEAbot – ' + u.nome + '</title>' +
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório Mindbot - ' + escHTML(u.nome) + '</title>' +
     '<style>body{font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:20px;color:#1A2540}' +
     'h1{color:#4F7BF7;font-size:1.6rem;margin-bottom:4px}' +
     '.sub{color:#94A3B8;font-size:.9rem;margin-bottom:24px}' +
@@ -963,16 +1163,16 @@ function gerarPDF(userId) {
     '.footer{margin-top:30px;font-size:.78rem;color:#94A3B8;text-align:center;border-top:1px solid #E2E8F0;padding-top:10px}' +
     '@media print{body{padding:10px}}' +
     '</style></head><body>' +
-    '<h1>🤖 TEAbot – Relatório de Desempenho</h1>' +
-    '<div class="sub">Gerado em: ' + hoje + '</div>' +
+    '<h1>🤖 Mindbot – Relatório de Desempenho</h1>' +
+    '<div class="sub">Gerado em: ' + escHTML(hoje) + '</div>' +
     '<div class="section"><h2>👤 Dados do Aluno</h2>' +
     '<div class="info-grid">' +
-    '<div class="info-box"><label>Nome</label><span>' + u.nome + '</span></div>' +
-    '<div class="info-box"><label>Usuário</label><span>@' + u.user + '</span></div>' +
-    '<div class="info-box"><label>Idade</label><span>' + u.idade + ' anos</span></div>' +
-    '<div class="info-box"><label>Série</label><span>' + u.serie + '</span></div>' +
-    '<div class="info-box"><label>Nível Autismo</label><span>' + (nivelLabel[u.nivel]||'-') + '</span></div>' +
-    '<div class="info-box"><label>Responsável</label><span>' + u.resp + '</span></div>' +
+    '<div class="info-box"><label>Nome</label><span>' + escHTML(u.nome) + '</span></div>' +
+    '<div class="info-box"><label>Usuário</label><span>@' + escHTML(u.user) + '</span></div>' +
+    '<div class="info-box"><label>Idade</label><span>' + escHTML(u.idade) + ' anos</span></div>' +
+    '<div class="info-box"><label>Série</label><span>' + escHTML(u.serie) + '</span></div>' +
+    '<div class="info-box"><label>Nível Autismo</label><span>' + escHTML(nivelLabel[u.nivel]||'-') + '</span></div>' +
+    '<div class="info-box"><label>Responsável</label><span>' + escHTML(u.resp) + '</span></div>' +
     '</div></div>' +
     '<div class="section"><h2>📊 Desempenho Geral</h2>' +
     '<div class="info-grid">' +
@@ -984,10 +1184,33 @@ function gerarPDF(userId) {
     '<div class="section"><h2>💭 Histórico de Humor (últimos 10)</h2>' +
     '<table><tr><th>Data</th><th>Hora</th><th>Humor</th><th>Observação</th></tr>' + moodRows + '</table></div>' +
     '<div class="section"><h2>🏅 Conquistas Desbloqueadas</h2><ul>' + cqRows + '</ul></div>' +
-    '<div class="footer">Relatório gerado pelo TEAbot • carlosalbertoneto33-afk.github.io/teabot/</div>' +
-    '</body></html>');
-  win.document.close();
-  setTimeout(function() { win.print(); }, 500);
+    '<div class="footer">Relatório gerado pelo Mindbot • carlosalbertoneto33-afk.github.io/mindbot/</div>' +
+    '</body></html>';
+
+  var old = document.getElementById('printFrame');
+  if (old) old.remove();
+  var frame = document.createElement('iframe');
+  frame.id = 'printFrame';
+  frame.style.position = 'fixed';
+  frame.style.right = '0';
+  frame.style.bottom = '0';
+  frame.style.width = '0';
+  frame.style.height = '0';
+  frame.style.border = '0';
+  document.body.appendChild(frame);
+  var doc = frame.contentWindow.document;
+  doc.open();
+  doc.write(html);
+  doc.close();
+  setTimeout(function() {
+    try {
+      frame.contentWindow.focus();
+      frame.contentWindow.print();
+      showW('📄', 'Relatório pronto', 'Na janela de impressão, escolha "Salvar como PDF".');
+    } catch(e) {
+      showW('⚠️', 'Não foi possível abrir o PDF', 'Permita impressão/popups no navegador e tente novamente.');
+    }
+  }, 350);
 }
 
 // ══════════════════════════════════════
@@ -1096,7 +1319,7 @@ function renderHome() {
   document.getElementById('statRotina').textContent = Math.round(done / RD.length * 100) + '%';
   var h = new Date().getHours();
   var g = h < 12 ? 'Bom dia! ☀️' : h < 18 ? 'Boa tarde! 🌤️' : 'Boa noite! 🌙';
-  document.getElementById('heroGreet').textContent = g + ' Eu sou o TEAbot!';
+  document.getElementById('heroGreet').textContent = g + ' Eu sou o Mindbot!';
   document.getElementById('curMoodIco').textContent = S.curMood.e;
   document.getElementById('curMoodNome').textContent = S.curMood.n;
   document.getElementById('curMoodNote').textContent = S.curMood.note || 'Toque para registrar seu humor';
@@ -1747,7 +1970,7 @@ function closeWin() {
 function dlQR() {
   var a = document.createElement('a');
   a.href = QR_URL;
-  a.download = 'teabot-qrcode.png';
+  a.download = 'mindbot-qrcode.png';
   a.click();
 }
 
@@ -1782,7 +2005,11 @@ setTimeout(function() {
   // Verifica se já tem sessão ativa
   var uid = localStorage.getItem('tea_current');
   var users = getUsers();
-  if (uid && users[uid]) {
+  var sid = localStorage.getItem('mind_school_current');
+  var schools = getSchools();
+  if (sid && schools[sid]) {
+    enterSchool(schools[sid]);
+  } else if (uid && users[uid]) {
     enterApp(users[uid]);
   }
   // Auth permanece visível se não logado
@@ -1800,7 +2027,7 @@ document.addEventListener('touchstart', function() {
 
 function dlQR() {
   var a = document.createElement('a');
-  a.href = QR_URL; a.download = 'teabot-qrcode.png'; a.click();
+  a.href = QR_URL; a.download = 'mindbot-qrcode.png'; a.click();
 }
 </script>
 </body>
