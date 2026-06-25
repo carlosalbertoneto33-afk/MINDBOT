@@ -245,8 +245,8 @@ nav::-webkit-scrollbar{display:none}
 .btn-g{background:linear-gradient(135deg,var(--vd),var(--vd2));box-shadow:0 5px 16px rgba(34,201,138,.35)}
 .btn-o{background:linear-gradient(135deg,var(--or),#FFB347);box-shadow:0 5px 16px rgba(255,140,66,.35)}
 
-/* MODAL */
-.mbg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .3s}
+/* MODAL — z-index elevado para ficar acima de todos os painéis */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1000;display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .3s}
 .mbg.show{opacity:1;pointer-events:all}
 .modal{background:var(--wh);border-radius:var(--r);padding:24px 20px;max-width:320px;width:100%;text-align:center;transform:scale(.87);transition:transform .3s}
 .mbg.show .modal{transform:scale(1)}
@@ -701,7 +701,7 @@ nav::-webkit-scrollbar{display:none}
 </div>
 
 <script>
-const QR_URL = "data:image/png;base64,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";
+const QR_URL = "data:image/png;base64,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";
 
 // ══════════════════════════════════════
 // BANCO DE DADOS LOCAL
@@ -824,7 +824,6 @@ function doCadastro() {
   };
   saveUsers(users);
 
-  // Limpar form
   ['cadUser','cadNome','cadIdade','cadPass','cadPass2','cadResp'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.value = '';
@@ -860,13 +859,11 @@ function doLogin() {
 }
 
 function enterApp(userObj) {
-  // Esconde auth, mostra app
   document.getElementById('authWrap').classList.add('off');
   document.getElementById('mainHeader').style.display = 'flex';
   document.getElementById('mainNav').style.display = 'flex';
   document.getElementById('mainWrap').style.display = 'block';
 
-  // Carrega dados do usuário
   var d = userObj.data;
   S.stars = d.stars || 0;
   S.rotina = d.rotina || {};
@@ -880,7 +877,6 @@ function enterApp(userObj) {
   S.curMood = {e:'😊', n:'Como estou agora', note:''};
   S._selMoodIdx = null; S.selMoodEl = null;
 
-  // Atualiza avatar no header
   var hBtn = document.getElementById('hProfileBtn');
   if (hBtn) {
     if (userObj.avatar) {
@@ -901,7 +897,6 @@ function enterApp(userObj) {
   var qrImg = document.getElementById('qrImg');
   if (qrImg) qrImg.src = QR_URL;
 
-  // Inicia tabs
   document.querySelectorAll('.tb').forEach(function(b) {
     b.addEventListener('click', function() { goTab(b.dataset.tab); });
   });
@@ -931,12 +926,10 @@ function renderPerfil(userObj) {
     '👤 @' + userObj.user
   ].map(function(t) { return '<span class="profile-chip">' + t + '</span>'; }).join('');
 
-  // Stats
   var ps = document.getElementById('pStatStars'); if (ps) ps.textContent = S.stars;
   var pc2 = document.getElementById('pStatCQ'); if (pc2) pc2.textContent = S.cq.length;
   var pd = document.getElementById('pStatDias'); if (pd) pd.textContent = S.dias;
 
-  // Mood hist no perfil
   renderPerfilMood();
 }
 
@@ -961,7 +954,6 @@ function changeAvatar(input) {
     var av = document.getElementById('profileAvatar'); if (av) av.src = data;
     var hBtn = document.getElementById('hProfileBtn');
     if (hBtn) hBtn.innerHTML = '<img src="' + data + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
-    // Salva no banco
     var uid = localStorage.getItem('tea_current');
     var users = getUsers();
     if (uid && users[uid]) { users[uid].avatar = data; saveUsers(users); }
@@ -1122,6 +1114,10 @@ function renderAlunoCard(u) {
     '</div>';
 }
 
+// ══════════════════════════════════════
+// GERAR PDF — CORRIGIDO
+// Usa Blob + nova aba (funciona em todos os browsers/mobile)
+// ══════════════════════════════════════
 function gerarPDF(userId) {
   var users = getUsers();
   var u = users[userId];
@@ -1134,7 +1130,6 @@ function gerarPDF(userId) {
   var nivelLabel = {1:'Nível 1 – Apoio leve', 2:'Nível 2 – Apoio moderado', 3:'Nível 3 – Apoio intenso'};
   var rotDone = Object.values(rotina).filter(Boolean).length;
 
-  // Gera relatório em um iframe oculto para evitar bloqueio de popup.
   var hoje = new Date().toLocaleDateString('pt-BR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
   var moodRows = moodHist.slice(0,10).map(function(m) {
@@ -1187,30 +1182,39 @@ function gerarPDF(userId) {
     '<div class="footer">Relatório gerado pelo Mindbot • carlosalbertoneto33-afk.github.io/mindbot/</div>' +
     '</body></html>';
 
-  var old = document.getElementById('printFrame');
-  if (old) old.remove();
-  var frame = document.createElement('iframe');
-  frame.id = 'printFrame';
-  frame.style.position = 'fixed';
-  frame.style.right = '0';
-  frame.style.bottom = '0';
-  frame.style.width = '0';
-  frame.style.height = '0';
-  frame.style.border = '0';
-  document.body.appendChild(frame);
-  var doc = frame.contentWindow.document;
-  doc.open();
-  doc.write(html);
-  doc.close();
-  setTimeout(function() {
-    try {
-      frame.contentWindow.focus();
-      frame.contentWindow.print();
-      showW('📄', 'Relatório pronto', 'Na janela de impressão, escolha "Salvar como PDF".');
-    } catch(e) {
-      showW('⚠️', 'Não foi possível abrir o PDF', 'Permita impressão/popups no navegador e tente novamente.');
+  // ── Tentativa 1: abrir em nova aba e imprimir (desktop) ──
+  var abriu = false;
+  try {
+    var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+    var blobUrl = URL.createObjectURL(blob);
+    var win = window.open(blobUrl, '_blank');
+    if (win) {
+      abriu = true;
+      setTimeout(function() {
+        try { win.print(); } catch(pe) {}
+        setTimeout(function() { URL.revokeObjectURL(blobUrl); }, 8000);
+      }, 700);
+      showW('📄', 'Relatório aberto!', 'Na aba que abriu, pressione Ctrl+P (ou o menu de impressão) e escolha "Salvar como PDF".');
     }
-  }, 350);
+  } catch(e1) {}
+
+  // ── Tentativa 2: download direto do arquivo HTML (mobile / popup bloqueado) ──
+  if (!abriu) {
+    try {
+      var blob2 = new Blob([html], {type: 'text/html;charset=utf-8'});
+      var url2 = URL.createObjectURL(blob2);
+      var a = document.createElement('a');
+      a.href = url2;
+      a.download = 'relatorio-mindbot-' + (u.user || 'aluno') + '.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function() { URL.revokeObjectURL(url2); }, 5000);
+      showW('📄', 'Relatório baixado!', 'Abra o arquivo HTML salvo no seu dispositivo para visualizar o relatório.');
+    } catch(e2) {
+      showW('⚠️', 'Erro ao gerar relatório', 'Permita pop-ups para este site e tente novamente, ou acesse por outro navegador.');
+    }
+  }
 }
 
 // ══════════════════════════════════════
@@ -1230,16 +1234,12 @@ function sv() {
   var h = document.getElementById('hStars'); if (h) h.textContent = S.stars;
 }
 
-
-// ── ESTADO ──
-
-
 // ── iOS: desbloquear áudio no primeiro toque ──
 document.addEventListener('touchstart', function() {
   if (window._audioUnlocked) return;
   window._audioUnlocked = true;
   if ('speechSynthesis' in window) {
-    const u = new SpeechSynthesisUtterance('');
+    var u = new SpeechSynthesisUtterance('');
     u.volume = 0;
     window.speechSynthesis.speak(u);
   }
@@ -1249,39 +1249,16 @@ function fala(texto) {
   if (!('speechSynthesis' in window) || !texto) return;
   window.speechSynthesis.cancel();
   setTimeout(function() {
-    const u = new SpeechSynthesisUtterance(texto);
+    var u = new SpeechSynthesisUtterance(texto);
     u.lang = 'pt-BR';
     u.rate = 0.82;
     u.pitch = 1.05;
     u.volume = 1;
-    const voices = window.speechSynthesis.getVoices();
-    const ptVoz = voices.find(function(v) { return v.lang && v.lang.startsWith('pt'); });
+    var voices = window.speechSynthesis.getVoices();
+    var ptVoz = voices.find(function(v) { return v.lang && v.lang.startsWith('pt'); });
     if (ptVoz) u.voice = ptVoz;
     window.speechSynthesis.speak(u);
   }, 80);
-}
-
-// ── SPLASH ──
-setTimeout(function() {
-  document.getElementById('splash').classList.add('off');
-  init();
-}, 2000);
-
-function init() {
-  checkDias();
-  document.querySelectorAll('.tb').forEach(function(b) {
-    b.addEventListener('click', function() { goTab(b.dataset.tab); });
-  });
-  var hstar = document.getElementById('hstarBtn');
-  if (hstar) hstar.addEventListener('click', function() { goTab('conquistas'); });
-  initMoodGrid();
-  initPicto();
-  renderRotina();
-  renderCQ();
-  renderHome();
-  renderMoodHist();
-  var qrImg = document.getElementById('qrImg');
-  if (qrImg) qrImg.src = QR_URL;
 }
 
 function checkDias() {
@@ -1454,7 +1431,6 @@ function rpicto(cat) {
   if (!grid) return;
   grid.innerHTML = '';
   list.forEach(function(p) {
-    var idx = PD.indexOf(p);
     var btn = document.createElement('button');
     btn.className = 'pc-btn';
     btn.innerHTML = '<span class="pi">' + p.i + '</span><span class="pl">' + p.l + '</span>';
@@ -1996,13 +1972,11 @@ function burst(el) {
   } catch(e) {}
 }
 
-
 // ══════════════════════════════════════
 // INIT COM AUTO-LOGIN
 // ══════════════════════════════════════
 setTimeout(function() {
   document.getElementById('splash').classList.add('off');
-  // Verifica se já tem sessão ativa
   var uid = localStorage.getItem('tea_current');
   var users = getUsers();
   var sid = localStorage.getItem('mind_school_current');
@@ -2012,23 +1986,7 @@ setTimeout(function() {
   } else if (uid && users[uid]) {
     enterApp(users[uid]);
   }
-  // Auth permanece visível se não logado
 }, 2000);
-
-document.addEventListener('touchstart', function() {
-  if (window._audioUnlocked) return;
-  window._audioUnlocked = true;
-  if ('speechSynthesis' in window) {
-    var u = new SpeechSynthesisUtterance('');
-    u.volume = 0;
-    window.speechSynthesis.speak(u);
-  }
-}, {once: true});
-
-function dlQR() {
-  var a = document.createElement('a');
-  a.href = QR_URL; a.download = 'mindbot-qrcode.png'; a.click();
-}
 </script>
 </body>
 </html>
