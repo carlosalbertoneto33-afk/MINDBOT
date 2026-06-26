@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -677,7 +677,7 @@ nav::-webkit-scrollbar{display:none}
   <div class="ttl" style="justify-content:center">📱 Acesso por QR Code</div>
   <div class="qr-wrap">
     <div class="qr-card"><img id="qrImg" src="" alt="QR Code Mindbot"></div>
-    <p class="qr-url">carlosalbertoneto33-afk.github.io/mindbot/</p>
+    <p class="qr-url">carlosalbertoneto33-afk.github.io/teabot/</p>
     <p class="qr-desc">📌 Mostre para professores ou familiares acessarem o Mindbot!</p>
     <button class="btn" style="max-width:260px;margin:0 auto 14px" onclick="dlQR()">💾 Baixar QR Code</button>
   </div>
@@ -1126,112 +1126,135 @@ function renderAlunoCard(u) {
 function gerarPDF(userId) {
   var users = getUsers();
   var u = users[userId];
-  if (!u) return;
-
+  if (!u) { showW('⚠️','Erro','Aluno não encontrado.'); return; }
   var d = u.data || {};
   var moodHist = d.moodHist || [];
   var rotina = d.rotina || {};
   var cq = d.cq || [];
   var stars = d.stars || 0;
-
-  if (!window.jspdf) {
-    showW('⚠️','Erro','Biblioteca PDF não carregada.');
-    return;
-  }
-
-  var { jsPDF } = window.jspdf;
-  var doc = new jsPDF();
-
-  var W = doc.internal.pageSize.getWidth();
-  var y = 20;
-
-  doc.setFillColor(79,123,247);
-  doc.rect(0,0,W,35,'F');
-
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(18);
-  doc.text('Mindbot',14,15);
-
-  doc.setFontSize(10);
-  doc.text('Relatório de acompanhamento',14,24);
-
-  doc.setTextColor(40,40,40);
-
-  y = 50;
-
-  doc.setFontSize(12);
-  doc.text('Aluno: '+u.nome,14,y);
-  y+=8;
-
-  doc.text('Usuário: @'+u.user,14,y);
-  y+=8;
-
-  doc.text('Idade: '+u.idade+' anos',14,y);
-  y+=8;
-
-  doc.text('Série: '+u.serie,14,y);
-  y+=8;
-
-  doc.text('Nível: '+(u.nivel || '-'),14,y);
-  y+=12;
-
-
-  doc.setFontSize(13);
-  doc.text('Desempenho',14,y);
-  y+=8;
-
-  doc.setFontSize(11);
-
-  doc.text('⭐ Estrelas: '+stars,14,y);
-  y+=7;
-
-  doc.text('🏆 Conquistas: '+cq.length+'/10',14,y);
-  y+=7;
-
+  var NL = {'1':'Nivel 1 - Apoio leve','2':'Nivel 2 - Apoio moderado','3':'Nivel 3 - Apoio intenso'};
   var rotDone = Object.values(rotina).filter(Boolean).length;
+  var hoje = new Date().toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-  doc.text('✅ Rotina concluída: '+rotDone+'/10',14,y);
-  y+=12;
-
-
-  doc.setFontSize(13);
-  doc.text('Histórico de humor',14,y);
-  y+=8;
-
-  doc.setFontSize(10);
-
-  if(moodHist.length){
-
-    moodHist.slice(0,10).forEach(function(m){
-
-      doc.text(
-        (m.date||'')+' '+(m.time||'')+
-        ' - '+(m.e||'')+' '+(m.n||''),
-        14,
-        y
-      );
-
-      y+=7;
-
-      if(y>280){
-        doc.addPage();
-        y=20;
-      }
-
-    });
-
-  }else{
-
-    doc.text('Nenhum registro de humor.',14,y);
-
+  function es(v) {
+    return String(v==null?'':v)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
+  var moodRows = moodHist.slice(0,15).map(function(m){
+    return '<tr><td>'+es(m.date)+'</td><td>'+es(m.time)+'</td>'
+      +'<td>'+es(m.e+' '+m.n)+'</td><td>'+es(m.note||'—')+'</td></tr>';
+  }).join('') || '<tr><td colspan="4" style="color:#94A3B8;text-align:center;padding:12px">Sem registros de humor</td></tr>';
 
-  doc.save(
-    'relatorio_mindbot_'+u.nome.replace(/\s/g,'_')+'.pdf'
-  );
+  var CQN={c1:'Primeira Estrela',c2:'Expressando Emocoes',c3:'Voz Ativa',
+    c4:'Mestre da Memoria',c5:'Conhecedor de Emocoes',c6:'Rotina Completa',
+    c7:'Super Estrela',c8:'Campeao',c9:'Mestre das Cores',c10:'Dedicado'};
+  var cqRows = cq.length
+    ? cq.map(function(id){return '<li>&#10003; '+es(CQN[id]||id)+'</li>';}).join('')
+    : '<li style="color:#94A3B8">Nenhuma conquista ainda.</li>';
 
-  showW('📄','PDF criado','Relatório baixado com sucesso!');
+  var RDNM={r1:'Acordar',r2:'Escovar os dentes',r3:'Tomar banho',r4:'Se vestir',
+    r5:'Cafe da manha',r6:'Pegar mochila',r7:'Ir para escola',
+    r8:'Estudar',r9:'Tempo livre',r10:'Dormir'};
+  var rotinaRows = Object.keys(RDNM).map(function(k){
+    var done = !!rotina[k];
+    return '<tr><td>'+RDNM[k]+'</td>'
+      +'<td style="text-align:center;font-weight:800;color:'+(done?'#22C98A':'#FF5252')+'">'
+      +(done?'&#10003; Feito':'&#10007; Pendente')+'</td></tr>';
+  }).join('');
+
+  var pdfHTML = [
+    '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">',
+    '<title>Relatorio Mindbot - '+es(u.nome)+'</title>',
+    '<style>',
+    '*{box-sizing:border-box;margin:0;padding:0}',
+    'body{font-family:Arial,Helvetica,sans-serif;color:#1A2540;padding:24px;max-width:700px;margin:0 auto;font-size:13px}',
+    'h1{font-size:20px;margin-bottom:2px}',
+    '.sub{color:#94A3B8;font-size:11px;margin-bottom:20px}',
+    '.capa{background:#4F7BF7;color:#fff;border-radius:10px;padding:20px;margin-bottom:20px;display:flex;gap:14px;align-items:center}',
+    '.capa .ico{font-size:42px;flex-shrink:0}',
+    '.capa h1{font-size:18px;font-weight:800;margin-bottom:3px;color:#fff}',
+    '.capa p{font-size:11px;opacity:.88}',
+    '.sec{margin-bottom:18px}',
+    '.sec-t{font-size:13px;font-weight:800;color:#4F7BF7;border-left:4px solid #4F7BF7;padding:2px 0 2px 10px;margin-bottom:10px}',
+    '.ig{display:grid;grid-template-columns:1fr 1fr;gap:7px}',
+    '.ib{background:#F4F8FF;border-radius:7px;padding:9px 12px;border-left:3px solid #4F7BF7}',
+    '.ib .lb{font-size:10px;color:#94A3B8;font-weight:700;margin-bottom:1px}',
+    '.ib .vl{font-size:13px;font-weight:800}',
+    '.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}',
+    '.sb{background:#EEF3FF;border-radius:9px;padding:10px;text-align:center}',
+    '.sb .n{font-size:22px;font-weight:800;color:#4F7BF7;line-height:1}',
+    '.sb .l{font-size:10px;color:#94A3B8;font-weight:700;margin-top:3px}',
+    'table{width:100%;border-collapse:collapse;font-size:12px;margin-top:0}',
+    'th{background:#4F7BF7;color:#fff;padding:7px 10px;text-align:left;font-size:11px}',
+    'td{padding:6px 10px;border-bottom:1px solid #E8EFFE}',
+    'tr:nth-child(even) td{background:#F8FAFF}',
+    'ul{padding-left:16px;margin:0}',
+    'li{margin-bottom:4px;font-size:12px}',
+    '.foot{margin-top:20px;text-align:center;font-size:10px;color:#94A3B8;border-top:1px solid #E2E8F0;padding-top:10px}',
+    '@media print{',
+    '  .capa{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}',
+    '  th{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}',
+    '  @page{margin:1cm}',
+    '}',
+    '</style></head><body>',
+    '<div class="capa"><div class="ico">&#129302;</div><div>',
+    '<h1>Mindbot - Relatorio de Desempenho</h1>',
+    '<p>Gerado em: '+es(hoje)+'</p>',
+    '</div></div>',
+    '<div class="sec"><div class="sec-t">&#128100; Dados do Aluno</div><div class="ig">',
+    '<div class="ib"><div class="lb">Nome Completo</div><div class="vl">'+es(u.nome)+'</div></div>',
+    '<div class="ib"><div class="lb">Usuario</div><div class="vl">@'+es(u.user)+'</div></div>',
+    '<div class="ib"><div class="lb">Idade</div><div class="vl">'+es(u.idade)+' anos</div></div>',
+    '<div class="ib"><div class="lb">Serie / Ano</div><div class="vl">'+es(u.serie)+'</div></div>',
+    '<div class="ib"><div class="lb">Nivel do Autismo</div><div class="vl">'+es(NL[u.nivel]||'-')+'</div></div>',
+    '<div class="ib"><div class="lb">Responsavel</div><div class="vl">'+es(u.resp||'-')+'</div></div>',
+    '</div></div>',
+    '<div class="sec"><div class="sec-t">&#128202; Desempenho Geral</div><div class="sg">',
+    '<div class="sb"><div class="n">'+stars+'</div><div class="l">&#11088; Estrelas</div></div>',
+    '<div class="sb"><div class="n">'+cq.length+'</div><div class="l">&#127942; Conquistas</div></div>',
+    '<div class="sb"><div class="n">'+rotDone+'/10</div><div class="l">&#9989; Rotina</div></div>',
+    '<div class="sb"><div class="n">'+(d.dias||1)+'</div><div class="l">&#128293; Dias</div></div>',
+    '</div></div>',
+    '<div class="sec"><div class="sec-t">&#128197; Rotina de Hoje</div>',
+    '<table><tr><th>Atividade</th><th style="width:120px">Status</th></tr>',
+    rotinaRows,
+    '</table></div>',
+    '<div class="sec"><div class="sec-t">&#128172; Historico de Humor (ultimos 15)</div>',
+    '<table><tr><th>Data</th><th>Hora</th><th>Humor</th><th>Observacao</th></tr>',
+    moodRows,
+    '</table></div>',
+    '<div class="sec"><div class="sec-t">&#127941; Conquistas Desbloqueadas</div><ul>',
+    cqRows,
+    '</ul></div>',
+    '<div class="foot">Relatorio gerado pelo Mindbot &bull; carlosalbertoneto33-afk.github.io/teabot/ &bull; Liga Jovem / MNR &bull; Joao Pessoa, PB</div>',
+    '</body></html>'
+  ].join('');
+
+  try {
+    var blob = new Blob([pdfHTML], {type:'text/html;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'mindbot-relatorio-'+es(u.user)+'.html';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){
+      URL.revokeObjectURL(url);
+      if(a.parentNode) a.parentNode.removeChild(a);
+    }, 3000);
+    showW('📄','Relatorio baixado!','Abra o arquivo .html e use Imprimir → Salvar como PDF.');
+  } catch(err) {
+    try {
+      var win = window.open('','_blank');
+      if(win){ win.document.write(pdfHTML); win.document.close(); setTimeout(function(){win.print();},500); }
+      else { showW('⚠️','Permita popups','Libere popups no navegador e tente de novo.'); }
+    } catch(e2) {
+      showW('⚠️','Erro','Nao foi possivel gerar o relatorio: '+e2.message);
+    }
+  }
 }
 
 // ══════════════════════════════════════
@@ -1988,12 +2011,7 @@ function closeWin() {
 }
 
 // ── QR ──
-function dlQR() {
-  var a = document.createElement('a');
-  a.href = QR_URL;
-  a.download = 'mindbot-qrcode.png';
-  a.click();
-}
+
 
 // ── BURST ──
 function burst(el) {
@@ -2047,8 +2065,18 @@ document.addEventListener('touchstart', function() {
 }, {once: true});
 
 function dlQR() {
-  var a = document.createElement('a');
-  a.href = QR_URL; a.download = 'mindbot-qrcode.png'; a.click();
+  try {
+    var a = document.createElement('a');
+    a.href = QR_URL;
+    a.download = 'mindbot-qrcode.png';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ if(a.parentNode) a.parentNode.removeChild(a); }, 1500);
+    showW('📱','QR Code baixado!','Imagem salva com sucesso!');
+  } catch(e) {
+    showW('⚠️','Erro','Nao foi possivel baixar o QR Code.');
+  }
 }
 </script>
 </body>
