@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1126,91 +1127,111 @@ function gerarPDF(userId) {
   var users = getUsers();
   var u = users[userId];
   if (!u) return;
+
   var d = u.data || {};
   var moodHist = d.moodHist || [];
   var rotina = d.rotina || {};
   var cq = d.cq || [];
   var stars = d.stars || 0;
-  var nivelLabel = {1:'Nível 1 – Apoio leve', 2:'Nível 2 – Apoio moderado', 3:'Nível 3 – Apoio intenso'};
+
+  if (!window.jspdf) {
+    showW('⚠️','Erro','Biblioteca PDF não carregada.');
+    return;
+  }
+
+  var { jsPDF } = window.jspdf;
+  var doc = new jsPDF();
+
+  var W = doc.internal.pageSize.getWidth();
+  var y = 20;
+
+  doc.setFillColor(79,123,247);
+  doc.rect(0,0,W,35,'F');
+
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.text('Mindbot',14,15);
+
+  doc.setFontSize(10);
+  doc.text('Relatório de acompanhamento',14,24);
+
+  doc.setTextColor(40,40,40);
+
+  y = 50;
+
+  doc.setFontSize(12);
+  doc.text('Aluno: '+u.nome,14,y);
+  y+=8;
+
+  doc.text('Usuário: @'+u.user,14,y);
+  y+=8;
+
+  doc.text('Idade: '+u.idade+' anos',14,y);
+  y+=8;
+
+  doc.text('Série: '+u.serie,14,y);
+  y+=8;
+
+  doc.text('Nível: '+(u.nivel || '-'),14,y);
+  y+=12;
+
+
+  doc.setFontSize(13);
+  doc.text('Desempenho',14,y);
+  y+=8;
+
+  doc.setFontSize(11);
+
+  doc.text('⭐ Estrelas: '+stars,14,y);
+  y+=7;
+
+  doc.text('🏆 Conquistas: '+cq.length+'/10',14,y);
+  y+=7;
+
   var rotDone = Object.values(rotina).filter(Boolean).length;
 
-  // Gera relatório em um iframe oculto para evitar bloqueio de popup.
-  var hoje = new Date().toLocaleDateString('pt-BR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  doc.text('✅ Rotina concluída: '+rotDone+'/10',14,y);
+  y+=12;
 
-  var moodRows = moodHist.slice(0,10).map(function(m) {
-    return '<tr><td>' + escHTML(m.date) + '</td><td>' + escHTML(m.time) + '</td><td>' + escHTML(m.e + ' ' + m.n) + '</td><td>' + escHTML(m.note||'-') + '</td></tr>';
-  }).join('') || '<tr><td colspan="4">Sem registros</td></tr>';
 
-  var CQD_NAMES = {c1:'Primeira Estrela',c2:'Expressando Emoções',c3:'Voz Ativa',c4:'Mestre da Memória',c5:'Conhecedor de Emoções',c6:'Rotina Completa',c7:'Super Estrela',c8:'Campeão',c9:'Mestre das Cores',c10:'Dedicado'};
-  var cqRows = (cq.length ? cq : []).map(function(id) {
-    return '<li>✅ ' + escHTML(CQD_NAMES[id] || id) + '</li>';
-  }).join('') || '<li>Nenhuma conquista ainda.</li>';
+  doc.setFontSize(13);
+  doc.text('Histórico de humor',14,y);
+  y+=8;
 
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Relatório Mindbot - ' + escHTML(u.nome) + '</title>' +
-    '<style>body{font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:20px;color:#1A2540}' +
-    'h1{color:#4F7BF7;font-size:1.6rem;margin-bottom:4px}' +
-    '.sub{color:#94A3B8;font-size:.9rem;margin-bottom:24px}' +
-    '.section{margin-bottom:22px}' +
-    '.section h2{font-size:1.1rem;color:#4F7BF7;border-bottom:2px solid #EEF3FF;padding-bottom:5px;margin-bottom:10px}' +
-    '.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}' +
-    '.info-box{background:#F4F8FF;border-radius:8px;padding:10px}' +
-    '.info-box label{font-size:.75rem;color:#94A3B8;display:block;font-weight:700}' +
-    '.info-box span{font-size:1rem;font-weight:800}' +
-    'table{width:100%;border-collapse:collapse;font-size:.85rem}' +
-    'th{background:#4F7BF7;color:#fff;padding:7px 10px;text-align:left}' +
-    'td{padding:7px 10px;border-bottom:1px solid #E8EFFE}' +
-    'ul{padding-left:20px;margin:0}li{margin-bottom:5px;font-size:.9rem}' +
-    '.footer{margin-top:30px;font-size:.78rem;color:#94A3B8;text-align:center;border-top:1px solid #E2E8F0;padding-top:10px}' +
-    '@media print{body{padding:10px}}' +
-    '</style></head><body>' +
-    '<h1>🤖 Mindbot – Relatório de Desempenho</h1>' +
-    '<div class="sub">Gerado em: ' + escHTML(hoje) + '</div>' +
-    '<div class="section"><h2>👤 Dados do Aluno</h2>' +
-    '<div class="info-grid">' +
-    '<div class="info-box"><label>Nome</label><span>' + escHTML(u.nome) + '</span></div>' +
-    '<div class="info-box"><label>Usuário</label><span>@' + escHTML(u.user) + '</span></div>' +
-    '<div class="info-box"><label>Idade</label><span>' + escHTML(u.idade) + ' anos</span></div>' +
-    '<div class="info-box"><label>Série</label><span>' + escHTML(u.serie) + '</span></div>' +
-    '<div class="info-box"><label>Nível Autismo</label><span>' + escHTML(nivelLabel[u.nivel]||'-') + '</span></div>' +
-    '<div class="info-box"><label>Responsável</label><span>' + escHTML(u.resp) + '</span></div>' +
-    '</div></div>' +
-    '<div class="section"><h2>📊 Desempenho Geral</h2>' +
-    '<div class="info-grid">' +
-    '<div class="info-box"><label>⭐ Total de Estrelas</label><span>' + stars + '</span></div>' +
-    '<div class="info-box"><label>🏆 Conquistas</label><span>' + cq.length + ' / 10</span></div>' +
-    '<div class="info-box"><label>✅ Rotina hoje</label><span>' + rotDone + ' / 10 (' + Math.round(rotDone/10*100) + '%)</span></div>' +
-    '<div class="info-box"><label>🔥 Dias seguidos</label><span>' + (d.dias||1) + '</span></div>' +
-    '</div></div>' +
-    '<div class="section"><h2>💭 Histórico de Humor (últimos 10)</h2>' +
-    '<table><tr><th>Data</th><th>Hora</th><th>Humor</th><th>Observação</th></tr>' + moodRows + '</table></div>' +
-    '<div class="section"><h2>🏅 Conquistas Desbloqueadas</h2><ul>' + cqRows + '</ul></div>' +
-    '<div class="footer">Relatório gerado pelo Mindbot • carlosalbertoneto33-afk.github.io/mindbot/</div>' +
-    '</body></html>';
+  doc.setFontSize(10);
 
-  var old = document.getElementById('printFrame');
-  if (old) old.remove();
-  var frame = document.createElement('iframe');
-  frame.id = 'printFrame';
-  frame.style.position = 'fixed';
-  frame.style.right = '0';
-  frame.style.bottom = '0';
-  frame.style.width = '0';
-  frame.style.height = '0';
-  frame.style.border = '0';
-  document.body.appendChild(frame);
-  var doc = frame.contentWindow.document;
-  doc.open();
-  doc.write(html);
-  doc.close();
-  setTimeout(function() {
-    try {
-      frame.contentWindow.focus();
-      frame.contentWindow.print();
-      showW('📄', 'Relatório pronto', 'Na janela de impressão, escolha "Salvar como PDF".');
-    } catch(e) {
-      showW('⚠️', 'Não foi possível abrir o PDF', 'Permita impressão/popups no navegador e tente novamente.');
-    }
-  }, 350);
+  if(moodHist.length){
+
+    moodHist.slice(0,10).forEach(function(m){
+
+      doc.text(
+        (m.date||'')+' '+(m.time||'')+
+        ' - '+(m.e||'')+' '+(m.n||''),
+        14,
+        y
+      );
+
+      y+=7;
+
+      if(y>280){
+        doc.addPage();
+        y=20;
+      }
+
+    });
+
+  }else{
+
+    doc.text('Nenhum registro de humor.',14,y);
+
+  }
+
+
+  doc.save(
+    'relatorio_mindbot_'+u.nome.replace(/\s/g,'_')+'.pdf'
+  );
+
+  showW('📄','PDF criado','Relatório baixado com sucesso!');
 }
 
 // ══════════════════════════════════════
