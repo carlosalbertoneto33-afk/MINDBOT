@@ -1414,10 +1414,15 @@ function pdfWrite(doc, text, x, y, maxWidth, lineHeight) {
   return y + (lines.length * lineHeight);
 }
 
+<script>
 async function gerarPDF(userId) {
   try {
     var u = await getUserById(userId);
-    if (!u) { showW("⚠️", "Erro", "Aluno não encontrado."); return; }
+    if (!u) {
+      showW("⚠️", "Erro", "Aluno não encontrado.");
+      return;
+    }
+
     if (!window.jspdf || !window.jspdf.jsPDF) {
       showW("⚠️", "Erro", "Biblioteca do PDF não carregou.");
       return;
@@ -1428,37 +1433,80 @@ async function gerarPDF(userId) {
     var rotina = d.rotina || {};
     var cq = d.cq || [];
     var stars = d.stars || 0;
-    var NL = {"1":"Nivel 1 - Apoio leve","2":"Nivel 2 - Apoio moderado","3":"Nivel 3 - Apoio intenso"};
-    var CQN = {
-      c1:"Primeira Estrela",
-      c2:"Expressando Emocoes",
-      c3:"Voz Ativa",
-      c4:"Mestre da Memoria",
-      c5:"Conhecedor de Emocoes",
-      c6:"Rotina Completa",
-      c7:"Super Estrela",
-      c8:"Campeao",
-      c9:"Mestre das Cores",
-      c10:"Dedicado"
+
+    var NL = {
+      "1": "Nivel 1 - Apoio leve",
+      "2": "Nivel 2 - Apoio moderado",
+      "3": "Nivel 3 - Apoio intenso"
     };
+
+    var CQN = {
+      c1: "Primeira Estrela",
+      c2: "Expressando Emocoes",
+      c3: "Voz Ativa",
+      c4: "Mestre da Memoria",
+      c5: "Conhecedor de Emocoes",
+      c6: "Rotina Completa",
+      c7: "Super Estrela",
+      c8: "Campeao",
+      c9: "Mestre das Cores",
+      c10: "Dedicado"
+    };
+
     var RDNM = {
-      r1:"Acordar",
-      r2:"Escovar os dentes",
-      r3:"Tomar banho",
-      r4:"Se vestir",
-      r5:"Cafe da manha",
-      r6:"Pegar mochila",
-      r7:"Ir para a escola",
-      r8:"Hora de estudar",
-      r9:"Tempo livre",
-      r10:"Dormir"
+      r1: "Acordar",
+      r2: "Escovar os dentes",
+      r3: "Tomar banho",
+      r4: "Se vestir",
+      r5: "Cafe da manha",
+      r6: "Pegar mochila",
+      r7: "Ir para a escola",
+      r8: "Hora de estudar",
+      r9: "Tempo livre",
+      r10: "Dormir"
     };
 
     var jsPDF = window.jspdf.jsPDF;
-    var doc = new jsPDF({ unit:"pt", format:"a4" });
+    var doc = new jsPDF({ unit: "pt", format: "a4" });
     var margin = 40;
     var maxWidth = doc.internal.pageSize.getWidth() - (margin * 2);
     var y = 50;
+
+    function pdfEnsureSpace(needed) {
+      var pageHeight = doc.internal.pageSize.getHeight();
+      if (y + needed > pageHeight - 40) {
+        doc.addPage();
+        y = 50;
+      }
+    }
+
+    function writeLines(text, x, width, lineHeight) {
+      var lines = doc.splitTextToSize(String(text || ""), width);
+      doc.text(lines, x, y);
+      y += lines.length * lineHeight;
+    }
+
+    function section(title) {
+      pdfEnsureSpace(40);
+      doc.setFillColor(79, 123, 247);
+      doc.roundedRect(margin, y - 18, maxWidth, 24, 8, 8, "F");
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(13);
+      doc.text(title, margin + 10, y);
+      y += 28;
+      doc.setTextColor(26, 37, 64);
+    }
+
+    function field(label, value) {
+      pdfEnsureSpace(28);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text(label + ":", margin, y);
+      doc.setFont("helvetica", "normal");
+      writeLines(value, margin + 110, maxWidth - 110, 16);
+      y += 4;
+    }
 
     doc.setFillColor(79, 123, 247);
     doc.roundedRect(30, 25, doc.internal.pageSize.getWidth() - 60, 75, 14, 14, "F");
@@ -1472,26 +1520,6 @@ async function gerarPDF(userId) {
 
     y = 130;
     doc.setTextColor(26, 37, 64);
-
-    function section(title) {
-      y = pdfEnsureSpace(doc, y, 40);
-      doc.setFillColor(238, 243, 255);
-      doc.roundedRect(margin, y - 18, maxWidth, 24, 8, 8, "F");
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(13);
-      doc.text(pdfSafeText(title), margin + 10, y);
-      y += 20;
-    }
-
-    function field(label, value) {
-      y = pdfEnsureSpace(doc, y, 28);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
-      doc.text(pdfSafeText(label) + ":", margin, y);
-      doc.setFont("helvetica", "normal");
-      y = pdfWrite(doc, value, margin + 110, y, maxWidth - 110, 16);
-      y += 4;
-    }
 
     section("Dados do aluno");
     field("Nome", u.nome || "-");
@@ -1533,48 +1561,54 @@ async function gerarPDF(userId) {
       });
     }
 
-   var fileName = "mindbot-relatorio-" + safeFileName(u.user) + ".pdf";
-var pdfBlob = doc.output("blob");
-var pdfFile = new File([pdfBlob], fileName, { type: "application/pdf" });
+    var fileName = "mindbot-relatorio-" + String(u.user || "aluno").replace(/[^a-zA-Z0-9_-]+/g, "-") + ".pdf";
+    var pdfBlob = doc.output("blob");
 
-// Melhor opção para celular: compartilhar/salvar o arquivo real
-if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
-  try {
-    await navigator.share({
-      title: "Relatório Mindbot",
-      text: "Relatório em PDF do aluno",
-      files: [pdfFile]
-    });
-    showW("📄", "PDF pronto!", "Escolha onde salvar o arquivo no seu celular.");
-    return;
-  } catch (shareErr) {
-    console.log("Compartilhamento cancelado ou indisponível:", shareErr);
-  }
-}
+    try {
+      if (typeof File !== "undefined" && navigator.share && navigator.canShare) {
+        var pdfFile = new File([pdfBlob], fileName, { type: "application/pdf" });
+        if (navigator.canShare({ files: [pdfFile] })) {
+          await navigator.share({
+            title: "Relatorio Mindbot",
+            text: "Relatorio em PDF",
+            files: [pdfFile]
+          });
+          showW("📄", "PDF pronto!", "Escolha onde salvar o arquivo.");
+          return;
+        }
+      }
+    } catch (shareErr) {
+      console.log("Compartilhamento indisponivel:", shareErr);
+    }
 
-// Fallback para navegadores que suportam download
-var pdfUrl = URL.createObjectURL(pdfBlob);
-var a = document.createElement("a");
-a.href = pdfUrl;
-a.download = fileName;
-a.target = "_blank";
-a.rel = "noopener";
-a.style.display = "none";
-document.body.appendChild(a);
-a.click();
+    var pdfUrl = URL.createObjectURL(pdfBlob);
+    var a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = fileName;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
 
-setTimeout(function() {
-  URL.revokeObjectURL(pdfUrl);
-  if (a.parentNode) a.parentNode.removeChild(a);
-}, 4000);
+    setTimeout(function() {
+      if (a.parentNode) a.parentNode.removeChild(a);
+    }, 1000);
 
-showW("📄", "PDF gerado!", "Se não salvar automático, use o menu do navegador para baixar ou compartilhar.");
+    setTimeout(function() {
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        window.open(pdfUrl, "_blank");
+      }
+    }, 400);
+
+    setTimeout(function() {
+      URL.revokeObjectURL(pdfUrl);
+    }, 30000);
+
+    showW("📄", "PDF gerado!", "Se o celular nao baixar direto, ele abre o arquivo para salvar.");
   } catch (err) {
     console.error(err);
-    showW("⚠️", "Erro", "Não foi possível gerar o PDF.");
+    showW("⚠️", "Erro", "Nao foi possivel gerar o PDF.");
   }
 }
-
 var S = {
   stars: 0,
   rotina: {},
