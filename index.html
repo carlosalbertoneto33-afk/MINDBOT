@@ -1414,16 +1414,23 @@ function pdfWrite(doc, text, x, y, maxWidth, lineHeight) {
   return y + (lines.length * lineHeight);
 }
 
+function pdfTxt(v) {
+  return String(v == null ? "" : v)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\x20-\x7E\n]/g, " ");
+}
+
 async function gerarPDF(userId) {
   try {
     var u = await getUserById(userId);
     if (!u) {
-      showW("⚠️", "Erro", "Aluno não encontrado.");
+      showW("⚠️", "Erro", "Aluno nao encontrado.");
       return;
     }
 
     if (!window.jspdf || !window.jspdf.jsPDF) {
-      showW("⚠️", "Erro", "Biblioteca do PDF não carregou.");
+      showW("⚠️", "Erro", "Biblioteca do PDF nao carregou.");
       return;
     }
 
@@ -1433,18 +1440,18 @@ async function gerarPDF(userId) {
     var cq = d.cq || [];
     var stars = d.stars || 0;
 
-    var NL = {
+    var nivelMap = {
       "1": "Nivel 1 - Apoio leve",
       "2": "Nivel 2 - Apoio moderado",
       "3": "Nivel 3 - Apoio intenso"
     };
 
-    var CQN = {
+    var conquistaMap = {
       c1: "Primeira Estrela",
       c2: "Expressando Emocoes",
       c3: "Voz Ativa",
       c4: "Mestre da Memoria",
-      c5: "Conhecedor de Emocoes",
+      c5: "Conhecedor de Emoeoes",
       c6: "Rotina Completa",
       c7: "Super Estrela",
       c8: "Campeao",
@@ -1452,7 +1459,7 @@ async function gerarPDF(userId) {
       c10: "Dedicado"
     };
 
-    var RDNM = {
+    var rotinaMap = {
       r1: "Acordar",
       r2: "Escovar os dentes",
       r3: "Tomar banho",
@@ -1467,115 +1474,140 @@ async function gerarPDF(userId) {
 
     var jsPDF = window.jspdf.jsPDF;
     var doc = new jsPDF({ unit: "pt", format: "a4" });
-    var margin = 40;
-    var maxWidth = doc.internal.pageSize.getWidth() - (margin * 2);
-    var y = 50;
 
-    function pdfEnsureSpace(needed) {
-      var pageHeight = doc.internal.pageSize.getHeight();
-      if (y + needed > pageHeight - 40) {
+    var pageWidth = doc.internal.pageSize.getWidth();
+    var pageHeight = doc.internal.pageSize.getHeight();
+    var margin = 40;
+    var y = 40;
+    var lineHeight = 16;
+    var maxWidth = pageWidth - margin * 2;
+
+    function ensureSpace(extra) {
+      if (y + extra > pageHeight - 40) {
         doc.addPage();
-        y = 50;
+        y = 40;
       }
     }
 
-    function writeLines(text, x, width, lineHeight) {
-      var lines = doc.splitTextToSize(String(text || ""), width);
-      doc.text(lines, x, y);
-      y += lines.length * lineHeight;
+    function addLine(text, bold) {
+      ensureSpace(lineHeight + 4);
+      doc.setFont("helvetica", bold ? "bold" : "normal");
+      doc.setFontSize(11);
+      var lines = doc.splitTextToSize(pdfTxt(text), maxWidth);
+      doc.text(lines, margin, y);
+      y += lines.length * lineHeight + 4;
     }
 
-    function section(title) {
-      pdfEnsureSpace(40);
-      doc.setFillColor(79, 123, 247);
-      doc.roundedRect(margin, y - 18, maxWidth, 24, 8, 8, "F");
-      doc.setTextColor(255, 255, 255);
+    function addTitle(text) {
+      ensureSpace(30);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text(pdfTxt(text), margin, y);
+      y += 24;
+    }
+
+    function addSection(text) {
+      ensureSpace(24);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(13);
-      doc.text(title, margin + 10, y);
-      y += 28;
-      doc.setTextColor(26, 37, 64);
+      doc.text(pdfTxt(text), margin, y);
+      y += 18;
     }
 
-    function field(label, value) {
-      pdfEnsureSpace(28);
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
-      doc.text(label + ":", margin, y);
-      doc.setFont("helvetica", "normal");
-      writeLines(value, margin + 110, maxWidth - 110, 16);
-      y += 4;
-    }
+    addTitle("Mindbot - Relatorio do Aluno");
+    addLine("Gerado em: " + new Date().toLocaleString("pt-BR"), false);
 
-    doc.setFillColor(79, 123, 247);
-    doc.roundedRect(30, 25, doc.internal.pageSize.getWidth() - 60, 75, 14, 14, "F");
-    doc.setTextColor(255, 255, 255);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(22);
-    doc.text("Mindbot - Relatorio do Aluno", 50, 58);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(11);
-    doc.text("Gerado em: " + new Date().toLocaleString("pt-BR"), 50, 80);
+    addSection("Dados do aluno");
+    addLine("Nome: " + (u.nome || "-"), false);
+    addLine("Usuario: @" + (u.user || "-"), false);
+    addLine("Idade: " + (u.idade || "-") + " anos", false);
+    addLine("Serie: " + (u.serie || "-"), false);
+    addLine("Nivel: " + (nivelMap[u.nivel] || "-"), false);
+    addLine("Responsavel: " + (u.resp || "-"), false);
 
-    y = 130;
-    doc.setTextColor(26, 37, 64);
+    addSection("Desempenho geral");
+    addLine("Estrelas: " + stars, false);
+    addLine("Conquistas: " + cq.length + " de 10", false);
+    addLine("Dias seguidos: " + (d.dias || 1), false);
+    addLine("Recorde de sequencia: " + (d.seqRec || 0), false);
 
-    section("Dados do aluno");
-    field("Nome", u.nome || "-");
-    field("Usuario", "@" + (u.user || "-"));
-    field("Idade", (u.idade || "-") + " anos");
-    field("Serie", u.serie || "-");
-    field("Nivel", NL[u.nivel] || "-");
-    field("Responsavel", u.resp || "-");
-
-    section("Desempenho geral");
-    field("Estrelas", String(stars));
-    field("Conquistas", String(cq.length) + " de 10");
-    field("Dias seguidos", String(d.dias || 1));
-    field("Recorde de sequencia", String(d.seqRec || 0));
-
-    section("Rotina");
-    Object.keys(RDNM).forEach(function(key) {
-      field(RDNM[key], rotina[key] ? "Feito" : "Pendente");
+    addSection("Rotina");
+    Object.keys(rotinaMap).forEach(function(key) {
+      addLine(rotinaMap[key] + ": " + (rotina[key] ? "Feito" : "Pendente"), false);
     });
 
-    section("Humores recentes");
+    addSection("Humores recentes");
     if (!moodHist.length) {
-      field("Historico", "Nenhum humor registrado.");
+      addLine("Nenhum humor registrado.", false);
     } else {
       moodHist.slice(0, 15).forEach(function(m, index) {
-        field(
-          "Registro " + (index + 1),
-          (m.date || "-") + " " + (m.time || "-") + " - " + (m.n || "-") + (m.note ? " - " + m.note : "")
+        addLine(
+          "Registro " + (index + 1) + ": " +
+          (m.date || "-") + " " + (m.time || "-") +
+          " - " + (m.n || "-") +
+          (m.note ? " - " + m.note : ""),
+          false
         );
       });
     }
 
-    section("Conquistas");
+    addSection("Conquistas");
     if (!cq.length) {
-      field("Status", "Nenhuma conquista ainda.");
+      addLine("Nenhuma conquista ainda.", false);
     } else {
       cq.forEach(function(id, index) {
-        field("Conquista " + (index + 1), CQN[id] || id);
+        addLine("Conquista " + (index + 1) + ": " + (conquistaMap[id] || id), false);
       });
     }
 
     var fileName = "mindbot-relatorio-" + String(u.user || "aluno").replace(/[^a-zA-Z0-9_-]+/g, "-") + ".pdf";
-    var pdfBlob = doc.output("blob");
+    var pdfBlob = new Blob([doc.output("arraybuffer")], { type: "application/pdf" });
 
-    try {
-      if (typeof File !== "undefined" && navigator.share && navigator.canShare) {
+    if (typeof File !== "undefined" && navigator.share && navigator.canShare) {
+      try {
         var pdfFile = new File([pdfBlob], fileName, { type: "application/pdf" });
         if (navigator.canShare({ files: [pdfFile] })) {
           await navigator.share({
             title: "Relatorio Mindbot",
-            text: "Relatorio em PDF",
             files: [pdfFile]
           });
           showW("📄", "PDF pronto!", "Escolha onde salvar o arquivo.");
           return;
         }
+      } catch (e) {
+        console.log("Share indisponivel:", e);
       }
+    }
+
+    var pdfUrl = URL.createObjectURL(pdfBlob);
+    var a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = fileName;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+
+    setTimeout(function() {
+      if (a.parentNode) a.parentNode.removeChild(a);
+    }, 1000);
+
+    setTimeout(function() {
+      var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.open(pdfUrl, "_blank");
+      }
+    }, 500);
+
+    setTimeout(function() {
+      URL.revokeObjectURL(pdfUrl);
+    }, 30000);
+
+    showW("📄", "PDF gerado!", "Se nao baixar direto, o arquivo abre para salvar.");
+  } catch (err) {
+    console.error(err);
+    showW("⚠️", "Erro", "Nao foi possivel gerar o PDF.");
+  }
+}
     } catch (shareErr) {
       console.log("Compartilhamento indisponivel:", shareErr);
     }
