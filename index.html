@@ -706,10 +706,10 @@ nav::-webkit-scrollbar{display:none}
   </div>
 </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
 <script>
 const APP_URL = "https://carlosalbertoneto33-afk.github.io/MINDBOT/";
 const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='40' r='40' fill='%23EEF3FF'/%3E%3Ctext x='40' y='52' text-anchor='middle' font-size='36'%3E🤖%3C/text%3E%3C/svg%3E";
@@ -724,23 +724,29 @@ const firebaseConfig = {
   measurementId: "G-YLE65RF70E"
 };
 
-firebase.initializeApp(firebaseConfig);
-
-let analytics = null;
 let db = null;
 
-try {
-  analytics = firebase.analytics();
-} catch (e) {
-  console.log("Analytics não iniciado:", e);
+function hideSplash() {
+  var splash = document.getElementById("splash");
+  if (splash) splash.classList.add("off");
 }
 
 try {
-  db = firebase.firestore();
+  if (window.firebase) {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+  } else {
+    console.error("Firebase não carregou.");
+  }
 } catch (e) {
-  console.log("Firestore não iniciado:", e);
+  console.error("Erro ao iniciar Firebase:", e);
 }
 
+window.addEventListener("load", function() {
+  setTimeout(hideSplash, 1200);
+});
+
+setTimeout(hideSplash, 2500);
 function getLocalJSON(key) {
   try {
     return JSON.parse(localStorage.getItem(key) || "{}");
@@ -2339,6 +2345,146 @@ function renderCQ() {
     return '<div class="cqc' + (ok ? " ok" : "") + '">' +
       '<span class="cqi">' + c.ic + "</span>" +
       "<h4>" + c.t + "</h4><p>" + c.d + "</p>" +
-      '<span class="
+      '<span class="cqs">' + (ok ? "✅ Desbloqueada!" : "🔒 Bloqueada") + "</span></div>";
+  }).join("");
+  refreshProfileStats();
+}
+
+function chkAutoCQ() {
+  if (S.stars >= 1) unlockCQ("c1");
+  if (S.stars >= 50) unlockCQ("c7");
+  if (S.stars >= 100) unlockCQ("c8");
+  if (S.seqRec >= 5) unlockCQ("c9");
+  if (S.dias >= 3) unlockCQ("c10");
+}
+
+function unlockCQ(id) {
+  if (S.cq.indexOf(id) !== -1) return;
+  S.cq.push(id);
+  sv();
+  var c = null;
+  for (var k = 0; k < CQD.length; k++) {
+    if (CQD[k].id === id) {
+      c = CQD[k];
+      break;
+    }
+  }
+  if (c) {
+    setTimeout(function() {
+      showW("🏆", "Conquista!", '"' + c.t + '" desbloqueada!');
+    }, 500);
+  }
+  refreshProfileStats();
+}
+
+function addS(n) {
+  S.stars += n;
+  sv();
+  var h = document.getElementById("hStars"); if (h) h.textContent = S.stars;
+  var s = document.getElementById("statStars"); if (s) s.textContent = S.stars;
+  var t = document.getElementById("cqTitle"); if (t) t.textContent = S.stars + " Estrelas";
+  chkAutoCQ();
+  refreshProfileStats();
+}
+
+function showW(ico, t, m) {
+  var mbg = document.getElementById("winMbg");
+  var wIco = document.getElementById("winIco");
+  var wT = document.getElementById("winT");
+  var wM = document.getElementById("winM");
+  if (wIco) wIco.textContent = ico;
+  if (wT) wT.textContent = t;
+  if (wM) wM.textContent = m;
+  if (mbg) mbg.classList.add("show");
+}
+
+function closeWin() {
+  var mbg = document.getElementById("winMbg");
+  if (mbg) mbg.classList.remove("show");
+}
+
+function burst(el) {
+  if (!el) return;
+  try {
+    var r = el.getBoundingClientRect();
+    var emojis = ["⭐","✨","🌟","💫","🎉"];
+    for (var k = 0; k < 3; k++) {
+      (function(k) {
+        setTimeout(function() {
+          var b = document.createElement("div");
+          b.className = "bst";
+          b.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          b.style.left = (r.left + Math.random() * r.width) + "px";
+          b.style.top = (r.top + window.scrollY) + "px";
+          document.body.appendChild(b);
+          setTimeout(function() { b.remove(); }, 900);
+        }, k * 100);
+      })(k);
+    }
+  } catch (e) {}
+}
+
+function dlQR() {
+  try {
+    var box = document.getElementById("qrCodeBox");
+    if (!box) {
+      showW("⚠️", "Erro", "QR Code não encontrado.");
+      return;
+    }
+    var canvas = box.querySelector("canvas");
+    var img = box.querySelector("img");
+    var dataUrl = "";
+
+    if (canvas) dataUrl = canvas.toDataURL("image/png");
+    else if (img) dataUrl = img.src;
+
+    if (!dataUrl) {
+      showW("⚠️", "Erro", "Não foi possível gerar a imagem do QR Code.");
+      return;
+    }
+
+    var a = document.createElement("a");
+    a.href = dataUrl;
+    a.download = "mindbot-qrcode.png";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() {
+      if (a.parentNode) a.parentNode.removeChild(a);
+    }, 1200);
+    showW("📱", "QR Code baixado!", "Imagem salva com sucesso!");
+  } catch (e) {
+    console.error(e);
+    showW("⚠️", "Erro", "Não foi possível baixar o QR Code.");
+  }
+}
+
+setTimeout(async function() {
+  hideSplash();
+  setupQr();
+
+  try {
+    var sid = localStorage.getItem("mind_school_current");
+    if (sid) {
+      var school = await getSchoolById(sid);
+      if (school) {
+        enterSchool(school);
+        return;
+      }
+    }
+
+    var uid = localStorage.getItem("tea_current");
+    if (uid) {
+      var user = await getUserById(uid);
+      if (user) {
+        enterApp(user);
+        return;
+      }
+    }
+  } catch (err) {
+    console.error("Erro no auto-login:", err);
+  }
+}, 2000);
+</script>
 </body>
 </html>
