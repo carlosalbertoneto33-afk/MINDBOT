@@ -1043,6 +1043,11 @@ function setupQr() {
   if (!box || typeof QRCode === "undefined") return;
 
   box.innerHTML = "";
+  box.style.width = "190px";
+  box.style.height = "190px";
+  box.style.overflow = "hidden";
+  box.style.margin = "0 auto";
+
   new QRCode(box, {
     text: APP_URL,
     width: 190,
@@ -1053,25 +1058,19 @@ function setupQr() {
   });
 
   setTimeout(function() {
-    var canvas = box.querySelector("canvas");
-    var img = box.querySelector("img");
-    if (canvas) {
-      canvas.style.width = "190px";
-      canvas.style.height = "190px";
-      canvas.style.display = "block";
-      canvas.style.borderRadius = "10px";
-    }
-    if (img) {
-      img.style.width = "190px";
-      img.style.height = "190px";
-      img.style.display = "block";
-      img.style.borderRadius = "10px";
-    }
-  }, 50);
-}
-
-function openAppLink() {
-  window.open(APP_URL, "_blank");
+    var els = box.querySelectorAll("canvas, img");
+    els.forEach(function(el, index) {
+      if (index > 0) {
+        el.remove();
+        return;
+      }
+      el.style.width = "190px";
+      el.style.height = "190px";
+      el.style.display = "block";
+      el.style.borderRadius = "10px";
+      el.style.margin = "0 auto";
+    });
+  }, 100);
 }
 
 function enterApp(userObj) {
@@ -1534,8 +1533,42 @@ async function gerarPDF(userId) {
       });
     }
 
-    doc.save("mindbot-relatorio-" + safeFileName(u.user) + ".pdf");
-    showW("📄", "PDF baixado!", "Relatório salvo com sucesso.");
+   var fileName = "mindbot-relatorio-" + safeFileName(u.user) + ".pdf";
+var pdfBlob = doc.output("blob");
+var pdfFile = new File([pdfBlob], fileName, { type: "application/pdf" });
+
+// Melhor opção para celular: compartilhar/salvar o arquivo real
+if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+  try {
+    await navigator.share({
+      title: "Relatório Mindbot",
+      text: "Relatório em PDF do aluno",
+      files: [pdfFile]
+    });
+    showW("📄", "PDF pronto!", "Escolha onde salvar o arquivo no seu celular.");
+    return;
+  } catch (shareErr) {
+    console.log("Compartilhamento cancelado ou indisponível:", shareErr);
+  }
+}
+
+// Fallback para navegadores que suportam download
+var pdfUrl = URL.createObjectURL(pdfBlob);
+var a = document.createElement("a");
+a.href = pdfUrl;
+a.download = fileName;
+a.target = "_blank";
+a.rel = "noopener";
+a.style.display = "none";
+document.body.appendChild(a);
+a.click();
+
+setTimeout(function() {
+  URL.revokeObjectURL(pdfUrl);
+  if (a.parentNode) a.parentNode.removeChild(a);
+}, 4000);
+
+showW("📄", "PDF gerado!", "Se não salvar automático, use o menu do navegador para baixar ou compartilhar.");
   } catch (err) {
     console.error(err);
     showW("⚠️", "Erro", "Não foi possível gerar o PDF.");
