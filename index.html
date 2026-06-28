@@ -1414,6 +1414,7 @@ function pdfWrite(doc, text, x, y, maxWidth, lineHeight) {
   return y + (lines.length * lineHeight);
 }
 
+
 function pdfTxt(v) {
   return String(v == null ? "" : v)
     .normalize("NFD")
@@ -1608,38 +1609,7 @@ async function gerarPDF(userId) {
     showW("⚠️", "Erro", "Nao foi possivel gerar o PDF.");
   }
 }
-    } catch (shareErr) {
-      console.log("Compartilhamento indisponivel:", shareErr);
-    }
 
-    var pdfUrl = URL.createObjectURL(pdfBlob);
-    var a = document.createElement("a");
-    a.href = pdfUrl;
-    a.download = fileName;
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-
-    setTimeout(function() {
-      if (a.parentNode) a.parentNode.removeChild(a);
-    }, 1000);
-
-    setTimeout(function() {
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        window.open(pdfUrl, "_blank");
-      }
-    }, 400);
-
-    setTimeout(function() {
-      URL.revokeObjectURL(pdfUrl);
-    }, 30000);
-
-    showW("📄", "PDF gerado!", "Se o celular nao baixar direto, ele abre o arquivo para salvar.");
-  } catch (err) {
-    console.error(err);
-    showW("⚠️", "Erro", "Nao foi possivel gerar o PDF.");
-  }
-}
 var S = {
   stars: 0,
   rotina: {},
