@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   
@@ -1290,7 +1290,7 @@ function renderAlunoCard(u, actionsHtml) {
       }).join("")
     : '<div class="no-hist">Sem registros hoje.</div>';
 
-  var defaultAction = '<button class="pdf-btn" style="margin-top:14px" onclick="gerarPDF(' + JSON.stringify(u.user) + ')">📄 Gerar Relatório PDF</button>';
+  var defaultAction = '<button class="pdf-btn" style="margin-top:14px" onclick="gerarPDF(' + escHTML(JSON.stringify(u.user)) + ')">📄 Gerar Relatório PDF</button>';
 
   return '<div class="stat-card">' +
     '<h4>👤 ' + escHTML(u.nome) + ' <span style="font-size:.75rem;color:var(--gr)">@' + escHTML(u.user) + "</span></h4>" +
@@ -1327,8 +1327,8 @@ async function renderSchoolStudents() {
 
     box.innerHTML = list.map(function(u) {
       var actions = '<div class="school-actions">' +
-        '<button class="mini-btn" onclick="showSchoolProfile(' + JSON.stringify(u.user) + ')">Ver perfil</button>' +
-        '<button class="mini-btn alt" onclick="gerarPDF(' + JSON.stringify(u.user) + ')">Baixar PDF</button>' +
+        '<button class="mini-btn" onclick="showSchoolProfile(' + escHTML(JSON.stringify(u.user)) + ')">Ver perfil</button>' +
+        '<button class="mini-btn alt" onclick="gerarPDF(' + escHTML(JSON.stringify(u.user)) + ')">Baixar PDF</button>' +
         "</div>";
       return renderAlunoCard(u, actions);
     }).join("");
@@ -1359,7 +1359,7 @@ async function showSchoolProfile(userId) {
       '<div class="stat-row"><span class="sr-label">Estrelas</span><span class="sr-val">' + ((d.stars || 0)) + '</span></div>' +
       '<div class="stat-row"><span class="sr-label">Conquistas</span><span class="sr-val">' + (((d.cq || []).length)) + '/10</span></div>' +
       '<h4 style="margin-top:12px">💭 Últimos humores</h4><div class="mood-timeline">' + mood + '</div>' +
-      '<button class="pdf-btn" onclick="gerarPDF(' + JSON.stringify(u.user) + ')">📄 Baixar PDF organizado</button>';
+      '<button class="pdf-btn" onclick="gerarPDF(' + escHTML(JSON.stringify(u.user)) + ')">📄 Baixar PDF organizado</button>';
 
     detail.scrollIntoView({ behavior:"smooth", block:"start" });
   } catch (err) {
